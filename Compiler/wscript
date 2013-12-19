@@ -16,3 +16,7 @@ def configure(conf):
 def build(bld):
 	
 	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
+	bld(
+		features='c cprogram',
+		source='Lang.yy.c',
+		target='lexer')

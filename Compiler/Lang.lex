@@ -33,11 +33,34 @@ WHITESPACE 	[ \t\n\r]
 	/* Operator Section */
 "+" { printf("Found Plus => +\n"); }
 "-" { printf("Found Minus => -\n"); }
-"*" { printf("Found Times => *\n"); }
-"/" { printf("Found Multiplication => /\n"); }
-"%" { printf("Found Mod => %\n"); }
+"*" { printf("Found Multiplication => *\n"); }
+"/" { printf("Found Division => /\n"); }
+"%" { printf("Found Mod => %%\n"); }
 "^" { printf("Found Exp => ^\n"); }
 "=" { printf("Found Equal => =\n"); }
+
+	/* Comparison Operator Section */
+"==" { printf("Found Equality => ==\n"); }
+"!=" { printf("Found Not Equality => !=\n"); }
+">" { printf("Found Greater Than => >\n"); }
+"<" { printf("Found Less Than => <\n"); }
+">=" { printf("Found Greater Than or Equal => >=\n"); }
+"<=" { printf("Found Less Than or Equal => <=\n"); }
+	
+	/* Logical Operator Section */
+"!" { printf("Found Logical Not => !\n"); }
+"&&" { printf("Found Logical AND => &&\n"); }
+"||" { printf("Found Logical OR => ||\n"); }
+"@@" { printf("Found Logical XOR => @@\n"); }
+
+	/* Bitwise Operator Section */
+"~" { printf("Found Bitwise Not => ~\n"); }
+"&" { printf("Found Bitwise AND => &\n"); }
+"|" { printf("Found Bitwise OR => |\n"); }
+"@" { printf("Found Bitwise XOR => @\n"); }
+"<<" { printf("Found Bitwise Left Shift => <<\n"); }
+">>" { printf("Found Bitwise Right Shift => >>\n"); }
+
 
 	/* String Section */
 \"[^\"]*\" { printf("Found String => {%s}\n", yytext); }

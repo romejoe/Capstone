@@ -3,7 +3,6 @@ def options(opt):
 	opt.load('compiler_c')
 
 def configure(conf):
-	print "here"
 	conf.load('flex')
 	if not conf.env.FLEX:
 		conf.fatal('Please install flex')
@@ -13,6 +12,7 @@ def configure(conf):
 	if not conf.env.CC:
 		conf.fatal('Please install a C compiler')
 
+
 def build(bld):
 	
 	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
@@ -20,3 +20,29 @@ def build(bld):
 		features='c cprogram',
 		source='Lang.yy.c',
 		target='lexer')
+
+
+	#bld.define("___LEX_LIBRARY___", 1)
+	#bld(
+	#	features='c cprogram',
+	#	source='Lang.yy.c',
+	#	target='lexer')
+
+	#build lemon
+	lemon = bld(
+		features='c cprogram',
+		source='Tools/lemon.c',
+		target='lemon')
+
+
+	bld(
+		rule='cp ${SRC} ${TGT}',
+		source='Tools/lempar.c',
+		target='lempar.c'
+		)
+	#bld.env.LEMON = lemon.target
+	print lemon.target
+	#build parser
+	bld(
+		rule='echo ${LEMON}'
+	)

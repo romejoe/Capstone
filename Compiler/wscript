@@ -15,14 +15,14 @@ def configure(conf):
 
 def build(bld):
 	
-	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
+	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.c')
 	bld(
 		features='c cprogram',
-		source='Lang.yy.c',
+		source='Lang.c',
 		target='lexer')
 
 
-	#bld.define("___LEX_LIBRARY___", 1)
+	bld.define("___LEX_LIBRARY___", 1)
 	#bld(
 	#	features='c cprogram',
 	#	source='Lang.yy.c',
@@ -41,8 +41,14 @@ def build(bld):
 		target='lempar.c'
 		)
 	#bld.env.LEMON = lemon.target
-	print lemon.target
+	print lemon
 	#build parser
+	#bld(
+	#	rule='echo ${LEMON}'
+	#)
+
+	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
 	bld(
-		rule='echo ${LEMON}'
-	)
+		features='c cprogram',
+		source=['Lang.yy.c', 'compiler.c', 'compilerTest.c'],
+		target='testCompiler')

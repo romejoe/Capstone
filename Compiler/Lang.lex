@@ -1,8 +1,15 @@
-%option noyywrap
-
 %{
 	#include <stdio.h>
+
+	struct lexerData{
+		void *_pParser;
+		struct program * _program;
+	};
 %}
+
+%option noyywrap
+%option reentrant
+%option extra-type="struct lexerData *"
 
 DIGIT		[0-9]
 WHITESPACE 	[ \t\n\r]
@@ -88,4 +95,15 @@ WHITESPACE 	[ \t\n\r]
     	yylex();
 	}
 
+#else
+	struct program* parseString(char *srcCode){
+		yyscan_t scanner;
+		YY_BUFFER_STATE in;
+		struct lexerData extraData;
+
+		yylex_init_extra(&extraData, &scanner);
+		in = yy_scan_string(srcCode, scanner);
+		yylex(scanner);
+
+	}
 #endif

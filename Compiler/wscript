@@ -1,3 +1,4 @@
+import platform
 
 def options(opt):
 	opt.load('compiler_c')
@@ -14,41 +15,42 @@ def configure(conf):
 
 
 def build(bld):
-	
-	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.c')
-	bld(
-		features='c cprogram',
-		source='Lang.c',
-		target='lexer')
-
 
 	bld.define("___LEX_LIBRARY___", 1)
-	#bld(
-	#	features='c cprogram',
-	#	source='Lang.yy.c',
-	#	target='lexer')
-
+	bld.add_group()
 	#build lemon
-	lemon = bld(
+	lemonBuild = bld(
 		features='c cprogram',
 		source='Tools/lemon.c',
 		target='lemon')
 
 
-	bld(
+	lemparCopy = bld(
 		rule='cp ${SRC} ${TGT}',
 		source='Tools/lempar.c',
 		target='lempar.c'
 		)
-	#bld.env.LEMON = lemon.target
-	print lemon
-	#build parser
-	#bld(
-	#	rule='echo ${LEMON}'
-	#)
+	
+	lemonExecutable = bld.out_dir + "/Compiler/lemon"
+	if platform.system() == "Windows":
+		lemonExecutable += ".exe"
+	bld.add_group()
+	lemonit = bld(rule= lemonExecutable + " ${SRC}", source='Lang.y')
 
-	bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
-	bld(
-		features='c cprogram',
-		source=['Lang.yy.c', 'compiler.c', 'compilerTest.c'],
+	flexit = bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
+	bld.add_group()
+	lexerBuild = bld(features='c cshlib', source='Lang.yy.c', target='Lang')
+
+
+	compilerLibBuild = bld(features='c cshlib', source='compiler.c', target='CompilerLib', use='Lang')
+	
+	bld.add_group()
+	compilerBuild = bld(
+		features='c',
+		source='compilerTest.c',
+		use=['Lang', 'CompilerLib'],
 		target='testCompiler')
+
+
+def test(ctx):
+	pass

@@ -19,18 +19,29 @@
 
 %syntax_error	{ printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n"); }
 
-program ::= statement.
-program ::= program statement.
+program ::= statementgroup.
 
-expression ::= LPAREN expression RPAREN.
+statementgroup ::= statementgroup statement.
+statementgroup ::= statement.
 
-expression ::= factor ADD expression.
-expression ::= factor SUB expression.
-expression ::= factor.
+statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY.
+statement ::= expression.
 
-factor ::= factor EXP expression.
-factor ::= factor MUL expression.
-factor ::= factor DIV expression.
-factor ::= factor MOD expression.
+
+
+expression ::= term ADD expression.
+expression ::= term SUB expression.
+expression ::= term.
+
+%left MUL DIV MOD.
+%right EXP.
+
+term ::= term MUL term.
+term ::= term DIV term.
+term ::= term MOD term.
+term ::= term EXP term.
+term ::= factor.
+
+factor ::= LPAREN expression RPAREN.
 factor ::= INTEGER.
 factor ::= FLOAT.

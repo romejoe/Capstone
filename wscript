@@ -23,3 +23,5 @@ def build(bld):
 			type = 'pdflatex',
 			source = 'Documentation.tex'
 			)
+def test(ctx):
+	ctx.recurse(recurseDirs)

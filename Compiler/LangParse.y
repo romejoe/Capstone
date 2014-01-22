@@ -22,15 +22,15 @@
 program ::= statementgroup.
 
 statementgroup ::= statementgroup statement.
-statementgroup ::= statement.
+statementgroup ::= statement SEMICOLON.
 
 statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY.
 statement ::= expression.
 
 
 
-expression ::= term ADD expression.
-expression ::= term SUB expression.
+expression ::= term PLUS expression.
+expression ::= term MINUS expression.
 expression ::= term.
 
 %left MUL DIV MOD.

@@ -4,9 +4,6 @@ def options(opt):
 	opt.load('compiler_c')
 
 def configure(conf):
-	
-	
-	
 	from waflib.Tools.compiler_c import c_compiler
 	conf.load('compiler_c')
 	if not conf.env.CC:
@@ -52,7 +49,7 @@ def build(bld):
 	#bld.program(target='testcompiler', source='LangParse.y LangLexer.l compiler.c compilerTest.c')
 
 	compilerBuild = bld.program(
-		#features='c',
+	#	features='compilerTest',
 		source='compilerTest.c',
 		use='CompilerLib LangLib',
 		target='testCompiler')
@@ -60,3 +57,19 @@ def build(bld):
 
 def test(ctx):
 	pass
+
+
+#from waflib import Task
+#class compilerTest(Task.Task):
+#	color='ORANGE'
+# 	run_str="${SRC} ${TGT}"
+
+# from waflib.TaskGen import feature
+
+# @feature('compilerTest')
+# def addTest(self):
+# 	print "here"
+# 	compiler =  self.bld.get_tgen_by_name('testCompiler')
+# 	print compiler.__dict__
+# 	print self.__dict__
+# 	tsk = self.create_task('compilerTest', compiler, None)

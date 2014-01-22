@@ -9,10 +9,15 @@ void compileFile(char * filename){
 		fprintf(stderr, "Error opening <%s> for reading\n", filename);
 		return;
 	}
+
 	fseek(f, 0, SEEK_END);
-	fileSize = ftell(f);
+	fileSize = ftell(f) + 1;
+	fseek(f, 0, SEEK_SET);
+
 	buff = (char *) malloc(fileSize);
 	fread(buff, fileSize, 1, f);
+	buff[fileSize - 1] = 0;
+
 	compileString(buff);
 
 }

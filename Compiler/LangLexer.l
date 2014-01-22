@@ -240,6 +240,11 @@ WHITESPACE 	[ \t\n\r]
 		yyscan_t scanner;
 		YY_BUFFER_STATE in;
 		struct lexerData extraData;
+		extraData._pParser = ParseAlloc( malloc );
+		
+		#ifdef ___LEX_DEBUG___
+			ParseTrace(stdout, "\t\t@@@ ");
+		#endif
 
 		yylex_init_extra(&extraData, &scanner);
 		in = yy_scan_string(srcCode, scanner);

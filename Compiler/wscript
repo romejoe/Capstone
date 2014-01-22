@@ -35,35 +35,18 @@ def build(bld):
 	
 	bld.add_group()
 	#build lemon
-	#lemonBuild = bld(
-	#	features='c cprogram',
-	#	source='Tools/lemon.c',
-	#	target='lemon')
+	
 	lemonBuild = bld.program(
 		source='Tools/lemon.c',
 		target='lemon')
 
 	
-	
-	#lemonExecutable = bld.out_dir + "/Compiler/lemon"
-	#if platform.system() == "Windows":
-	#	lemonExecutable += ".exe"
 	bld.add_group()
-	
-	#lemonit = bld(rule= lemonExecutable + " ${SRC}", source='Lang.y')
-	#bld.program(source='Lang.y')
-	#flexit = bld(rule='${FLEX} -o${TGT} ${SRC}', source='Lang.lex', target='Lang.yy.c')
-	bld.add_group()
-	#bld(rule='echo "done with lemon"')
-	#bld(rule='cat ${SRC}', source='Lang.c')
-	#bld.add_group()
-	#bld(rule='cp ${SRC} ${TGT}', source='Lang.h', target='Lang.h')
-	#bld(rule='mv ${SRC} ${TGT}', source='Lang.c', target='Lang.c')
-	#bld.add_group()
+
 	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='.')
 
 
-	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib')#, use='Lang')
+	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib')
 	
 	bld.add_group()
 	#bld.program(target='testcompiler', source='LangParse.y LangLexer.l compiler.c compilerTest.c')
@@ -71,7 +54,7 @@ def build(bld):
 	compilerBuild = bld.program(
 		#features='c',
 		source='compilerTest.c',
-		use='LangLib CompilerLib',
+		use='CompilerLib LangLib',
 		target='testCompiler')
 
 

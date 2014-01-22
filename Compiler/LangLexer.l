@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include "lexer.h"
 #include "LangParse.h"
 #include "token.h"
 
@@ -232,7 +233,9 @@ WHITESPACE 	[ \t\n\r]
     	yylex();
 	}
 
-#else
+#endif
+
+
 	struct program* parseString(char *srcCode){
 		yyscan_t scanner;
 		YY_BUFFER_STATE in;
@@ -241,6 +244,5 @@ WHITESPACE 	[ \t\n\r]
 		yylex_init_extra(&extraData, &scanner);
 		in = yy_scan_string(srcCode, scanner);
 		yylex(scanner);
-
+		return NULL;
 	}
-#endif

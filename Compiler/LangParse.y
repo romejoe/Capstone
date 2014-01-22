@@ -1,5 +1,6 @@
 %include{
 	#include <stdlib.h>
+	#include <assert.h>
 	#include "token.h"
 
 }

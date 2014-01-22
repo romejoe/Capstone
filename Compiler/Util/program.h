@@ -4,24 +4,24 @@ enum expression_type{
 };
 
 enum data_type{
-	VOID = 0,
+	tVOID = 0,
 	//integer types, from smallest to largest
-	BOOL = 	1,
-	CHAR = 	8,
-	SHORT = 16,
-	INT = 	32,
-	LONG = 	64,
+	tBOOL = 	1,
+	tCHAR = 	8,
+	tSHORT = 16,
+	tINT = 	32,
+	tLONG = 	64,
 
 	//float types, from smallest to largest
-	FLOAT =  33,
-	DOUBLE = 65
-}
+	tFLOAT =  33,
+	tDOUBLE = 65
+};
 
 struct expression{
 	enum expression_type type;
 	enum data_type result_type;
 	struct expression *left, *right;
-}
+};
 
 struct Program{
 	struct expression* root;

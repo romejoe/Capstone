@@ -1,0 +1,15 @@
+//multiplication tests
+//basic
+5 * 5;
+5 * 3.14;
+3.14 * 5;
+3.14 * 3.14;
+
+//more advanaced
+5 * 3.14 * 5;
+3.14 * 5 * 3.14;
+
+//even more advanced
+5 * (3.14 - 5);
+(5 * 3.14) + 5;
+5 * (3.14 * -5);

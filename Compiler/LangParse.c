@@ -61,7 +61,7 @@
 **                       defined, then do no error processing.
 */
 #define YYCODETYPE unsigned char
-#define YYNOCODE 23
+#define YYNOCODE 24
 #define YYACTIONTYPE unsigned char
 #define ParseTOKENTYPE Token
 typedef union {
@@ -75,8 +75,8 @@ typedef union {
 #define ParseARG_PDECL
 #define ParseARG_FETCH
 #define ParseARG_STORE
-#define YYNSTATE 33
-#define YYNRULE 16
+#define YYNSTATE 38
+#define YYNRULE 19
 #define YY_NO_ACTION      (YYNSTATE+YYNRULE+2)
 #define YY_ACCEPT_ACTION  (YYNSTATE+YYNRULE+1)
 #define YY_ERROR_ACTION   (YYNSTATE+YYNRULE)
@@ -145,47 +145,53 @@ static const YYMINORTYPE yyzerominor = { 0 };
 **                     shifting non-terminals after a reduce.
 **  yy_default[]       Default action for each state.
 */
-#define YY_ACTTAB_COUNT (65)
+#define YY_ACTTAB_COUNT (93)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */     6,    4,   11,   10,    9,    8,   50,    3,   13,   30,
- /*    10 */    12,   28,   33,    5,   21,    5,    1,   21,    5,   17,
- /*    20 */    28,   31,   32,   26,   25,   26,   25,   19,   26,   25,
- /*    30 */     2,   13,   30,   12,   28,    7,   22,   30,   12,   28,
- /*    40 */    21,    5,    8,   20,   12,   28,   29,   12,   28,   16,
- /*    50 */    28,   26,   25,   18,   12,   28,   24,   12,   28,   15,
- /*    60 */    28,   14,   28,   27,   23,
+ /*     0 */    38,    7,   23,    5,    1,   23,    5,   13,   12,   36,
+ /*    10 */    13,   12,   37,   30,   29,   32,   30,   29,   21,   27,
+ /*    20 */    58,    3,   15,   35,   14,   33,   28,   25,    6,    4,
+ /*    30 */    11,   10,    9,    8,    2,   15,   35,   14,   33,   28,
+ /*    40 */    23,    5,    8,    5,   31,   13,   12,   13,   12,   59,
+ /*    50 */    59,   30,   29,   30,   29,   24,   35,   14,   33,   28,
+ /*    60 */    22,   14,   33,   28,   59,   34,   14,   33,   28,    5,
+ /*    70 */    59,   20,   14,   33,   28,   26,   14,   33,   28,   30,
+ /*    80 */    29,   19,   33,   28,   18,   33,   28,   17,   33,   28,
+ /*    90 */    16,   33,   28,
 };
 static const YYCODETYPE yy_lookahead[] = {
- /*     0 */     7,    8,    9,   10,   11,   12,   16,   17,   18,   19,
- /*    10 */    20,   21,    0,    3,    2,    3,    5,    2,    3,   20,
- /*    20 */    21,    6,    1,   13,   14,   13,   14,    4,   13,   14,
- /*    30 */    17,   18,   19,   20,   21,    3,   18,   19,   20,   21,
- /*    40 */     2,    3,   12,   19,   20,   21,   19,   20,   21,   20,
- /*    50 */    21,   13,   14,   19,   20,   21,   19,   20,   21,   20,
- /*    60 */    21,   20,   21,    4,    1,
+ /*     0 */     0,    3,    2,    3,    5,    2,    3,    7,    8,    6,
+ /*    10 */     7,    8,    1,   13,   14,   22,   13,   14,    4,    4,
+ /*    20 */    16,   17,   18,   19,   20,   21,   22,    1,    7,    8,
+ /*    30 */     9,   10,   11,   12,   17,   18,   19,   20,   21,   22,
+ /*    40 */     2,    3,   12,    3,   22,    7,    8,    7,    8,   23,
+ /*    50 */    23,   13,   14,   13,   14,   18,   19,   20,   21,   22,
+ /*    60 */    19,   20,   21,   22,   23,   19,   20,   21,   22,    3,
+ /*    70 */    23,   19,   20,   21,   22,   19,   20,   21,   22,   13,
+ /*    80 */    14,   20,   21,   22,   20,   21,   22,   20,   21,   22,
+ /*    90 */    20,   21,   22,
 };
-#define YY_SHIFT_USE_DFLT (-8)
-#define YY_SHIFT_COUNT (22)
-#define YY_SHIFT_MIN   (-7)
-#define YY_SHIFT_MAX   (63)
+#define YY_SHIFT_USE_DFLT (-3)
+#define YY_SHIFT_COUNT (24)
+#define YY_SHIFT_MIN   (-2)
+#define YY_SHIFT_MAX   (66)
 static const signed char yy_shift_ofst[] = {
- /*     0 */    38,   38,   15,   12,   10,   10,   10,   10,   10,   10,
- /*    10 */    10,   10,   -7,   63,   30,   30,   30,   30,   59,   11,
- /*    20 */    23,   32,   21,
+ /*     0 */    38,   38,    3,    0,   40,   40,   40,   40,   40,   40,
+ /*    10 */    40,   40,   66,   66,   21,   26,   30,   30,   30,   30,
+ /*    20 */    15,   -1,   14,   -2,   11,
 };
-#define YY_REDUCE_USE_DFLT (-11)
-#define YY_REDUCE_COUNT (11)
-#define YY_REDUCE_MIN   (-10)
-#define YY_REDUCE_MAX   (41)
+#define YY_REDUCE_USE_DFLT (-8)
+#define YY_REDUCE_COUNT (13)
+#define YY_REDUCE_MIN   (-7)
+#define YY_REDUCE_MAX   (70)
 static const signed char yy_reduce_ofst[] = {
- /*     0 */   -10,   13,   18,   18,   37,   34,   27,   24,   41,   39,
- /*    10 */    29,   -1,
+ /*     0 */     4,   17,   37,   37,   56,   52,   46,   41,   70,   67,
+ /*    10 */    64,   61,   22,   -7,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */    49,   49,   49,   49,   49,   49,   49,   49,   49,   49,
- /*    10 */    49,   49,   40,   49,   44,   43,   42,   41,   49,   49,
- /*    20 */    49,   49,   49,   35,   39,   48,   47,   46,   45,   38,
- /*    30 */    37,   36,   34,
+ /*     0 */    57,   57,   57,   57,   57,   57,   57,   57,   57,   57,
+ /*    10 */    57,   57,   57,   57,   45,   57,   49,   48,   47,   46,
+ /*    20 */    57,   57,   57,   57,   57,   40,   44,   54,   53,   56,
+ /*    30 */    55,   52,   51,   50,   43,   42,   41,   39,
 };
 
 /* The next table maps tokens into fallback tokens.  If a construct
@@ -283,7 +289,7 @@ static const char *const yyTokenName[] = {
   "MINUS",         "MUL",           "DIV",           "MOD",         
   "EXP",           "INTEGER",       "FLOAT",         "error",       
   "program",       "statementgroup",  "statement",     "expression",  
-  "term",          "factor",      
+  "term",          "signedFactor",  "factor",      
 };
 #endif /* NDEBUG */
 
@@ -303,10 +309,13 @@ static const char *const yyRuleName[] = {
  /*   9 */ "term ::= term DIV term",
  /*  10 */ "term ::= term MOD term",
  /*  11 */ "term ::= term EXP term",
- /*  12 */ "term ::= factor",
- /*  13 */ "factor ::= LPAREN expression RPAREN",
- /*  14 */ "factor ::= INTEGER",
- /*  15 */ "factor ::= FLOAT",
+ /*  12 */ "term ::= signedFactor",
+ /*  13 */ "signedFactor ::= PLUS factor",
+ /*  14 */ "signedFactor ::= MINUS factor",
+ /*  15 */ "signedFactor ::= factor",
+ /*  16 */ "factor ::= LPAREN expression RPAREN",
+ /*  17 */ "factor ::= INTEGER",
+ /*  18 */ "factor ::= FLOAT",
 };
 #endif /* NDEBUG */
 
@@ -567,7 +576,7 @@ static void yyStackOverflow(yyParser *yypParser, YYMINORTYPE *yypMinor){
 #line 17 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.y"
 
 	printf("\tstack overflowed\n");
-#line 571 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 580 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
    ParseARG_STORE; /* Suppress warning about unused %extra_argument var */
 }
 
@@ -637,9 +646,12 @@ static const struct {
   { 20, 3 },
   { 20, 3 },
   { 20, 1 },
-  { 21, 3 },
+  { 21, 2 },
+  { 21, 2 },
   { 21, 1 },
-  { 21, 1 },
+  { 22, 3 },
+  { 22, 1 },
+  { 22, 1 },
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -707,10 +719,13 @@ static void yy_reduce(
       /* (9) term ::= term DIV term */ yytestcase(yyruleno==9);
       /* (10) term ::= term MOD term */ yytestcase(yyruleno==10);
       /* (11) term ::= term EXP term */ yytestcase(yyruleno==11);
-      /* (12) term ::= factor */ yytestcase(yyruleno==12);
-      /* (13) factor ::= LPAREN expression RPAREN */ yytestcase(yyruleno==13);
-      /* (14) factor ::= INTEGER */ yytestcase(yyruleno==14);
-      /* (15) factor ::= FLOAT */ yytestcase(yyruleno==15);
+      /* (12) term ::= signedFactor */ yytestcase(yyruleno==12);
+      /* (13) signedFactor ::= PLUS factor */ yytestcase(yyruleno==13);
+      /* (14) signedFactor ::= MINUS factor */ yytestcase(yyruleno==14);
+      /* (15) signedFactor ::= factor */ yytestcase(yyruleno==15);
+      /* (16) factor ::= LPAREN expression RPAREN */ yytestcase(yyruleno==16);
+      /* (17) factor ::= INTEGER */ yytestcase(yyruleno==17);
+      /* (18) factor ::= FLOAT */ yytestcase(yyruleno==18);
         break;
   };
   yygoto = yyRuleInfo[yyruleno].lhs;
@@ -759,7 +774,7 @@ static void yy_parse_failed(
 #line 14 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.y"
 
 	printf("\tparse failed\n");
-#line 763 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 778 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 #endif /* YYNOERRORRECOVERY */
@@ -776,7 +791,7 @@ static void yy_syntax_error(
 #define TOKEN (yyminor.yy0)
 #line 21 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.y"
  printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n");  exit(-1);
-#line 780 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 795 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 
@@ -798,7 +813,7 @@ static void yy_accept(
 #line 11 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.y"
 
 	printf("\tparse accepted\n");
-#line 802 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 817 "/home/joe/Desktop/School/CS 498/Compiler/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 

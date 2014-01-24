@@ -41,7 +41,12 @@ term ::= term MUL term.
 term ::= term DIV term.
 term ::= term MOD term.
 term ::= term EXP term.
-term ::= factor.
+term ::= signedFactor.
+
+
+signedFactor ::= PLUS factor.
+signedFactor ::= MINUS factor.
+signedFactor ::= factor.
 
 factor ::= LPAREN expression RPAREN.
 factor ::= INTEGER.

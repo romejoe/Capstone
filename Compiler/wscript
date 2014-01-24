@@ -1,7 +1,10 @@
 import platform
+#import Options
 
 def options(opt):
 	opt.load('compiler_c')
+	#opt.tool_options('compiler_c')
+	opt.add_option('--mode', action='store', default='debug', help='Compile Mode: release or debug')
 
 def configure(conf):
 	from waflib.Tools.compiler_c import c_compiler
@@ -14,6 +17,11 @@ def configure(conf):
 		conf.fatal('Please install flex')
 
 	conf.load('y2c', tooldir='.')
+
+	if conf.options.mode == 'debug':
+		print "Setting up debug build"
+		conf.env['CFLAGS'] = ['-g3']
+		conf.define("__LEX_DEBUG__", 1)
 
 
 

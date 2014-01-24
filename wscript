@@ -28,3 +28,5 @@ def build(bld):
 			)
 def test(ctx):
 	ctx.recurse(recurseDirs)
+
+	# run basic tests

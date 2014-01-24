@@ -1,0 +1,14 @@
+#define T_SEMICOLON                       1
+#define T_IF                              2
+#define T_LPAREN                          3
+#define T_RPAREN                          4
+#define T_LCURLY                          5
+#define T_RCURLY                          6
+#define T_PLUS                            7
+#define T_MINUS                           8
+#define T_MUL                             9
+#define T_DIV                            10
+#define T_MOD                            11
+#define T_EXP                            12
+#define T_INTEGER                        13
+#define T_FLOAT                          14

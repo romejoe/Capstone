@@ -18,11 +18,11 @@
 	printf("\tstack overflowed\n");
 }
 
-%syntax_error	{ printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n"); }
+%syntax_error	{ printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n");  exit(-1);}
 
 program ::= statementgroup.
 
-statementgroup ::= statementgroup statement.
+statementgroup ::= statementgroup statement SEMICOLON.
 statementgroup ::= statement SEMICOLON.
 
 statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY.

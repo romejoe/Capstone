@@ -1,6 +1,11 @@
 
 enum expression_type{
-	PASS
+	PASS,
+	ADD,
+	SUBTRACT,
+	MULTIPLY,
+	DIVIDE,
+	POWER
 };
 
 enum data_type{

@@ -3,6 +3,7 @@ State 0:
           statementgroup ::= * statementgroup statement SEMICOLON
           statementgroup ::= * statement SEMICOLON
           statement ::= * IF LPAREN expression RPAREN LCURLY statementgroup RCURLY
+          statement ::= * DATATYPE KEYWORD EQUAL expression
           statement ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -16,28 +17,32 @@ State 0:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                            IF shift  23
+                            IF shift  26
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
+                      DATATYPE shift  23
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
                        program accept
                 statementgroup shift  3
-                     statement shift  15
-                    expression shift  35
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                     statement shift  16
+                    expression shift  29
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 1:
           statementgroup ::= * statementgroup statement SEMICOLON
           statementgroup ::= * statement SEMICOLON
           statement ::= * IF LPAREN expression RPAREN LCURLY statementgroup RCURLY
           statement ::= IF LPAREN expression RPAREN LCURLY * statementgroup RCURLY
+          statement ::= * DATATYPE KEYWORD EQUAL expression
           statement ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -51,26 +56,30 @@ State 1:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                            IF shift  23
+                            IF shift  26
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
+                      DATATYPE shift  23
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
                 statementgroup shift  2
-                     statement shift  15
-                    expression shift  35
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                     statement shift  16
+                    expression shift  29
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 2:
           statementgroup ::= statementgroup * statement SEMICOLON
           statement ::= * IF LPAREN expression RPAREN LCURLY statementgroup RCURLY
           statement ::= IF LPAREN expression RPAREN LCURLY statementgroup * RCURLY
+          statement ::= * DATATYPE KEYWORD EQUAL expression
           statement ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -84,26 +93,30 @@ State 2:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                            IF shift  23
+                            IF shift  26
                         LPAREN shift  5
-                        RCURLY shift  36
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                     statement shift  24
-                    expression shift  35
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                        RCURLY shift  41
+                      DATATYPE shift  23
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                     statement shift  27
+                    expression shift  29
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 3:
       (0) program ::= statementgroup *
           statementgroup ::= statementgroup * statement SEMICOLON
           statement ::= * IF LPAREN expression RPAREN LCURLY statementgroup RCURLY
+          statement ::= * DATATYPE KEYWORD EQUAL expression
           statement ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -117,21 +130,24 @@ State 3:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                              $ reduce 0
-                            IF shift  23
+                            IF shift  26
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                     statement shift  24
-                    expression shift  35
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                      DATATYPE shift  23
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                     statement shift  27
+                    expression shift  29
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 4:
           expression ::= * term PLUS expression
@@ -147,18 +163,20 @@ State 4:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                    expression shift  26
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                    expression shift  30
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 5:
           expression ::= * term PLUS expression
@@ -174,18 +192,20 @@ State 5:
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
           factor ::= LPAREN * expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                    expression shift  20
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                    expression shift  21
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 6:
           expression ::= * term PLUS expression
@@ -201,20 +221,51 @@ State 6:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                    expression shift  34
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                    expression shift  39
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
 State 7:
+          statement ::= DATATYPE KEYWORD EQUAL * expression
+          expression ::= * term PLUS expression
+          expression ::= * term MINUS expression
+          expression ::= * term
+          term ::= * term MUL term
+          term ::= * term DIV term
+          term ::= * term MOD term
+          term ::= * term EXP term
+          term ::= * signedFactor
+          signedFactor ::= * PLUS factor
+          signedFactor ::= * MINUS factor
+          signedFactor ::= * factor
+          factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  5
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                    expression shift  40
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
+
+State 8:
           statement ::= IF LPAREN * expression RPAREN LCURLY statementgroup RCURLY
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -228,20 +279,22 @@ State 7:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                    expression shift  22
-                          term shift  14
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                    expression shift  25
+                          term shift  15
+                  signedFactor shift  38
+                        factor shift  32
 
-State 8:
+State 9:
           term ::= * term MUL term
           term ::= * term DIV term
           term ::= * term MOD term
@@ -252,19 +305,21 @@ State 8:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                          term shift  16
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                          term shift  17
+                  signedFactor shift  38
+                        factor shift  32
 
-State 9:
+State 10:
           term ::= * term MUL term
           term ::= * term DIV term
           term ::= * term MOD term
@@ -275,19 +330,21 @@ State 9:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                          term shift  17
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                          term shift  18
+                  signedFactor shift  38
+                        factor shift  32
 
-State 10:
+State 11:
           term ::= * term MUL term
           term ::= * term DIV term
           term ::= term DIV * term
@@ -298,19 +355,21 @@ State 10:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                          term shift  18
-                  signedFactor shift  33
-                        factor shift  28
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                          term shift  19
+                  signedFactor shift  38
+                        factor shift  32
 
-State 11:
+State 12:
           term ::= * term MUL term
           term ::= term MUL * term
           term ::= * term DIV term
@@ -321,44 +380,50 @@ State 11:
           signedFactor ::= * MINUS factor
           signedFactor ::= * factor
           factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                         LPAREN shift  5
-                          PLUS shift  13
-                         MINUS shift  12
-                       INTEGER shift  30
-                         FLOAT shift  29
-                          term shift  19
-                  signedFactor shift  33
-                        factor shift  28
-
-State 12:
-          signedFactor ::= MINUS * factor
-          factor ::= * LPAREN expression RPAREN
-          factor ::= * INTEGER
-          factor ::= * FLOAT
-
-                        LPAREN shift  5
-                       INTEGER shift  30
-                         FLOAT shift  29
-                        factor shift  31
-
-State 13:
-          signedFactor ::= PLUS * factor
-          factor ::= * LPAREN expression RPAREN
-          factor ::= * INTEGER
-          factor ::= * FLOAT
-
-                        LPAREN shift  5
-                       INTEGER shift  30
-                         FLOAT shift  29
+                          PLUS shift  14
+                         MINUS shift  13
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                          term shift  20
+                  signedFactor shift  38
                         factor shift  32
 
+State 13:
+          signedFactor ::= MINUS * factor
+          factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  5
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                        factor shift  36
+
 State 14:
+          signedFactor ::= PLUS * factor
+          factor ::= * LPAREN expression RPAREN
+          factor ::= * VARIABLE
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  5
+                      VARIABLE shift  35
+                       INTEGER shift  34
+                         FLOAT shift  33
+                        factor shift  37
+
+State 15:
           expression ::= term * PLUS expression
           expression ::= term * MINUS expression
-      (7) expression ::= term *
+      (8) expression ::= term *
           term ::= term * MUL term
           term ::= term * DIV term
           term ::= term * MOD term
@@ -366,143 +431,163 @@ State 14:
 
                           PLUS shift  6
                          MINUS shift  4
-                           MUL shift  11
-                           DIV shift  10
-                           MOD shift  9
-                           EXP shift  8
-                     {default} reduce 7
-
-State 15:
-          statementgroup ::= statement * SEMICOLON
-
-                     SEMICOLON shift  25
+                           MUL shift  12
+                           DIV shift  11
+                           MOD shift  10
+                           EXP shift  9
+                     {default} reduce 8
 
 State 16:
-          term ::= term * MUL term
-          term ::= term * DIV term
-          term ::= term * MOD term
-          term ::= term * EXP term
-     (11) term ::= term EXP term *
+          statementgroup ::= statement * SEMICOLON
 
-                           EXP shift  8
-                     {default} reduce 11
+                     SEMICOLON shift  28
 
 State 17:
           term ::= term * MUL term
           term ::= term * DIV term
           term ::= term * MOD term
-     (10) term ::= term MOD term *
           term ::= term * EXP term
+     (12) term ::= term EXP term *
 
-                           EXP shift  8
-                     {default} reduce 10
+                           EXP shift  9
+                     {default} reduce 12
 
 State 18:
           term ::= term * MUL term
           term ::= term * DIV term
-      (9) term ::= term DIV term *
           term ::= term * MOD term
+     (11) term ::= term MOD term *
           term ::= term * EXP term
 
-                           EXP shift  8
-                     {default} reduce 9
+                           EXP shift  9
+                     {default} reduce 11
 
 State 19:
           term ::= term * MUL term
-      (8) term ::= term MUL term *
+          term ::= term * DIV term
+     (10) term ::= term DIV term *
+          term ::= term * MOD term
+          term ::= term * EXP term
+
+                           EXP shift  9
+                     {default} reduce 10
+
+State 20:
+          term ::= term * MUL term
+      (9) term ::= term MUL term *
           term ::= term * DIV term
           term ::= term * MOD term
           term ::= term * EXP term
 
-                           EXP shift  8
-                     {default} reduce 8
-
-State 20:
-          factor ::= LPAREN expression * RPAREN
-
-                        RPAREN shift  27
+                           EXP shift  9
+                     {default} reduce 9
 
 State 21:
+          factor ::= LPAREN expression * RPAREN
+
+                        RPAREN shift  31
+
+State 22:
+          statement ::= DATATYPE KEYWORD * EQUAL expression
+
+                         EQUAL shift  7
+
+State 23:
+          statement ::= DATATYPE * KEYWORD EQUAL expression
+
+                       KEYWORD shift  22
+
+State 24:
           statement ::= IF LPAREN expression RPAREN * LCURLY statementgroup RCURLY
 
                         LCURLY shift  1
 
-State 22:
+State 25:
           statement ::= IF LPAREN expression * RPAREN LCURLY statementgroup RCURLY
 
-                        RPAREN shift  21
+                        RPAREN shift  24
 
-State 23:
+State 26:
           statement ::= IF * LPAREN expression RPAREN LCURLY statementgroup RCURLY
 
-                        LPAREN shift  7
+                        LPAREN shift  8
 
-State 24:
+State 27:
           statementgroup ::= statementgroup statement * SEMICOLON
 
-                     SEMICOLON shift  37
+                     SEMICOLON shift  42
 
-State 25:
+State 28:
       (2) statementgroup ::= statement SEMICOLON *
 
                      {default} reduce 2
 
-State 26:
-      (6) expression ::= term MINUS expression *
-
-                     {default} reduce 6
-
-State 27:
-     (16) factor ::= LPAREN expression RPAREN *
-
-                     {default} reduce 16
-
-State 28:
-     (15) signedFactor ::= factor *
-
-                     {default} reduce 15
-
 State 29:
-     (18) factor ::= FLOAT *
-
-                     {default} reduce 18
-
-State 30:
-     (17) factor ::= INTEGER *
-
-                     {default} reduce 17
-
-State 31:
-     (14) signedFactor ::= MINUS factor *
-
-                     {default} reduce 14
-
-State 32:
-     (13) signedFactor ::= PLUS factor *
-
-                     {default} reduce 13
-
-State 33:
-     (12) term ::= signedFactor *
-
-                     {default} reduce 12
-
-State 34:
-      (5) expression ::= term PLUS expression *
+      (5) statement ::= expression *
 
                      {default} reduce 5
 
+State 30:
+      (7) expression ::= term MINUS expression *
+
+                     {default} reduce 7
+
+State 31:
+     (17) factor ::= LPAREN expression RPAREN *
+
+                     {default} reduce 17
+
+State 32:
+     (16) signedFactor ::= factor *
+
+                     {default} reduce 16
+
+State 33:
+     (20) factor ::= FLOAT *
+
+                     {default} reduce 20
+
+State 34:
+     (19) factor ::= INTEGER *
+
+                     {default} reduce 19
+
 State 35:
-      (4) statement ::= expression *
+     (18) factor ::= VARIABLE *
+
+                     {default} reduce 18
+
+State 36:
+     (15) signedFactor ::= MINUS factor *
+
+                     {default} reduce 15
+
+State 37:
+     (14) signedFactor ::= PLUS factor *
+
+                     {default} reduce 14
+
+State 38:
+     (13) term ::= signedFactor *
+
+                     {default} reduce 13
+
+State 39:
+      (6) expression ::= term PLUS expression *
+
+                     {default} reduce 6
+
+State 40:
+      (4) statement ::= DATATYPE KEYWORD EQUAL expression *
 
                      {default} reduce 4
 
-State 36:
+State 41:
       (3) statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY *
 
                      {default} reduce 3
 
-State 37:
+State 42:
       (1) statementgroup ::= statementgroup statement SEMICOLON *
 
                      {default} reduce 1
@@ -516,19 +601,23 @@ Symbols:
     4: RPAREN
     5: LCURLY
     6: RCURLY
-    7: PLUS
-    8: MINUS
-    9: MUL
-   10: DIV
-   11: MOD
-   12: EXP
-   13: INTEGER
-   14: FLOAT
-   15: error:
-   16: program: IF LPAREN PLUS MINUS INTEGER FLOAT
-   17: statementgroup: IF LPAREN PLUS MINUS INTEGER FLOAT
-   18: statement: IF LPAREN PLUS MINUS INTEGER FLOAT
-   19: expression: LPAREN PLUS MINUS INTEGER FLOAT
-   20: term: LPAREN PLUS MINUS INTEGER FLOAT
-   21: signedFactor: LPAREN PLUS MINUS INTEGER FLOAT
-   22: factor: LPAREN INTEGER FLOAT
+    7: DATATYPE
+    8: KEYWORD
+    9: EQUAL
+   10: PLUS
+   11: MINUS
+   12: MUL
+   13: DIV
+   14: MOD
+   15: EXP
+   16: VARIABLE
+   17: INTEGER
+   18: FLOAT
+   19: error:
+   20: program: IF LPAREN DATATYPE PLUS MINUS VARIABLE INTEGER FLOAT
+   21: statementgroup: IF LPAREN DATATYPE PLUS MINUS VARIABLE INTEGER FLOAT
+   22: statement: IF LPAREN DATATYPE PLUS MINUS VARIABLE INTEGER FLOAT
+   23: expression: LPAREN PLUS MINUS VARIABLE INTEGER FLOAT
+   24: term: LPAREN PLUS MINUS VARIABLE INTEGER FLOAT
+   25: signedFactor: LPAREN PLUS MINUS VARIABLE INTEGER FLOAT
+   26: factor: LPAREN VARIABLE INTEGER FLOAT

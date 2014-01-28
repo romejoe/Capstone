@@ -72,8 +72,11 @@ expression ::= term.
 %right EXP.
 
 term(val) ::= term(tm1) MUL term(tm2).{
+	struct expression *tm1Exp = (struct expression *)tm1;
+	struct expression *tm2Exp = (struct expression *)tm2;
 	struct expression *tmp;
 	tmp = new_expression(MULTIPLY);
+	tmp->result_type = DetermineResultType(tm1Exp->result_type, tm2Exp->result_type);
 
 }
 term ::= term DIV term.

@@ -1,12 +1,13 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
 #include "lexer.h"
 #include "LangParse.h"
 #include "token.h"
 
 struct lexerData{
 	void *_pParser;
-	struct program * _program;
+	struct Program * _program;
 };
 
 #define ___LEX_DEBUG___ 1
@@ -37,7 +38,7 @@ WHITESPACE 	[ \t\n\r]
 	/* Float */
 {DIGIT}*"."{DIGIT}* { 
 	LEXDEBUG_LOG("Float", yytext);
-	Token *tok = getToken(yytext, FLOAT);
+	Token *tok = getToken(yytext, DOUBLE);
 	Parse(yyextra->_pParser, T_FLOAT, tok);
 }
 
@@ -236,12 +237,12 @@ WHITESPACE 	[ \t\n\r]
 #endif
 
 
-	struct program* parseString(char *srcCode){
+	struct Program* parseString(char *srcCode){
 		yyscan_t scanner;
 		YY_BUFFER_STATE in;
 		struct lexerData extraData;
 		extraData._pParser = ParseAlloc( malloc );
-		
+		extraData._program = (struct Program *) malloc(sizeof(struct Program));
 		#ifdef ___LEX_DEBUG___
 			ParseTrace(stdout, "\t\t@@@ ");
 		#endif
@@ -249,5 +250,6 @@ WHITESPACE 	[ \t\n\r]
 		yylex_init_extra(&extraData, &scanner);
 		in = yy_scan_string(srcCode, scanner);
 		yylex(scanner);
-		return NULL;
+
+		return extraData._program;
 	}

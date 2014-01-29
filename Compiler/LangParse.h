@@ -13,6 +13,6 @@
 #define T_DIV                            13
 #define T_MOD                            14
 #define T_EXP                            15
-#define T_VARIABLE                       16
+#define T_SYMBOL                         16
 #define T_INTEGER                        17
 #define T_FLOAT                          18

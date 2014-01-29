@@ -23,5 +23,7 @@ void compileFile(char * filename){
 }
 
 void compileString(char * srcCode){
-	parseString(srcCode);
+	struct Program *prog = parseString(srcCode);
+	printf("prog = %p\n", prog);
+
 }

@@ -1,6 +1,6 @@
 #include "token.h"
 
-Token *getToken(char *tokStr, enum union_type type){
+Token *getToken(char *tokStr, enum datasource type){
 	Token *ret;
 	int stringLength;
 
@@ -10,10 +10,10 @@ Token *getToken(char *tokStr, enum union_type type){
 		case INTEGER:
 			ret->intData = atol(tokStr);
 			break;
-		case FLOAT:
+		case DOUBLE:
 			ret->floatData = atof(tokStr);
 			break;
-		case STRING:
+		case SYMBOL:
 			stringLength = strlen(tokStr);
 			ret->stringData = (char *) malloc(stringLength - 1);
 			memcpy(ret->stringData, tokStr + 1, stringLength - 2);

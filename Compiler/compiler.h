@@ -4,5 +4,5 @@
 #ifndef ___COMPILER_H___
 
 void compileString(char *);
-
+void compileFile(char *);
 #endif

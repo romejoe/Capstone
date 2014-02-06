@@ -32,6 +32,8 @@
 					return tFLOAT;
 				case tLONG:
 					return tDOUBLE;
+				default:
+				;
 			}
 			
 		}

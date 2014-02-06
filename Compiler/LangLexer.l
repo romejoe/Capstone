@@ -5,6 +5,7 @@
 #include "LangParse.h"
 #include "token.h"
 
+
 struct lexerData{
 	void *_pParser;
 	struct Program *_program;

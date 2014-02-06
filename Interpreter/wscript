@@ -11,9 +11,9 @@ def configure(conf):
 
 	if conf.options.mode == 'debug':
 		print "Setting up debug build"
-		conf.env['CFLAGS'] = ['-g3', '-ansi']
+		conf.env['CFLAGS'] = ['-g3', '-std=c89']
 	else:
-		conf.env['CFLAGS'] = ['-ansi']
+		conf.env['CFLAGS'] = ['-ansi', '-std=c89']
 
 
 def build(bld):

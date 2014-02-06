@@ -5,7 +5,7 @@
 #define __TOKEN_H__
 
 typedef struct {
-	//int line_num;
+	/*int line_num;*/
 	enum datasource type;
 	union{
 		void * __exp;

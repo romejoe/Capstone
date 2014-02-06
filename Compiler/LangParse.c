@@ -4,7 +4,7 @@
 /* First off, code is included that follows the "include" declaration
 ** in the input grammar file. */
 #include <stdio.h>
-#line 1 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 1 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 
 	#include <stdlib.h>
 	#include <assert.h>
@@ -17,11 +17,11 @@
 
 	enum data_type DetermineResultType(enum data_type type1, enum data_type type2){
 		enum data_type ret;
-		//check if same type
+		/*check if same type*/
 		if(type1 == type2){
 			return type1;
 		}
-		//check for void types
+		/*check for void types*/
 		if(type1 == tVOID || type2 == tVOID){
 			return tVOID;
 		}
@@ -29,7 +29,7 @@
 		ret = (type1 > type2)? type1 : type2;
 
 
-		//check wether they are both just integers
+		/*check wether they are both just integers*/
 		if(isFloatType(type1) || isFloatType(type2)){
 			switch(ret){
 				case tBOOL:
@@ -45,7 +45,7 @@
 		return ret;
 	}
 
-#line 49 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 49 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
 /* Next is all token values, in a form suitable for use by makeheaders.
 ** This section will be null unless lemon is run with the -m switch.
 */
@@ -610,10 +610,10 @@ static void yyStackOverflow(yyParser *yypParser, YYMINORTYPE *yypMinor){
    while( yypParser->yyidx>=0 ) yy_pop_parser_stack(yypParser);
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
-#line 53 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 53 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 
 	printf("\tstack overflowed\n");
-#line 617 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 617 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
    ParseARG_STORE; /* Suppress warning about unused %extra_argument var */
 }
 
@@ -746,14 +746,14 @@ static void yy_reduce(
   **     break;
   */
       case 0: /* program ::= statementgroup */
-#line 59 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 59 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	pProgram->root = yymsp[0].minor.yy0.__exp;
 }
-#line 754 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 754 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 1: /* statementgroup ::= statement SEMICOLON statementgroup */
-#line 63 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 63 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tmp;
 
@@ -762,28 +762,28 @@ static void yy_reduce(
 	tmp->right = yymsp[0].minor.yy0.__exp;
 	yygotominor.yy0.__exp = tmp;
 }
-#line 766 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 766 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 2: /* statementgroup ::= statement SEMICOLON */
       case 17: /* factor ::= LPAREN expression RPAREN */ yytestcase(yyruleno==17);
-#line 72 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 72 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	yygotominor.yy0.__exp = yymsp[-1].minor.yy0.__exp;
 }
-#line 774 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 774 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 5: /* statement ::= expression */
       case 8: /* expression ::= term */ yytestcase(yyruleno==8);
       case 13: /* term ::= signedFactor */ yytestcase(yyruleno==13);
       case 16: /* signedFactor ::= factor */ yytestcase(yyruleno==16);
-#line 78 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 78 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	yygotominor.yy0.__exp = yymsp[0].minor.yy0.__exp;
 }
-#line 784 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 784 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 6: /* expression ::= term PLUS expression */
-#line 83 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 83 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tmExp = (struct expression *)yymsp[-2].minor.yy0.__exp;
 	struct expression *expExp = (struct expression *)yymsp[0].minor.yy0.__exp;
@@ -795,10 +795,10 @@ static void yy_reduce(
 
 	yygotominor.yy0.__exp = tmp;
 }
-#line 799 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 799 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 7: /* expression ::= term MINUS expression */
-#line 95 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 95 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tmExp = (struct expression *)yymsp[-2].minor.yy0.__exp;
 	struct expression *expExp = (struct expression *)yymsp[0].minor.yy0.__exp;
@@ -810,10 +810,10 @@ static void yy_reduce(
 
 	yygotominor.yy0.__exp = tmp;
 }
-#line 814 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 814 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 9: /* term ::= term MUL term */
-#line 114 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 114 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tm1Exp = (struct expression *)yymsp[-2].minor.yy0.__exp;
 	struct expression *tm2Exp = (struct expression *)yymsp[0].minor.yy0.__exp;
@@ -825,10 +825,10 @@ static void yy_reduce(
 
 	yygotominor.yy0.__exp = tmp;
 }
-#line 829 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 829 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 10: /* term ::= term DIV term */
-#line 126 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 126 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tm1Exp = (struct expression *)yymsp[-2].minor.yy0.__exp;
 	struct expression *tm2Exp = (struct expression *)yymsp[0].minor.yy0.__exp;
@@ -840,10 +840,10 @@ static void yy_reduce(
 
 	yygotominor.yy0.__exp = tmp;
 }
-#line 844 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 844 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 11: /* term ::= term MOD term */
-#line 138 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 138 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tm1Exp = (struct expression *)yymsp[-2].minor.yy0.__exp;
 	struct expression *tm2Exp = (struct expression *)yymsp[0].minor.yy0.__exp;
@@ -855,10 +855,10 @@ static void yy_reduce(
 
 	yygotominor.yy0.__exp = tmp;
 }
-#line 859 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 859 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 12: /* term ::= term EXP term */
-#line 150 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 150 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tm1Exp = (struct expression *)yymsp[-2].minor.yy0.__exp;
 	struct expression *tm2Exp = (struct expression *)yymsp[0].minor.yy0.__exp;
@@ -870,18 +870,18 @@ static void yy_reduce(
 
 	yygotominor.yy0.__exp = tmp;
 }
-#line 874 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 874 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 14: /* signedFactor ::= PLUS factor */
-#line 167 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 167 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
-	//possibly make this imply absolute value
+	/*possibly make this imply absolute value*/
 	yygotominor.yy0.__exp = yymsp[0].minor.yy0.__exp;
 }
-#line 882 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 882 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 15: /* signedFactor ::= MINUS factor */
-#line 171 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 171 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tmp = new_expression(MULTIPLY);
 	struct expression *LHS = new_expression(DATA);
@@ -892,10 +892,10 @@ static void yy_reduce(
 	yygotominor.yy0.__exp = tmp;
 
 }
-#line 896 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 896 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 19: /* factor ::= INTEGER */
-#line 191 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 191 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tmp;
 	tmp = new_expression(DATA);
@@ -903,10 +903,10 @@ static void yy_reduce(
 	tmp->dataSource.Integer = yymsp[0].minor.yy0.intData;
 	yygotominor.yy0.__exp = tmp;
 }
-#line 907 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 907 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       case 20: /* factor ::= FLOAT */
-#line 199 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 199 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 {
 	struct expression *tmp;
 	tmp = new_expression(DATA);
@@ -914,7 +914,7 @@ static void yy_reduce(
 	tmp->dataSource.Float = yymsp[0].minor.yy0.floatData;
 	yygotominor.yy0.__exp = tmp;
 }
-#line 918 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 918 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
         break;
       default:
       /* (3) statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY */ yytestcase(yyruleno==3);
@@ -965,10 +965,10 @@ static void yy_parse_failed(
   while( yypParser->yyidx>=0 ) yy_pop_parser_stack(yypParser);
   /* Here code is inserted which will be executed whenever the
   ** parser fails */
-#line 50 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 50 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 
 	printf("\tparse failed\n");
-#line 972 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 972 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 #endif /* YYNOERRORRECOVERY */
@@ -983,9 +983,9 @@ static void yy_syntax_error(
 ){
   ParseARG_FETCH;
 #define TOKEN (yyminor.yy0)
-#line 57 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 57 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
  printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n");  exit(-1);
-#line 989 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 989 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 
@@ -1004,10 +1004,10 @@ static void yy_accept(
   while( yypParser->yyidx>=0 ) yy_pop_parser_stack(yypParser);
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
-#line 47 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y"
+#line 47 "/home/joe/Desktop/School/CS498/Compiler/LangParse.y"
 
 	printf("\tparse accepted\n");
-#line 1011 "/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c"
+#line 1011 "/home/joe/Desktop/School/CS498/Compiler/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 

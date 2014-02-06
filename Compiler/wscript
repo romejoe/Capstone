@@ -22,8 +22,10 @@ def configure(conf):
 
 	if conf.options.mode == 'debug':
 		print "Setting up debug build"
-		conf.env['CFLAGS'] = ['-g3']
+		conf.env['CFLAGS'] = ['-g3', '-ansi']
 		conf.define("__LEX_DEBUG__", 1)
+	else:
+		conf.env['CFLAGS'] = ['-ansi']
 
 	conf.recurse(recurseDirs)
 

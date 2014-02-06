@@ -1,0 +1,23 @@
+def options(opt):
+	opt.load('compiler_c')
+	opt.add_option('--mode', action='store', default='debug', help='Compile Mode: release or debug')
+
+
+def configure(conf):
+	from waflib.Tools.compiler_c import c_compiler
+	conf.load('compiler_c')
+	if not conf.env.CC:
+		conf.fatal('Please install a C compiler')
+
+	if conf.options.mode == 'debug':
+		print "Setting up debug build"
+		conf.env['CFLAGS'] = ['-g3', '-ansi']
+	else:
+		conf.env['CFLAGS'] = ['-ansi']
+
+
+def build(bld):
+	from waflib.Build import POST_LAZY
+	bld.post_mode = POST_LAZY
+
+	bld.stlib(features='c', source='interpreter.c', target='InterpreterLib', includes='. ../Common')

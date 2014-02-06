@@ -1,6 +1,6 @@
 top = "."
 
-recurseDirs = ["Compiler"]
+recurseDirs = ["Compiler", "Interpreter"]
 
 def options(opt):
 	opt.add_option("--Docs", "--BuildDocumentation", default=False, action='store_true', help="Build the Documentation")

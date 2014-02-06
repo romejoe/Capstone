@@ -10,11 +10,11 @@
 
 	enum data_type DetermineResultType(enum data_type type1, enum data_type type2){
 		enum data_type ret;
-		//check if same type
+		/*check if same type*/
 		if(type1 == type2){
 			return type1;
 		}
-		//check for void types
+		/*check for void types*/
 		if(type1 == tVOID || type2 == tVOID){
 			return tVOID;
 		}
@@ -22,7 +22,7 @@
 		ret = (type1 > type2)? type1 : type2;
 
 
-		//check wether they are both just integers
+		/*check wether they are both just integers*/
 		if(isFloatType(type1) || isFloatType(type2)){
 			switch(ret){
 				case tBOOL:
@@ -165,7 +165,7 @@ term(val) ::= signedFactor(fact).{
 
 
 signedFactor(val) ::= PLUS factor(fact).{
-	//possibly make this imply absolute value
+	/*possibly make this imply absolute value*/
 	val.__exp = fact.__exp;
 }
 signedFactor(val) ::= MINUS factor(fact).{

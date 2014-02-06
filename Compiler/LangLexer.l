@@ -7,7 +7,7 @@
 
 struct lexerData{
 	void *_pParser;
-	struct Program * _program;
+	struct Program *_program;
 };
 
 #define ___LEX_DEBUG___ 1
@@ -51,7 +51,7 @@ WHITESPACE 	[ \t\n\r]
 	/* Identifier */
 [a-zA-Z_]([a-zA-Z_]|{DIGIT})* { 
 	LEXDEBUG_LOG("Identifier", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 
 	/* Parenthesis Section */
@@ -80,11 +80,11 @@ WHITESPACE 	[ \t\n\r]
 	/* Square Brace Section */
 "[" { 
 	LEXDEBUG_LOG("Left Bracket", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "]" { 
 	LEXDEBUG_LOG("Right Bracket", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 
 	/* Operator Section */
@@ -120,84 +120,84 @@ WHITESPACE 	[ \t\n\r]
 }
 "=" { 
 	LEXDEBUG_LOG("Equal", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 
 	/* Comparison Operator Section */
 "==" { 
 	LEXDEBUG_LOG("Equality", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "!=" { 
 	LEXDEBUG_LOG("Not Equality", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 ">" { 
 	LEXDEBUG_LOG("Greater Than", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "<" { 
 	LEXDEBUG_LOG("Less Than", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 ">=" { 
 	LEXDEBUG_LOG("Greater Than or Equal", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "<=" { 
 	LEXDEBUG_LOG("Less Than or Equal", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 	
 	/* Logical Operator Section */
 "!" { 
 	LEXDEBUG_LOG("Logical Not", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "&&" { 
 	LEXDEBUG_LOG("Logical AND", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "||" { 
 	LEXDEBUG_LOG("Logical OR", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "@@" { 
 	LEXDEBUG_LOG("Logical XOR", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 
 	/* Bitwise Operator Section */
 "~" { 
 	LEXDEBUG_LOG("Bitwise Not", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "&" { 
 	LEXDEBUG_LOG("Bitwise AND", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "|" { 
 	LEXDEBUG_LOG("Bitwise OR", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "@" { 
 	LEXDEBUG_LOG("Bitwise XOR", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 "<<" { 
 	LEXDEBUG_LOG("Bitwise Left Shift", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 ">>" { 
 	LEXDEBUG_LOG("Bitwise Right Shift", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 
 
 	/* String Section */
 \"[^\"]*\" { 
 	LEXDEBUG_LOG("String", yytext);
-	//Parse(yyextra->_pParser, T_, <<<token>>>);
+	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
 }
 
 	/* Semicolon Section */
@@ -208,7 +208,7 @@ WHITESPACE 	[ \t\n\r]
 }
 
 	/* Comment Section */
-"//"[^\n]* { 
+"//"[^\n]* {
 	LEXDEBUG_LOG("Single Line Comment", yytext);
 }
 

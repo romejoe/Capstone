@@ -1,6 +1,6 @@
 #include "compiler.h"
 
-void compileFile(char * filename){
+void compileFile(char * filename, char **bytecode, int *codesize){
 	FILE *f;
 	char *buff;
 	int fileSize;
@@ -18,12 +18,13 @@ void compileFile(char * filename){
 	fread(buff, fileSize, 1, f);
 	buff[fileSize - 1] = 0;
 
-	compileString(buff);
+	compileString(buff, bytecode, codesize);
 
 }
 
-void compileString(char * srcCode){
+void compileString(char * srcCode, char **bytecode, int *codesize){
 	struct Program *prog = parseString(srcCode);
-	printf("prog = %p\n", prog);
+
+	AssembleProgram(prog, bytecode, codesize);
 
 }

@@ -1,4 +1,5 @@
-#include "BytecodeDef.h"
+#include <string.h>
+#include "Instruction.h"
 
 #ifndef ___INTERPRETER_H___
 #define ___INTERPRETER_H___

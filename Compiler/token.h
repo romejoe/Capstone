@@ -7,8 +7,8 @@
 typedef struct {
 	/*int line_num;*/
 	enum datasource type;
-	union{
-		void * __exp;
+	union {
+		void *__exp;
 		long intData;
 		double floatData;
 		char *stringData;

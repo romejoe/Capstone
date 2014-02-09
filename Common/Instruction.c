@@ -1,11 +1,12 @@
 #include "Instruction.h"
 
-struct instruction new_instruction(enum instruction_type type){
+struct instruction new_instruction(enum instruction_type type)
+{
 	struct instruction ret;
 
 	ret.opType = type;
 
-	switch(type){
+	switch (type) {
 		case iMOV:
 		case iADD:
 		case iFADD:

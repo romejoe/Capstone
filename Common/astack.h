@@ -5,7 +5,7 @@
 
 #define DEFAULT_SIZE 20
 
-struct astack{
+struct astack {
 	int size;
 	int top;
 	void *stacky;
@@ -34,10 +34,10 @@ struct astack{
 	if(target.top > -1) --target.top
 
 #define AStack_Empty(target)\
-		(target.top == -1)
+	(target.top == -1)
 
 #define AStack_Free(target)\
-		target.size = 0;\
-		free(target.stacky)
+	target.size = 0;\
+	free(target.stacky)
 
 #endif

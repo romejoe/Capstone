@@ -1,12 +1,13 @@
 #include "token.h"
 
-Token *getToken(char *tokStr, enum datasource type){
+Token *getToken(char *tokStr, enum datasource type)
+{
 	Token *ret;
 	int stringLength;
 
 	ret = (Token *) malloc(sizeof(Token));
 	ret->type = type;
-	switch(type){
+	switch (type) {
 		case INTEGER:
 			ret->intData = atol(tokStr);
 			break;

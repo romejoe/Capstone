@@ -6,16 +6,18 @@ struct instruction new_instruction(enum instruction_type type){
 	ret.opType = type;
 
 	switch(type){
-		case MOV:
-		case ADD:
-		case FADD:
-		case SUB:
-		case FSUB:
-		case MUL:
-		case FMUL:
-		case DIV:
-		case FDIV:
-		ret.paramCount = 2;
-		break;
+		case iMOV:
+		case iADD:
+		case iFADD:
+		case iSUB:
+		case iFSUB:
+		case iMUL:
+		case iFMUL:
+		case iDIV:
+		case iFDIV:
+			ret.paramCount = 2;
+			break;
 	}
+
+	return ret;
 }

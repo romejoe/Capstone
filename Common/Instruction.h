@@ -19,15 +19,15 @@
 		//exp how?
 */
 enum instruction_type{
-	MOV,
-	ADD,
-	FADD,
-	SUB,
-	FSUB,
-	MUL,
-	FMUL,
-	DIV,
-	FDIV
+	iMOV,
+	iADD,
+	iFADD,
+	iSUB,
+	iFSUB,
+	iMUL,
+	iFMUL,
+	iDIV,
+	iFDIV
 };
 
 

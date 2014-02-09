@@ -55,19 +55,20 @@ def build(bld):
 	
 	bld.add_group()
 
-	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='.')
+	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='. ..')
 
+	assemblerLibBuild = bld.stlib(features='c', source='assembler.c', target='AssemblerLib', includes='. ..')
 
-	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib', includes='.')
+	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib', includes='. ..')
 	
 	bld.add_group()
 	
 
 	compilerBuild = bld.program(
 		source='compilerTest.c',
-		use='CompilerLib LangLib ProgramLib',
+		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib',
 		target='testCompiler',
-		includes = '.')
+		includes = '. ..')
 
 
 def test(ctx):

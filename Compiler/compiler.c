@@ -14,7 +14,7 @@ void compileFile(char * filename, char **bytecode, int *codesize){
 	fileSize = ftell(f) + 1;
 	fseek(f, 0, SEEK_SET);
 
-	buff = (char *) malloc(fileSize);
+    buff = (char *) malloc(fileSize);
 	fread(buff, fileSize, 1, f);
 	buff[fileSize - 1] = 0;
 

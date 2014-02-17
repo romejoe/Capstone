@@ -27,11 +27,12 @@ int defaultResizeStream(struct ByteStream *stream)
 	return 1;
 }
 
-int initByteStreamWithSize(struct ByteStream *stream, long defaultSize)
+int initByteStreamWithSize(struct ByteStream *stream, long size)
 {
-	stream->bufsize = defaultSize;
+	stream->bufsize = size;
 	stream->actualsize = 0;
-	stream->buffer = malloc(defaultSize);
+	stream->buffer = malloc(size);
+	streamp\->resizeBuff = defaultResizeStream;
 	return stream->buffer == NULL;
 }
 

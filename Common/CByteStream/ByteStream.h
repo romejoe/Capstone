@@ -11,35 +11,17 @@ struct ByteStream {
 	char *buffer;
 	long actualsize;
 	long bufsize;
-	void (*resizeBuff)(struct ByteStream *);
+	int (*resizeBuff)(struct ByteStream *);
 
 };
 
 #define DEFAULTSIZE 1024
 
-int defaultResizeStream(struct ByteStream *stream)
-{
-	long newSize = stream->bufsize << 1;
-	char *newBuff = realloc(stream->buffer, newSize);
-	if (!newBuff) return 0;
-	stream->buffer = newBuff;
-	stream->bufsize = newSize;
-	return 1;
-}
+int defaultResizeStream(struct ByteStream *stream);
 
-int initByteStreamWithSize(struct ByteStream *stream, long size)
-{
-	stream->bufsize = size;
-	stream->actualsize = 0;
-	stream->buffer = malloc(size);
-	streamp\->resizeBuff = defaultResizeStream;
-	return stream->buffer == NULL;
-}
+int initByteStreamWithSize(struct ByteStream *stream, long size);
 
-int initByteStream(struct ByteStream *stream)
-{
-	return initByteStreamWithSize(stream, DEFAULTSIZE);
-}
+int initByteStream(struct ByteStream *stream);
 
 #define writeToByteStream(obj, stream){\
 		if((stream)->actualsize + sizeof(obj) > (stream)->bufsize){\
@@ -49,9 +31,6 @@ int initByteStream(struct ByteStream *stream)
 		(stream)->actualsize += sizeof(obj);\
 	}
 
-void writeStreamToFile(FILE *f, struct ByteStream *stream)
-{
-	fwrite(stream->buffer, stream->actualsize, 1, f);
-}
+void writeStreamToFile(FILE *f, struct ByteStream *stream);
 
 #endif

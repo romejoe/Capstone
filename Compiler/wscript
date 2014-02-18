@@ -66,8 +66,14 @@ def build(bld):
 
 	compilerBuild = bld.program(
 		source='compilerTest.c',
-		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib',
+		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
 		target='testCompiler',
+		includes = '. ..')
+
+	compilerBuild = bld.program(
+		source='CompilerMain.c',
+		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
+		target='compiler',
 		includes = '. ..')
 
 

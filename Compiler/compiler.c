@@ -1,6 +1,6 @@
 #include "compiler.h"
 
-void compileFile(char *filename, char **bytecode, int *codesize)
+struct ByteStream *compileFile(char *filename)
 {
 	FILE *f;
 	char *buff;
@@ -8,7 +8,7 @@ void compileFile(char *filename, char **bytecode, int *codesize)
 	f = fopen(filename, "r");
 	if (!f) {
 		fprintf(stderr, "Error opening <%s> for reading\n", filename);
-		return;
+		return NULL;
 	}
 
 	fseek(f, 0, SEEK_END);
@@ -19,14 +19,15 @@ void compileFile(char *filename, char **bytecode, int *codesize)
 	fread(buff, fileSize, 1, f);
 	buff[fileSize - 1] = 0;
 
-	compileString(buff, bytecode, codesize);
+	return compileString(buff);
 
 }
 
-void compileString(char *srcCode, char **bytecode, int *codesize)
+struct ByteStream *compileString(char *srcCode)
 {
 	struct Program *prog = parseString(srcCode);
-
-	AssembleProgram(prog, bytecode, codesize);
+	if (prog->root) printf("root != null\n");
+	else printf("root = null\n");
+	return AssembleProgram(prog);
 
 }

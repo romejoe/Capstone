@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 		exit(-1);
 	}
 	++argv;
-	compileFile(*argv, NULL, NULL);
+	compileFile(*argv);
 	fprintf(stdout, "\x1b[1m\x1b[92mExiting...\x1b[0m\n");
 	return 0;
 

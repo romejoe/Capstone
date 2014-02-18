@@ -40,6 +40,8 @@
 		return ret;
 	}
 
+	void *tmpHack = NULL;
+
 }
 
 %token_type {Token}
@@ -59,7 +61,10 @@
 %syntax_error	{ printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n");  exit(-1);}
 
 program ::= statementgroup(stmntgrp).{
+	printf("root = %p\n", stmntgrp.__exp);
+	pProgram = malloc(sizeof(struct Program));
 	pProgram->root = stmntgrp.__exp;
+	tmpHack = pProgram;
 }
 
 statementgroup(val) ::=  statement(stmt) SEMICOLON statementgroup(stmntgrp).{
@@ -69,10 +74,16 @@ statementgroup(val) ::=  statement(stmt) SEMICOLON statementgroup(stmntgrp).{
 	tmp->left = stmt.__exp;
 	tmp->right = stmntgrp.__exp;
 	val.__exp = tmp;
+	
+	printf("here1, %p\n", val.__exp);
+	printf("here1, %p\n", ((struct expression*)val.__exp)->left);
+	printf("here1, %p\n", ((struct expression*)val.__exp)->right);
+	/*printf("_pProgram: %p\n", pProgram);*/
 }
 
 statementgroup(val) ::= statement(stmt) SEMICOLON.{
 	val.__exp = stmt.__exp;
+	printf("here, %p\n", val.__exp);
 }
 
 statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY.
@@ -191,6 +202,7 @@ factor(val) ::= LPAREN expression(expression) RPAREN.{
 factor ::= SYMBOL.
 
 factor(val) ::= INTEGER(intToken).{
+	
 	struct expression *tmp;
 	tmp = new_expression(DATA);
 	tmp->source_type = INTEGER;

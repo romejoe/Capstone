@@ -4,6 +4,6 @@
 #include "assembler.h"
 #ifndef ___COMPILER_H___
 
-void compileString(char *filename, char **bytecode, int *codesize);
-void compileFile(char *filename, char **bytecode, int *codesize);
+struct ByteStream *compileString(char *srcCode);
+struct ByteStream *compileFile(char *filename);
 #endif

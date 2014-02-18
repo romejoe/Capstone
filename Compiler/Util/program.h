@@ -22,5 +22,9 @@ struct Program {
 
 };
 
+struct ProgramContainer{
+	struct Program *prog;
+};
+
 struct expression *new_expression(enum expression_type);
 #endif

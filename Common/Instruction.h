@@ -4,6 +4,7 @@
 
 
 /*
+        ihello
     ops needed
         mov {src}, {dst}
         add {src}, {dst}
@@ -19,6 +20,7 @@
         //exp how?
 */
 enum instruction_type {
+	iHELLO,
 	iMOV,
 	iADD,
 	iFADD,
@@ -32,7 +34,7 @@ enum instruction_type {
 
 
 struct paramOption {
-	int location: 4;
+	int location: 4; /* 2^4 = 16 possible locations */
 
 	int size: 3; /*size in bytes of the following address*/
 	int padding: 1;

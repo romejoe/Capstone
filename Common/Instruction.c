@@ -18,6 +18,8 @@ struct instruction new_instruction(enum instruction_type type)
 		case iFDIV:
 			ret.paramCount = 2;
 			break;
+		case iHELLO:
+			ret.paramCount = 0;
 	}
 
 	return ret;

@@ -1,4 +1,4 @@
-#include "ByteStream.h"
+#include "FullByteStream.h"
 
 struct tmp {
 	int asdf;

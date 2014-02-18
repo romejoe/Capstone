@@ -1,0 +1,8 @@
+argv = ['waf', 'configure', 'build']
+environ = {'TERM_SESSION_ID': 'E7C00312-DD04-49A7-9DCB-8C85BBB0F559', 'SSH_AUTH_SOCK': '/tmp/launch-zPMbMK/Listeners', 'COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/JOEY/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET': '/tmp/launch-RFwNSK/ServiceProcessSocket', 'VERSIONER_PYTHON_PREFER_32_BIT': 'no', 'TERM_PROGRAM_VERSION': '326', 'SHELL': '/bin/bash', 'LOGNAME': 'Joey', 'USER': 'Joey', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin', 'HOME': '/Users/Joey', 'TMPDIR': '/var/folders/xg/_zbzlhyx5xzcpqwytzz8njw00000gn/T/', 'TERM_PROGRAM': 'Apple_Terminal', 'LANG': 'en_US.UTF-8', 'TERM': 'xterm-256color', 'Apple_PubSub_Socket_Render': '/tmp/launch-797Mua/Render', 'VERSIONER_PYTHON_VERSION': '2.7', 'SHLVL': '1', 'OLDPWD': '/Users/Joey/Desktop', 'SECURITYSESSIONID': '186a4', '__CF_USER_TEXT_ENCODING': '0x1F5:0:0', 'PWD': '/Users/Joey/Desktop/CByteStream', '_': '/usr/bin/python', '__CHECKFIX1436934': '1'}
+files = ['/Users/Joey/Desktop/CByteStream/wscript']
+hash = 'L\x0c\xaf;\xe8\x02\xc5\x08\xf0\x98\x1b\x8f%\x8f0\xd7'
+options = {'files': '', 'jobs': 2, 'verbose': 0, 'nocache': False, 'progress_bar': 0, 'distcheck_args': None, 'top': '', 'destdir': '', 'keep': 0, 'zones': '', 'prefix': '/usr/local/', 'download': False, 'force': False, 'targets': '', 'check_c_compiler': 'gcc', 'out': ''}
+out_dir = '/Users/Joey/Desktop/CByteStream/build'
+run_dir = '/Users/Joey/Desktop/CByteStream'
+top_dir = '/Users/Joey/Desktop/CByteStream'

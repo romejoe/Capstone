@@ -1,4 +1,5 @@
 #include "interpreter.h"
+#include <stdio.h>
 
 #define GetTypeFromTarget(target, type)     *((type *) target)
 #define GetTypeAndAdvance(target, type)     GetTypeFromTarget(target, type); target += sizeof(type)
@@ -11,7 +12,6 @@
 
 #define GetParamData(target, source, size)          memcpy(target, source, (size))
 #define GetParamDataAndAdvance(target, source, size)    GetParamData(target,source,(size)); source += (size)
-
 
 union parameter {
 	float flt;
@@ -30,17 +30,28 @@ void interpreteByteCode(char *progBuf, int length)
 	struct paramOption options[3];
 	union parameter params[3];
 	int i;
+	int paramCount;
 
 	while (progBuf < stop) {
 		/*get instruction info*/
 		instruct = GetInstructionAndAdvance(progBuf);
-		for (i = 0; i < instruct.paramCount; ++i) {
+		paramCount = getParamCountForInstruction(instruct);
+
+		for (i = 0; i < paramCount; ++i) {
 			options[i] = GetParameterAndAdvance(progBuf);
 		}
-		for (i = 0; i < instruct.paramCount; ++i) {
+		for (i = 0; i < paramCount; ++i) {
 			GetParamDataAndAdvance(&params[i], progBuf, 1 << options[i].size);
 		}
 
+		switch(instruct.opType){
+			case iHELLO:
+				printf("Hello First Instruct\n");
+				break;
+			default:
+				printf("OP NOT SUPPORTED!\n");
+				break;
+		}
 
 	}
 }

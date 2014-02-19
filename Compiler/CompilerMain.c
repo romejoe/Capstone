@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 	data = compileFile(*argv);
 	--argc;
 	if (argc) {
+		++argv;
 		output = fopen(*argv, "w");
 	} else {
 		output = fopen("b.out", "w");

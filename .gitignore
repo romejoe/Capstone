@@ -2,3 +2,5 @@ build/
 /.waf*/
 /.lock*
 *.pyc
+b.out
+tmp.out

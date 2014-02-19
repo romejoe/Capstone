@@ -1,8 +1,11 @@
 #include "ByteStream.h"
 
-int defaultResizeStream(struct ByteStream *stream)
+int defaultResizeStream(struct ByteStream *stream, long desiredSize)
 {
-	long newSize = stream->bufsize << 1;
+	long newSize = stream->bufsize;
+	while (newSize < desiredSize) {
+		newSize = newSize << 1;
+	}
 	char *newBuff = realloc(stream->buffer, newSize);
 	if (!newBuff) return 0;
 	stream->buffer = newBuff;

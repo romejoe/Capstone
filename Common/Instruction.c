@@ -16,11 +16,19 @@ struct instruction new_instruction(enum instruction_type type)
 		case iFMUL:
 		case iDIV:
 		case iFDIV:
-			ret.paramCount = 2;
 			break;
 		case iHELLO:
-			ret.paramCount = 0;
+			break;
 	}
 
 	return ret;
+}
+
+int getParamCountForInstruction(struct instruction instruct){
+	switch(instruct.opType){
+		case iHELLO:
+			return 0;
+		default:
+			return 0;
+	}
 }

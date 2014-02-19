@@ -42,11 +42,11 @@ struct paramOption {
 };
 
 struct instruction {
-	int opType: 6; /*allows for 2^6 (64) commands*/
-	int paramCount: 2; /*allows for [0,1,2,3] parameters*/
+	enum instruction_type opType:8; /*allows for 2^8 (256) commands*/
 };
 
 
 struct instruction new_instruction(enum instruction_type);
+int getParamCountForInstruction(struct instruction instruct);
 
 #endif

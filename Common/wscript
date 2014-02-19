@@ -1,4 +1,4 @@
-recurseDirs = ["CByteStream"]
+recurseDirs = []
 
 def options(opt):
 	opt.load('compiler_c')

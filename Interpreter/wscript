@@ -20,4 +20,5 @@ def build(bld):
 	from waflib.Build import POST_LAZY
 	bld.post_mode = POST_LAZY
 
-	bld.stlib(features='c', source='interpreter.c', target='InterpreterLib', includes='. ../Common')
+	bld.stlib(features='c', source='interpreter.c', target='InterpreterLib', includes='. ../Common', use='InstructionLib')
+	bld.program(features='c', source='InterpreterMain.c', target="interpreter", includes=". ../Common", use="InterpreterLib")

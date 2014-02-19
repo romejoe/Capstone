@@ -1,4 +1,6 @@
+#include "Common/CByteStream/FullByteStream.h"
 #include "assembler.h"
+
 
 void assembleExpression(struct expression *exp, struct ByteStream *stream)
 {

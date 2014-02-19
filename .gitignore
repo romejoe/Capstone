@@ -1,6 +1,6 @@
 build/
 /.waf*/
 /.lock*
-*.pyc
 b.out
 tmp.out
+y2c.pyc

@@ -4,6 +4,9 @@
 #ifndef ___PROGRAM_H__
 #define ___PROGRAM_H__
 
+struct symbol{
+	char *name;
+};
 
 struct expression {
 	enum expression_type type;

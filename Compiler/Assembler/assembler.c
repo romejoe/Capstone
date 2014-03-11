@@ -10,19 +10,19 @@ void assembleExpression(struct expression *exp, struct ByteStream *stream)
 	/*determine instruction to use*/
 	printf("a");
 	switch (exp->type) {
-		/*case PASS:
+		/*case PASS:*/
 		case ADD:
 		case SUBTRACT:
 		case MULTIPLY:
 		case DIVIDE:
 		case MODULUS:
-		    case POWER:
-		    assembleExpression(exp->left, stream);
-		    assembleExpression(exp->right, stream);
+		case POWER:
+			assembleExpression(exp->left, stream);
+			assembleExpression(exp->right, stream);
 
 
-		    break;
-		case DATA:*/
+			break;
+		case DATA:
 		default:
 			if (exp->left) assembleExpression(exp->left, stream);
 			if (exp->right) assembleExpression(exp->right, stream);

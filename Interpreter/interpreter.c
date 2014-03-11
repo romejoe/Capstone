@@ -13,7 +13,10 @@
 #define GetParamData(target, source, size)          memcpy(target, source, (size))
 #define GetParamDataAndAdvance(target, source, size)    GetParamData(target,source,(size)); source += (size)
 
-union parameter {
+#define GetTarget(location, ptr) ((location == 0)? (void *)&registers[location - 1] : (void *)ptr)
+
+/*
+union data {
 	float flt;
 	double dbl;
 	int i;
@@ -22,13 +25,24 @@ union parameter {
 	void *ptr;
 	char rawData[8];
 };
+*/
 
-void interpreteByteCode(char *progBuf, int length)
+union data {
+	double dbl;
+	long l;
+	char byte;
+	char *ptr;
+	char rawData[8];
+};
+
+void interpreteByteCode(char *buf, int length)
 {
+	char *progBuf = buf;
 	char *stop = progBuf + length;
 	struct instruction instruct;
 	struct paramOption options[3];
-	union parameter params[3];
+	union data params[3];
+	union data registers [__REGISTER_COUNT];
 	int i;
 	int paramCount;
 
@@ -45,6 +59,12 @@ void interpreteByteCode(char *progBuf, int length)
 		}
 
 		switch(instruct.opType){
+			case iRELJMP:
+				progBuf += params[0].l;
+				break;
+			case iMOV:
+				memcpy(GetTarget(options[1].location, params[1].ptr), GetTarget(options[0].location, params[0].ptr), options[0].size);
+				break;
 			case iHELLO:
 				printf("Hello First Instruct\n");
 				break;

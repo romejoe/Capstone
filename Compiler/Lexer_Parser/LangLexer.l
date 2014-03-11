@@ -55,6 +55,13 @@ WHITESPACE 	[ \t\n\r]
 	Parse(yyextra->_pParser, T_IF, tok);
 }
 
+"Integer" {
+	LEXDEBUG_LOG("INTEGER", yytext);
+	Token * tok = getToken(yytext, NA);
+	Parse(yyextra->_pParser, T_KEYWORD_INT, tok);
+}
+
+
 	/* Identifier */
 [a-zA-Z_]([a-zA-Z_]|{DIGIT})* { 
 	LEXDEBUG_LOG("Identifier", yytext);

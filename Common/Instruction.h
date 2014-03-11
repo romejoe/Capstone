@@ -6,6 +6,7 @@
 /*
         ihello
     ops needed
+    	rjmp {dst}
         mov {src}, {dst}
         add {src}, {dst}
         fadd {src}, {dst}
@@ -21,6 +22,7 @@
 */
 enum instruction_type {
 	iHELLO,
+	iRELJMP,
 	iMOV,
 	iADD,
 	iFADD,
@@ -32,12 +34,14 @@ enum instruction_type {
 	iFDIV
 };
 
+#define __REGISTER_COUNT 15
+
 
 struct paramOption {
 	int location: 4; /* 2^4 = 16 possible locations */
-
+	/* 0: memory location */
+	int dereferenceLocation: 1;
 	int size: 3; /*size in bytes of the following address*/
-	int padding: 1;
 
 };
 
@@ -45,8 +49,15 @@ struct instruction {
 	enum instruction_type opType:8; /*allows for 2^8 (256) commands*/
 };
 
+struct complete_instruction {
+	struct instruction instruct;
+	int optionCount;
+	struct paramOption options[];
+};
 
 struct instruction new_instruction(enum instruction_type);
 int getParamCountForInstruction(struct instruction instruct);
+
+struct complete_instruction *new_complete_instruction(enum instruction_type);
 
 #endif

@@ -23,3 +23,6 @@ def build(bld):
 	bld.recurse(recurseDirs)
 	bld.stlib(features='c', source='Instruction.c', target='InstructionLib')
 	bld.program(features='c', source="astackTest.c", target="astackTest", includes='.')
+
+def test(ctx):
+	pass

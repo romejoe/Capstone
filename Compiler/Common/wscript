@@ -12,3 +12,6 @@ def configure(conf):
 
 def build(bld):
 	bld.stlib(features='c', source='program.c', target='ProgramLib', includes='. ..')
+
+def test(ctx):
+	pass

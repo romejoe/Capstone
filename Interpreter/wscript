@@ -22,3 +22,6 @@ def build(bld):
 
 	bld.stlib(features='c', source='interpreter.c', target='InterpreterLib', includes='. ../Common', use='InstructionLib')
 	bld.program(features='c', source='InterpreterMain.c', target="interpreter", includes=". ../Common", use="InterpreterLib")
+
+def test(ctx):
+	pass

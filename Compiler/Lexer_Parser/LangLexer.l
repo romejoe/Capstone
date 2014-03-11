@@ -295,7 +295,6 @@ WHITESPACE 	[ \t\n\r]
 		
 		printf("program = %p\n", &ret);
 
-		ret.prog = 0x1234;
 		Parse(extraData._pParser, 0, NULL, &ret);
 		
 		return getProgram(extraData._pParser);

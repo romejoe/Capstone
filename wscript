@@ -26,7 +26,14 @@ def build(bld):
 			type = 'pdflatex',
 			source = 'Documentation.tex'
 			)
-def test(ctx):
-	ctx.recurse(recurseDirs)
 
+def test(ctx):
+	from waflib import Options
+	Options.commands = ['configure', 'clean', 'build'] + Options.commands
 	# run basic tests
+	print ctx.get_tgen_by_name('compiler')
+
+from waflib.Build import BuildContext
+class Test(BuildContext):
+        cmd = 'test'
+        fun = 'test'

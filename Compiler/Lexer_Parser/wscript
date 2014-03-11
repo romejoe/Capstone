@@ -1,0 +1,35 @@
+import platform
+recurseDirs = []
+
+def options(opt):
+	opt.load('compiler_c')
+
+	opt.add_option('--mode', action='store', default='debug', help='Compile Mode: release or debug')
+	opt.recurse(recurseDirs)
+
+def configure(conf):
+	from waflib.Tools.compiler_c import c_compiler
+	conf.load('compiler_c')
+	if not conf.env.CC:
+		conf.fatal('Please install a C compiler')
+
+	conf.load('flex')
+	if not conf.env.FLEX:
+		conf.fatal('Please install flex')
+
+	conf.load('y2c', tooldir='.')
+
+	conf.recurse(recurseDirs)
+
+
+
+def build(bld):
+	from waflib.Build import POST_LAZY
+	bld.post_mode = POST_LAZY
+
+	bld.define("___LEX_LIBRARY___", 1)
+
+	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='. ../Common')
+
+def test(ctx):
+	pass

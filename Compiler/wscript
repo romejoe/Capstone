@@ -1,6 +1,5 @@
 import platform
-#import Options
-recurseDirs = ["Util"]
+recurseDirs = ["Assembler", "Lexer_Parser", "Common"]
 
 def options(opt):
 	opt.load('compiler_c')
@@ -14,12 +13,6 @@ def configure(conf):
 	if not conf.env.CC:
 		conf.fatal('Please install a C compiler')
 
-	conf.load('flex')
-	if not conf.env.FLEX:
-		conf.fatal('Please install flex')
-
-	conf.load('y2c', tooldir='.')
-
 	if conf.options.mode == 'debug':
 		print "Setting up debug build"
 		conf.env['CFLAGS'] = ['-g3', '-std=c89']
@@ -32,7 +25,7 @@ def configure(conf):
 
 
 def build(bld):
-	bld.recurse(recurseDirs)
+	
 
 	from waflib.Build import POST_LAZY
 	bld.post_mode = POST_LAZY
@@ -45,7 +38,6 @@ def build(bld):
 		target='lempar.c'
 		)
 	
-	bld.add_group()
 	#build lemon
 	
 	lemonBuild = bld.program(
@@ -55,11 +47,10 @@ def build(bld):
 	
 	bld.add_group()
 
-	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='. ..')
+	bld.recurse(recurseDirs)
 
-	assemblerLibBuild = bld.stlib(features='c', source='assembler.c', target='AssemblerLib', includes='. ..')
-
-	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib', includes='. ..')
+	
+	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib', includes='. .. Common')
 	
 	bld.add_group()
 	
@@ -68,13 +59,13 @@ def build(bld):
 		source='compilerTest.c',
 		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
 		target='testCompiler',
-		includes = '. ..')
+		includes = '. .. Common')
 
 	compilerBuild = bld.program(
 		source='CompilerMain.c',
 		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
 		target='compiler',
-		includes = '. ..')
+		includes = '. .. Common')
 
 
 def test(ctx):

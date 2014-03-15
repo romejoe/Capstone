@@ -23,7 +23,7 @@ def build(bld):
 	from waflib.Build import POST_LAZY
 	bld.post_mode = POST_LAZY
 
-	assemblerLibBuild = bld.stlib(features='c', source='assembler.c', target='AssemblerLib', includes='. ../Common/ ../..')
+	assemblerLibBuild = bld.stlib(features='c', source='assembler.c', target='AssemblerLib', includes='. ../Common/ ../../Common')
 
 def test(ctx):
 	pass

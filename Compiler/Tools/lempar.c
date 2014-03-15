@@ -848,7 +848,3 @@ void Parse(
   }while( yymajor!=YYNOCODE && yypParser->yyidx>=0 );
   return;
 }
-
-struct Program *getProgram(void *yyparser){
-  return tmpHack;
-}

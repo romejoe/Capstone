@@ -1,8 +1,8 @@
 #include "program.h"
-#include "Common/astack.h"
-#include "Common/Instruction.h"
+#include "astack.h"
+#include "Instruction.h"
 
-#include "Common/CByteStream/ByteStream.h"
+#include "CByteStream/ByteStream.h"
 
 #ifndef ___ASSEMBLER_H___
 #define ___ASSEMBLER_H___

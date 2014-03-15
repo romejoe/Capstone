@@ -26,8 +26,8 @@ struct ByteStream *compileFile(char *filename)
 struct ByteStream *compileString(char *srcCode)
 {
 	struct Program *prog = parseString(srcCode);
-	if (prog->root) printf("root != null\n");
-	else printf("root = null\n");
+	if (prog->context) printf("context != null\n");
+	else printf("context = null\n");
 	return AssembleProgram(prog);
 
 }

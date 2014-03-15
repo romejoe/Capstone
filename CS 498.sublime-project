@@ -59,7 +59,7 @@
     [
         {
             "name": "Configure Build",
-            "shell_cmd": "python waf",
+            "shell_cmd": "python waf configure",
             "working_dir": "${project_path}"
         },
         {

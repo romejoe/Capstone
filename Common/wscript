@@ -22,6 +22,7 @@ def configure(conf):
 def build(bld):
 	bld.recurse(recurseDirs)
 	bld.stlib(features='c', source='Instruction.c', target='InstructionLib')
+	bld.stlib(features='c', source='FileUtil.c', target='FileUtil')
 	bld.program(features='c', source="astackTest.c", target="astackTest", includes='.')
 
 def test(ctx):

@@ -29,7 +29,7 @@ def build(bld):
 
 	bld.define("___LEX_LIBRARY___", 1)
 
-	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='. ../Common')
+	lexerBuild = bld.stlib(features='c', source='LangParse.y LangLexer.l token.c', target='LangLib', includes='. ../Common ../../Common')
 
 def test(ctx):
 	pass

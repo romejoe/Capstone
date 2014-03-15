@@ -1,0 +1,11 @@
+//symbol tests
+//basic
+Float sQWERTY;
+Integer a;
+Float n;
+Integer b;
+Integer d;
+Integer e;
+//advanced
+Integer c = 5;
+Float foo = 35 + 16;

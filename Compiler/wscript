@@ -50,22 +50,22 @@ def build(bld):
 	bld.recurse(recurseDirs)
 
 	
-	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib', includes='. .. Common')
+	compilerLibBuild = bld.stlib(features='c', source='compiler.c', target='CompilerLib', includes='. ../Common Common')
 	
 	bld.add_group()
 	
 
-	compilerBuild = bld.program(
-		source='compilerTest.c',
-		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
-		target='testCompiler',
-		includes = '. .. Common')
+	parserTest = bld.program(
+		source='parseTest.c',
+		use='CompilerLib LangLib ProgramLib FileUtil',
+		target='parserTest',
+		includes = '. ../Common Common')
 
 	compilerBuild = bld.program(
 		source='CompilerMain.c',
 		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
 		target='compiler',
-		includes = '. .. Common')
+		includes = '. ../Common Common')
 
 
 def test(ctx):

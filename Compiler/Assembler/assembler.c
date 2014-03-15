@@ -1,8 +1,8 @@
-#include "Common/CByteStream/FullByteStream.h"
+#include "CByteStream/FullByteStream.h"
 #include "assembler.h"
 
 
-void assembleExpression(struct expression *exp, struct ByteStream *stream)
+void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 {
 	struct instruction tmp;
 
@@ -22,7 +22,7 @@ void assembleExpression(struct expression *exp, struct ByteStream *stream)
 
 
 			break;
-		case DATA:
+		case SOURCE:
 		default:
 			if (exp->left) assembleExpression(exp->left, stream);
 			if (exp->right) assembleExpression(exp->right, stream);
@@ -42,7 +42,7 @@ struct ByteStream *AssembleProgram(struct Program *program)
 
 	initByteStream(output);
 
-	assembleExpression(program->root, output);
+	assembleExpression(program->context->exp, output);
 	return output;
 	/*
 

@@ -43,7 +43,7 @@ WHITESPACE 	[ \t\n\r]
 	/* Float */
 {DIGIT}*"."{DIGIT}* { 
 	LEXDEBUG_LOG("Float", yytext);
-	Token *tok = getToken(yytext, DOUBLE);
+	Token *tok = getToken(yytext, FLOAT);
 	
 	Parse(yyextra->_pParser, T_FLOAT, tok);
 }
@@ -56,17 +56,21 @@ WHITESPACE 	[ \t\n\r]
 }
 
 "Integer" {
-	LEXDEBUG_LOG("INTEGER", yytext);
-	Token * tok = getToken(yytext, NA);
-	Parse(yyextra->_pParser, T_KEYWORD_INT, tok);
+	LEXDEBUG_LOG("INTEGER KEYWORD", yytext);
+	Parse(yyextra->_pParser, T_KEYWORD_INTEGER, NULL);
+}
+
+"Float" {
+	LEXDEBUG_LOG("FLOAT KEYWORD", yytext);
+	Parse(yyextra->_pParser, T_KEYWORD_FLOAT, NULL);
 }
 
 
 	/* Identifier */
 [a-zA-Z_]([a-zA-Z_]|{DIGIT})* { 
 	LEXDEBUG_LOG("Identifier", yytext);
-	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Token *tok = getToken(yytext, SYMBOL);
+	Parse(yyextra->_pParser, T_IDENTIFIER, tok);
 }
 
 	/* Parenthesis Section */
@@ -148,7 +152,7 @@ WHITESPACE 	[ \t\n\r]
 "=" { 
 	LEXDEBUG_LOG("Equal", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_EQUAL, NULL);
 }
 
 	/* Comparison Operator Section */
@@ -286,7 +290,6 @@ WHITESPACE 	[ \t\n\r]
 	struct Program* parseString(char *srcCode){
 		yyscan_t scanner;
 		YY_BUFFER_STATE in;
-		struct ProgramContainer ret;
 		struct lexerData extraData;
 		void *_pParser = ParseAlloc( malloc );
 		extraData._pParser = _pParser;
@@ -299,10 +302,8 @@ WHITESPACE 	[ \t\n\r]
 		yylex(scanner);
 		yy_delete_buffer(in, scanner);
 		yylex_destroy(scanner);
-		
-		printf("program = %p\n", &ret);
 
-		Parse(extraData._pParser, 0, NULL, &ret);
+		Parse(extraData._pParser, 0, NULL);
 		
 		return getProgram(extraData._pParser);
 	}

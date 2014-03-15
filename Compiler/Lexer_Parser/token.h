@@ -7,16 +7,17 @@
 typedef struct {
 	/*int line_num;*/
 	enum datasource type;
+	struct Context *context;
 	union {
-		void *__exp;
 		long intData;
 		double floatData;
 		char *stringData;
+		char *literal;
 	};
 } Token;
 
 Token *getToken(char *, enum datasource);
-
+Token *getEmptyToken();
 
 
 #endif /* __TOKEN_H__ */

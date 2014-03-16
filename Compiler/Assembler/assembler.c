@@ -52,16 +52,18 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 			goto recurse;
 		case POWER:
 			in = new_instruction(iEXP);
+			goto recurse;
+		case PRINT:
+			in = new_instruction(iPRINT);
+			goto recurse;
 
 			recurse:
 			assembleExpression(exp->left, stream);
 			assembleExpression(exp->right, stream);
-			printf("Add\n");
 			writeToByteStream(in, stream);
 			/*writeToByteStream(*inPtr, stream);*/
 			break;
 		case SOURCE:
-			printf("Source\n");
 			if(exp->source_type != SYMBOL){
 				
 				

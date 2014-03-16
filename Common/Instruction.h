@@ -32,7 +32,8 @@ enum instruction_type {
 	iMOD,
 	iEXP,
 	iIPUSH,
-	iFPUSH
+	iFPUSH,
+	iPRINT
 };
 
 #define __REGISTER_COUNT 14

@@ -1,4 +1,8 @@
 #include <string.h>
+#include <stdio.h>
+#include <math.h>
+#include <assert.h>
+
 #include "Instruction.h"
 #include "enumDefs.h"
 #include "astack.h"

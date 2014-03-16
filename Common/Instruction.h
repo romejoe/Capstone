@@ -30,7 +30,7 @@ enum instruction_type {
 	iMUL,
 	iDIV,
 	iMOD,
-	iEXP,
+	iPOW,
 	iIPUSH,
 	iFPUSH,
 	iPRINT

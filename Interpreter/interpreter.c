@@ -1,6 +1,4 @@
 #include "interpreter.h"
-#include <stdio.h>
-#include <assert.h>
 
 #define GetTypeFromTarget(target, type)     *((type *) target)
 #define GetTypeAndAdvance(target, type)     GetTypeFromTarget(target, type); target += sizeof(type)
@@ -24,6 +22,7 @@
 #define MUL(a,b) a * b
 #define DIV(a,b) a / b
 #define MOD(a,b) (long)(a) % (long)(b)
+#define POW(a,b) pow((double) a, (double) b)
 
 #define BasicArithmeticOperation(op) {\
 	assert(computationalStack.top >= 1);\
@@ -114,6 +113,9 @@ void interpreteByteCode(char *buf, int length)
 				break;
 			case iMOD:
 				BasicArithmeticOperation(MOD);
+				break;
+			case iPOW:
+				BasicArithmeticOperation(POW);
 				break;
 			case iPRINT:
 				item = PopComputationalStackItem();

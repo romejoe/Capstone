@@ -51,7 +51,7 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 			in = new_instruction(iMOD);
 			goto recurse;
 		case POWER:
-			in = new_instruction(iEXP);
+			in = new_instruction(iPOW);
 			goto recurse;
 		case PRINT:
 			in = new_instruction(iPRINT);

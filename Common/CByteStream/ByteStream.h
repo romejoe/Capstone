@@ -31,6 +31,22 @@ int initByteStream(struct ByteStream *stream);
 		(stream)->actualsize += sizeof(obj);\
 	}
 
+#define writeSizeToByteStream(obj, stream, size){\
+		if((stream)->actualsize + size > (stream)->bufsize){\
+			stream->resizeBuff(stream, ((stream)->actualsize + size));\
+		}\
+		memcpy(stream->buffer + stream->actualsize, &obj, size);\
+		(stream)->actualsize += size;\
+	}
+
+#define writeTypeToByteStream(obj, stream, type){\
+		if((stream)->actualsize + sizeof(type) > (stream)->bufsize){\
+			stream->resizeBuff(stream, ((stream)->actualsize + sizeof(type)));\
+		}\
+		(*(type *) ((stream)->buffer + (stream)->actualsize)) = obj;\
+		(stream)->actualsize += sizeof(type);\
+	}
+
 void writeStreamToFile(FILE *f, struct ByteStream *stream);
 
 #endif

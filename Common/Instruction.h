@@ -8,51 +8,54 @@
     ops needed
     	rjmp {dst}
         mov {src}, {dst}
-        add {src}, {dst}
-        fadd {src}, {dst}
-        sub {src}, {dst}
-        fsub {src}, {dst}
-        mul {src}, {dst}
-        fmul {src}, {dst}
-        div {src}, {dst}
-        fdiv {src}, {dst}
+        add
+        sub
+        mul
+        div
+        mod
+        exp
         tof {src}, {dst}
         toi {src}, {dst}
+        Ipush
+        Fpush
+
         //exp how?
 */
 enum instruction_type {
-	iHELLO,
+	iHELLO = -1,
 	iRELJMP,
 	iMOV,
 	iADD,
-	iFADD,
 	iSUB,
-	iFSUB,
 	iMUL,
-	iFMUL,
 	iDIV,
-	iFDIV
+	iMOD,
+	iEXP,
+	iIPUSH,
+	iFPUSH
 };
 
-#define __REGISTER_COUNT 15
+#define __REGISTER_COUNT 14
 
 
 struct paramOption {
-	int location: 4; /* 2^4 = 16 possible locations */
-	/* 0: memory location */
+	int location: 7; /* 2^4 = 16 possible locations */
+	/* 0: raw data */
+	/* 1: memory location */
 	int dereferenceLocation: 1;
-	int size: 3; /*size in bytes of the following address*/
+	unsigned char size:8; /*size in bytes of the following data*/
 
 };
+#define ParamOptionSize 2
 
 struct instruction {
-	enum instruction_type opType:8; /*allows for 2^8 (256) commands*/
+	char opType; /*allows for 2^8 (256) commands*/
 };
 
 struct complete_instruction {
 	struct instruction instruct;
-	int optionCount;
-	struct paramOption options[];
+	char optionCount;
+	struct paramOption *options;
 };
 
 struct instruction new_instruction(enum instruction_type);

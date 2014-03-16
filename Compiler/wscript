@@ -63,7 +63,7 @@ def build(bld):
 
 	compilerBuild = bld.program(
 		source='CompilerMain.c',
-		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib',
+		use='CompilerLib LangLib ProgramLib AssemblerLib InstructionLib ByteStreamLib ByteStream',
 		target='compiler',
 		includes = '. ../Common Common')
 

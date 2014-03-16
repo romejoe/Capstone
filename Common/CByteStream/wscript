@@ -6,5 +6,7 @@ def configure(conf):
 	conf.load('compiler_c')
 
 def build(bld):
+	bld.stlib(features='c', source='ByteStream.c', target='ByteStream')
+
 	bld.program(features='c', source='demo.c', target='demo')
 	

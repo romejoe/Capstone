@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 	}
 	++argv;
 	data = compileFile(*argv);
+	printf("\n");
 	--argc;
 	if (argc) {
 		++argv;

@@ -15,6 +15,9 @@
 
 #define GetTarget(location, ptr) ((location == 0)? (void *)&registers[location - 1] : (void *)ptr)
 
+#define PopComputationalStackItem() AStack_Top(computationalStack, holder, struct computationalStackItem); AStack_Pop(computationalStack)
+#define GetItemValue(item)	((item.type == INTEGER)? item.value.l:(item.type == FLOAT)? item.value.dbl: 0)
+
 /*
 union data {
 	float flt;
@@ -35,6 +38,29 @@ union data {
 	char rawData[8];
 };
 
+struct computationalStackItem{
+	union data value;
+	enum datasource type;
+};
+struct computationalStackItem holder;
+
+void printResultItem(struct computationalStackItem item){
+	switch(item.type){
+
+		case INTEGER:
+			printf("Integer Value = %ld\n", item.value.l);
+			break;
+		case FLOAT:
+			printf("Float Value = %lf\n", item.value.dbl);
+			break;
+		default:
+			printf("item type is unknown\n");
+			break;
+
+	}
+}
+
+
 void interpreteByteCode(char *buf, int length)
 {
 	char *progBuf = buf;
@@ -43,27 +69,53 @@ void interpreteByteCode(char *buf, int length)
 	struct paramOption options[3];
 	union data params[3];
 	union data registers [__REGISTER_COUNT];
+	struct astack computationalStack;
+	struct computationalStackItem stackItems[3];
+	struct computationalStackItem resultItem;
 	int i;
 	int paramCount;
+
+	initAStack(computationalStack, struct computationalStackItem);
 
 	while (progBuf < stop) {
 		/*get instruction info*/
 		instruct = GetInstructionAndAdvance(progBuf);
-		paramCount = getParamCountForInstruction(instruct);
-
-		for (i = 0; i < paramCount; ++i) {
-			options[i] = GetParameterAndAdvance(progBuf);
-		}
-		for (i = 0; i < paramCount; ++i) {
-			GetParamDataAndAdvance(&params[i], progBuf, 1 << options[i].size);
-		}
-
+		
 		switch(instruct.opType){
 			case iRELJMP:
 				progBuf += params[0].l;
 				break;
-			case iMOV:
+			/*case iMOV:
 				memcpy(GetTarget(options[1].location, params[1].ptr), GetTarget(options[0].location, params[0].ptr), options[0].size);
+				break;*/
+			case iADD:
+				stackItems[0] = PopComputationalStackItem();
+				stackItems[1] = PopComputationalStackItem();
+				if(stackItems[0].type == FLOAT || stackItems[1].type == FLOAT){
+					resultItem.value.dbl = GetItemValue(stackItems[0]) + GetItemValue(stackItems[1]);
+					resultItem.type = FLOAT;
+					printf("Result = %lf\n", resultItem.value.dbl);
+				}
+				else{
+					resultItem.value.l = GetItemValue(stackItems[0]) + GetItemValue(stackItems[1]);
+					resultItem.type = INTEGER;
+					printf("Result = %ld\n", resultItem.value.l);
+				}
+				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				break;
+			case iIPUSH:
+				printf("pushing integer onto stack\n");
+				resultItem.type = INTEGER;
+				resultItem.value.l = GetTypeAndAdvance(progBuf, long);
+				printResultItem(resultItem);
+				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				break;
+			case iFPUSH:
+				printf("pushing integer onto stack\n");
+				resultItem.type = FLOAT;
+				resultItem.value.dbl = GetTypeAndAdvance(progBuf, double);
+				printResultItem(resultItem);
+				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
 				break;
 			case iHELLO:
 				printf("Hello First Instruct\n");

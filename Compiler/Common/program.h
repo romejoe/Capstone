@@ -13,6 +13,7 @@ struct Symbol{
 struct Expression {
 	enum expression_type type;
 	enum data_type result_type;
+	
 	enum datasource source_type;
 	
 	struct Expression *left, *right;

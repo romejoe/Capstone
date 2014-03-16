@@ -21,7 +21,7 @@ def build(bld):
 	bld.post_mode = POST_LAZY
 
 	bld.stlib(features='c', source='interpreter.c', target='InterpreterLib', includes='. ../Common', use='InstructionLib')
-	bld.program(features='c', source='InterpreterMain.c', target="interpreter", includes=". ../Common", use="InterpreterLib")
+	bld.program(features='c', source='InterpreterMain.c', target="interpreter", includes=". ../Common", use="InterpreterLib", lib="m")
 
 def test(ctx):
 	pass

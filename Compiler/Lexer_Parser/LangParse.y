@@ -162,9 +162,19 @@ statement(val) ::= definition(def).{
 	val->context = def->context;
 }
 
-statement(val) ::= expression(exp).{
+statement(val) ::= expression(expTkn).{
 	val = (Token *) malloc(sizeof(Token));
-	val->context = exp->context;
+	val->context = expTkn->context;
+}
+
+
+statement(val) ::= KEYWORD_PRINT expression(expTkn).{
+	val = (Token *) malloc(sizeof(Token));
+	val->context = expTkn->context;
+	struct Expression *print = new_expression(PRINT);
+	print->left = NULL;
+	print->right = val->context->exp;
+	val->context->exp = print;
 }
 
 definition(val) ::= datatype(type) IDENTIFIER(id).{
@@ -183,8 +193,8 @@ datatype(val) ::= KEYWORD_INTEGER.{
 	struct Symbol *sym = new_symbol(NULL, tINTEGER);
 	struct List *list = (struct List *) malloc(sizeof(struct List));
 	struct Context *context;
-printf("IList Ptr = %p\n", list);
-printf("Isym Ptr = %p\n", sym);
+	printf("IList Ptr = %p\n", list);
+	printf("Isym Ptr = %p\n", sym);
 	newList(list, struct Symbol *);
 	List_Add_Value(list, sym, struct Symbol *);
 	

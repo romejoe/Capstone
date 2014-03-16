@@ -19,7 +19,8 @@ enum expression_type {
 	MULTIPLY,
 	DIVIDE,
 	MODULUS,
-	POWER
+	POWER,
+	PRINT
 };
 enum data_type {
 	tVOID = 0,

@@ -54,6 +54,10 @@ WHITESPACE 	[ \t\n\r]
 	
 	Parse(yyextra->_pParser, T_IF, tok);
 }
+"print" {
+	LEXDEBUG_LOG("PRINT KEYWORD", yytext);
+	Parse(yyextra->_pParser, T_KEYWORD_PRINT, NULL);
+}
 
 "Integer" {
 	LEXDEBUG_LOG("INTEGER KEYWORD", yytext);

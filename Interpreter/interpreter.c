@@ -1,5 +1,6 @@
 #include "interpreter.h"
 #include <stdio.h>
+#include <assert.h>
 
 #define GetTypeFromTarget(target, type)     *((type *) target)
 #define GetTypeAndAdvance(target, type)     GetTypeFromTarget(target, type); target += sizeof(type)
@@ -18,17 +19,27 @@
 #define PopComputationalStackItem() AStack_Top(computationalStack, holder, struct computationalStackItem); AStack_Pop(computationalStack)
 #define GetItemValue(item)	((item.type == INTEGER)? item.value.l:(item.type == FLOAT)? item.value.dbl: 0)
 
-/*
-union data {
-	float flt;
-	double dbl;
-	int i;
-	long l;
-	char byte;
-	void *ptr;
-	char rawData[8];
-};
-*/
+#define ADD(a,b) a + b
+#define SUB(a,b) a - b
+#define MUL(a,b) a * b
+#define DIV(a,b) a / b
+#define MOD(a,b) (long)(a) % (long)(b)
+
+#define BasicArithmeticOperation(op) {\
+	assert(computationalStack.top >= 1);\
+	struct computationalStackItem i1 = PopComputationalStackItem();\
+	struct computationalStackItem i2 = PopComputationalStackItem();\
+	if(i1.type == FLOAT || i2.type == FLOAT){\
+		resultItem.value.dbl = op(GetItemValue(i2), GetItemValue(i1));\
+		resultItem.type = FLOAT;\
+	}\
+	else{\
+		resultItem.value.l = op(GetItemValue(i2), GetItemValue(i1));\
+		resultItem.type = INTEGER;\
+	}\
+	AStack_Push(computationalStack, resultItem, struct computationalStackItem);\
+	break;\
+}
 
 union data {
 	double dbl;
@@ -71,6 +82,7 @@ void interpreteByteCode(char *buf, int length)
 	union data registers [__REGISTER_COUNT];
 	struct astack computationalStack;
 	struct computationalStackItem stackItems[3];
+	struct computationalStackItem item;
 	struct computationalStackItem resultItem;
 	int i;
 	int paramCount;
@@ -89,32 +101,42 @@ void interpreteByteCode(char *buf, int length)
 				memcpy(GetTarget(options[1].location, params[1].ptr), GetTarget(options[0].location, params[0].ptr), options[0].size);
 				break;*/
 			case iADD:
-				stackItems[0] = PopComputationalStackItem();
-				stackItems[1] = PopComputationalStackItem();
-				if(stackItems[0].type == FLOAT || stackItems[1].type == FLOAT){
-					resultItem.value.dbl = GetItemValue(stackItems[0]) + GetItemValue(stackItems[1]);
-					resultItem.type = FLOAT;
-					printf("Result = %lf\n", resultItem.value.dbl);
+				BasicArithmeticOperation(ADD);
+				break;
+			case iSUB:
+				BasicArithmeticOperation(SUB);
+				break;
+			case iMUL:
+				BasicArithmeticOperation(MUL);
+				break;
+			case iDIV:
+				BasicArithmeticOperation(DIV);
+				break;
+			case iMOD:
+				BasicArithmeticOperation(MOD);
+				break;
+			case iPRINT:
+				item = PopComputationalStackItem();
+				switch(item.type){
+					case INTEGER:
+						printf("type: Integer, value: %ld\n", item.value.l);
+						break;
+					case FLOAT:
+						printf("type: Float, value: %lf\n", item.value.dbl);
+						break;
+					default:
+						printf("Not how to tell you this but...\n");
+						break;
 				}
-				else{
-					resultItem.value.l = GetItemValue(stackItems[0]) + GetItemValue(stackItems[1]);
-					resultItem.type = INTEGER;
-					printf("Result = %ld\n", resultItem.value.l);
-				}
-				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
 				break;
 			case iIPUSH:
-				printf("pushing integer onto stack\n");
 				resultItem.type = INTEGER;
 				resultItem.value.l = GetTypeAndAdvance(progBuf, long);
-				printResultItem(resultItem);
 				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
 				break;
 			case iFPUSH:
-				printf("pushing integer onto stack\n");
 				resultItem.type = FLOAT;
 				resultItem.value.dbl = GetTypeAndAdvance(progBuf, double);
-				printResultItem(resultItem);
 				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
 				break;
 			case iHELLO:

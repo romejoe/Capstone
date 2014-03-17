@@ -11,10 +11,8 @@ struct lexerData{
 	struct Program *_program;
 };
 
-#define ___LEX_DEBUG___ 1
-
 void LEXDEBUG_LOG(const char *item, char *ytext) {
-	#ifdef ___LEX_DEBUG___ 
+	#ifdef __LEX_DEBUG__
 		fprintf(stderr, "Found %s => {%s}\n", item, ytext);
 	#endif
 }
@@ -297,7 +295,7 @@ WHITESPACE 	[ \t\n\r]
 		struct lexerData extraData;
 		void *_pParser = ParseAlloc( malloc );
 		extraData._pParser = _pParser;
-		#ifdef ___LEX_DEBUG___
+		#ifdef __LEX_DEBUG__
 			ParseTrace(stdout, "\t\t@@@ ");
 		#endif
 

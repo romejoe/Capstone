@@ -92,7 +92,12 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 void assembleContext(struct Context *context, struct ByteStream *stream){
 	/*write symbols to stream */
 	/*write expression to stream */
-	assembleExpression(context->exp, stream);
+	struct List *expressions = context->expressions;
+	printf("list size = %d\n", expressions->ListSize);
+	List_ForEach(expressions,{
+		assembleExpression(List_Ref_Value(expressions, i, struct Expression *), stream);	
+	});
+	
 }
 
 struct ByteStream *AssembleProgram(struct Program *program)

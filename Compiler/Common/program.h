@@ -26,6 +26,7 @@ struct Expression {
 
 struct Context{
 	struct Expression *exp;
+	struct List *expressions;
 	/* 1 => symbol */
 	/* 2 => symbols */
 	char exportType;

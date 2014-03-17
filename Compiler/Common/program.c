@@ -27,7 +27,12 @@ struct Symbol *new_symbol(char *name, enum data_type type){
 struct Context *new_context(struct Expression *exp, void *symbols, char exportType){
 	struct Context *ret;
 	ret = (struct Context *) malloc(sizeof(struct Context));
+	
+	ret->expressions = malloc(sizeof(struct List));
+	newList(ret->expressions, struct Expression *);
+	if(exp) List_Add_Value(ret->expressions, exp, struct Expression *);
 	ret->exp = exp;
+
 	ret->exports._raw = symbols;
 	ret->exportType = exportType;
 	return ret;

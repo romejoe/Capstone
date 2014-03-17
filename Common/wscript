@@ -11,11 +11,14 @@ def configure(conf):
 	if not conf.env.CC:
 		conf.fatal('Please install a C compiler')
 
+	
 	if conf.options.mode == 'debug':
 		print "Setting up debug build"
 		conf.env['CFLAGS'] = ['-g3', '-std=c89']
+		conf.define("__LEX_DEBUG__", 1)
 	else:
-		conf.env['CFLAGS'] = ['-std=c89']
+		print "Setting up release build"
+		conf.env['CFLAGS'] = ['-ansi', '-std=c89']
 	conf.recurse(recurseDirs)
 
 

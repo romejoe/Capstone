@@ -68,55 +68,33 @@ program ::= statementgroup(stmntgrp).{
 	tmpHack->context = stmntgrp->context;
 }
 
-statementgroup(val) ::=  statement(stmt) SEMICOLON statementgroup(stmntgrp).{
+statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
 	struct Expression *tmp;
 	struct Context *lContext, *rContext;
 	struct List *lSymbols, *rSymbols;
+	struct List *lExpressions, *rExpressions;
 	struct Symbol *sym;
 	lContext = stmt->context;
 	rContext = stmntgrp->context;
-
-	/*merge expressions*/
-	tmp = new_expression(PASS);
-	tmp->left = lContext->exp;
-	tmp->right = rContext->exp;
-
-	rContext->exp = tmp;
+	
+	/*add statement to the end of the statement group*/
+	List_Add_Value(stmntgrp->context->expressions,
+	 /*List_Ref_Value(stmt->context->expressions, 0, struct Expression *),*/
+	stmt->context->exp,
+	 struct Expression *);
 
 	/*merge symbols*/
 	lSymbols = lContext->exports.symbols;
 	rSymbols = rContext->exports.symbols;
-	printf("here\n");
-	if(lSymbols){
-		printf("lSymbols:\n");
-		List_ForEach(lSymbols, {
-			sym = List_Ref_Value(lSymbols, i, struct Symbol *);
-			printSymbol(sym);	
-		});
-	}
-
-	if(rSymbols){
-		printf("rSymbols:\n");
-		List_ForEach(rSymbols, {
-			sym = List_Ref_Value(rSymbols, i, struct Symbol *);
-			printSymbol(sym);	
-		});
-	}
+	
 
 	if(lSymbols){
-		printf("Merging Lists\n");
-		printf("lSymbols ptr = %p\n", lSymbols);
-		printf("rSymbols ptr = %p\n", rSymbols);
 		List_ForEach(lSymbols, {
 			sym = List_Ref_Value(lSymbols, i, struct Symbol *);
-			printSymbol(sym);	
+			/*printSymbol(sym);*/
+			List_Add_Value(rSymbols, sym, struct Symbol *);
 		});
-	List_ForEach(lSymbols, {
-		sym = List_Ref_Value(lSymbols, i, struct Symbol *);
-		printSymbol(sym);
-		List_Add_Value(rSymbols, sym, struct Symbol *);
-	});
-}
+	}
 	val = (Token *) malloc(sizeof(Token));
 	val->context = rContext;
 }
@@ -132,7 +110,6 @@ statementgroup(val) ::= statement(stmt) SEMICOLON.{
 	}
 
 	context = new_context(stmt->context->exp, symbolList, 2);
-	
 
 	val = (Token *) malloc(sizeof(Token));
 	val->context = context;

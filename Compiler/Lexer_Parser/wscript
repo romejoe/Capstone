@@ -19,6 +19,14 @@ def configure(conf):
 
 	conf.load('y2c', tooldir='.')
 
+	
+	if conf.options.mode == 'debug':
+		print "Setting up debug build"
+		conf.env['CFLAGS'] = ['-g3', '-std=c89']
+		conf.define("__LEX_DEBUG__", 1)
+	else:
+		print "Setting up release build"
+		conf.env['CFLAGS'] = ['-ansi', '-std=c89']
 	conf.recurse(recurseDirs)
 
 

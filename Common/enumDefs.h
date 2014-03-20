@@ -29,4 +29,9 @@ enum data_type {
 	tFUNCTION
 };
 
+enum statementType{
+	GENERALSTATEMENT,
+	IFSTATEMENT
+};
+
 #endif

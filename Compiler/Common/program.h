@@ -5,6 +5,12 @@
 #ifndef ___PROGRAM_H__
 #define ___PROGRAM_H__
 
+/* prototypes */
+struct Symbol;
+struct Context;
+struct IfStatement;
+struct GenericStatement;
+
 struct Symbol{
 	char *name;
 	enum data_type type;
@@ -25,17 +31,23 @@ struct Expression {
 };
 
 struct Context{
-	struct Expression *exp;
-	struct List *expressions;
-	/* 1 => symbol */
-	/* 2 => symbols */
-	char exportType;
-	union {
-		struct Symbol *symbol;
-		struct List *symbols;
-		void *_raw;
-	} exports;
+	struct List *statements;
+	struct List *symbols;
+};
 
+struct IfStatement{
+	struct Expression *testStatement;
+	struct Context *yes, *no;
+};
+
+struct GenericStatement{
+	enum statementType type;
+	char hasDef;
+	union{
+		struct Expression *exp;
+		struct IfStatement *ifstmt;
+	};
+	struct Symbol *sym;
 };
 
 struct Program {
@@ -48,7 +60,7 @@ struct Program {
 
 struct Expression *new_expression(enum expression_type);
 struct Symbol *new_symbol(char *name, enum data_type type);
-struct Context *new_context(struct Expression *exp, void *symbols, char exportType);
+struct Context *new_context(struct GenericStatement *exp);
 
 char *getPrettyTypeName(enum data_type type);
 

@@ -24,17 +24,23 @@ struct Symbol *new_symbol(char *name, enum data_type type){
 	return ret;
 }
 
-struct Context *new_context(struct Expression *exp, void *symbols, char exportType){
+struct Context *new_context(struct GenericStatement *statement){
 	struct Context *ret;
 	ret = (struct Context *) malloc(sizeof(struct Context));
 	
-	ret->expressions = malloc(sizeof(struct List));
-	newList(ret->expressions, struct Expression *);
-	if(exp) List_Add_Value(ret->expressions, exp, struct Expression *);
-	ret->exp = exp;
+	ret->statements = malloc(sizeof(struct List));
+	newList(ret->statements, struct GenericStatement *);
+	
+	ret->symbols = malloc(sizeof(struct List));
+	newList(ret->symbols, struct Symbol *);
 
-	ret->exports._raw = symbols;
-	ret->exportType = exportType;
+	if(statement){
+		List_Add_Value(ret->statements, statement, struct GenericStatement *);
+		if(statement->hasDef){
+			List_Add_Value(ret->symbols, statement->sym, struct Symbol *);
+		}
+	}
+
 	return ret;
 }
 char *getPrettyTypeName(enum data_type type){

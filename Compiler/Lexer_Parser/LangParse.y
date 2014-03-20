@@ -3,43 +3,8 @@
 	#include <assert.h>
 	#include "token.h"
 	#include "program.h"
-/*
-	char isFloatType(enum data_type type){
-		return (type == tFLOAT || type == tDOUBLE);
-	}
-
-	enum data_type DetermineResultType(enum data_type type1, enum data_type type2){
-		enum data_type ret;
-		check if same type
-		if(type1 == type2){
-			return type1;
-		}
-		check for void types
-		if(type1 == tVOID || type2 == tVOID){
-			return tVOID;
-		}
-
-		ret = (type1 > type2)? type1 : type2;
 
 
-		check wether they are both just integers
-		if(isFloatType(type1) || isFloatType(type2)){
-			switch(ret){
-				case tBOOL:
-				case tCHAR:
-				case tSHORT:
-				case tINT:
-					return tFLOAT;
-				case tLONG:
-					return tDOUBLE;
-				default:
-				;
-			}
-			
-		}
-		return ret;
-	}
-*/
 	struct Program *tmpHack = NULL;
 
 	struct Program *getProgram(void *yyparser){
@@ -49,6 +14,16 @@
 }
 
 %token_type {Token *}
+
+%type statementgroup 	{struct Context *}
+%type statement 		{struct GenericStatement *}
+%type expression 		{struct Expression *}
+%type definition 		{struct Symbol *}
+%type datatype			{struct Symbol *}
+%type term				{struct Expression *}
+%type signedFactor		{struct Expression *}
+%type factor 			{struct Expression *}
+
 %token_prefix {T_}
 
 %parse_accept	{
@@ -65,231 +40,191 @@
 
 program ::= statementgroup(stmntgrp).{
 	tmpHack = malloc(sizeof(struct Program));
-	tmpHack->context = stmntgrp->context;
+	tmpHack->context = stmntgrp;
 }
 
 statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
-	struct Expression *tmp;
-	struct Context *lContext, *rContext;
-	struct List *lSymbols, *rSymbols;
-	struct List *lExpressions, *rExpressions;
-	struct Symbol *sym;
-	lContext = stmt->context;
-	rContext = stmntgrp->context;
-	
+	/*stmntgrp will be a Context*/
+	/*stmt will be a GenericStatement*/
+	struct GenericStatement *gStmnt;
+
 	/*add statement to the end of the statement group*/
-	List_Add_Value(stmntgrp->context->expressions,
-	 /*List_Ref_Value(stmt->context->expressions, 0, struct Expression *),*/
-	stmt->context->exp,
-	 struct Expression *);
-
-	/*merge symbols*/
-	lSymbols = lContext->exports.symbols;
-	rSymbols = rContext->exports.symbols;
-	
-
-	if(lSymbols){
-		List_ForEach(lSymbols, {
-			sym = List_Ref_Value(lSymbols, i, struct Symbol *);
-			/*printSymbol(sym);*/
-			List_Add_Value(rSymbols, sym, struct Symbol *);
-		});
+	List_Add_Value(stmntgrp->statements, stmt,struct GenericStatement *);
+	if(stmt->hasDef){
+		List_Add_Value(stmntgrp->symbols, stmt->sym, struct Symbol *);
 	}
-	val = (Token *) malloc(sizeof(Token));
-	val->context = rContext;
+	val = stmntgrp;
 }
 
 statementgroup(val) ::= statement(stmt) SEMICOLON.{
-	struct Context *context;
-	struct List *symbolList;
-
-	symbolList = stmt->context->exports.symbols;
-	if(!symbolList){ 
-		symbolList = (struct List *) malloc(sizeof(struct List));
-		newList(symbolList, struct Symbol *);	
-	}
-
-	context = new_context(stmt->context->exp, symbolList, 2);
-
-	val = (Token *) malloc(sizeof(Token));
-	val->context = context;
+	val = new_context(stmt);
 }
 
-statement ::= IF LPAREN expression RPAREN LCURLY statementgroup RCURLY.
+statement(val) ::= IF LPAREN expression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY.{
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = IFSTATEMENT;
+	stmt->ifstmt = malloc(sizeof(struct IfStatement));
+	stmt->ifstmt->testStatement = test;
+	stmt->ifstmt->yes = yesCode;
+	stmt->ifstmt->no = NULL;
+	val = stmt;
+}
+
+statement(val) ::= IF LPAREN expression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY KEYWORD_ELSE LCURLY statementgroup(noCode) RCURLY.{
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = IFSTATEMENT;
+	stmt->ifstmt = malloc(sizeof(struct IfStatement));
+	stmt->ifstmt->testStatement = test;
+	stmt->ifstmt->yes = yesCode;
+	stmt->ifstmt->no = noCode;
+	val = stmt;
+}
+
 statement(val) ::= definition(def) EQUAL expression(initial).{
-	struct Context *context;
 	struct Expression *dst, *exp;
-	
-	context = def->context;
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = GENERALSTATEMENT;
+	stmt->hasDef = 1;
+	stmt->sym = def;
 
 	dst = new_expression(SOURCE);
-	dst->dataSource.sym = List_Ref_Value(context->exports.symbols, 0, struct Symbol *);
+	dst->dataSource.sym = def;
 	dst->source_type = SYMBOL;
+	
 	exp = new_expression(ASSIGNMENT);
 	exp->left = dst;
-	exp->right = initial->context->exp;
+	exp->right = initial;
 
-	context->exp = exp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = context;
+	stmt->exp = exp;
+	
+	val = stmt;
 }
 
 statement(val) ::= definition(def).{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = def->context;
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = GENERALSTATEMENT;
+	stmt->hasDef = 1;
+	stmt->sym = def;
+	stmt->exp = NULL;
+
+	val = stmt;
 }
 
-statement(val) ::= expression(expTkn).{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = expTkn->context;
+statement(val) ::= expression(expression).{
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = GENERALSTATEMENT;
+	stmt->hasDef = 0;
+	stmt->sym = NULL;
+
+	stmt->exp = expression;
+	
+	val = stmt;
 }
 
 
-statement(val) ::= KEYWORD_PRINT expression(expTkn).{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = expTkn->context;
+statement(val) ::= KEYWORD_PRINT expression(expression).{
+	struct GenericStatement *stmt;
 	struct Expression *print = new_expression(PRINT);
 	print->left = NULL;
-	print->right = val->context->exp;
-	val->context->exp = print;
+	print->right = expression;
+
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = GENERALSTATEMENT;
+	stmt->hasDef = 0;
+	stmt->sym = NULL;
+
+	stmt->exp = print;
+	
+	val = stmt;
 }
 
 definition(val) ::= datatype(type) IDENTIFIER(id).{
-	struct Symbol **sym = List_Ref(type->context->exports.symbols, 0);
-	(*sym)->name = id->literal;
-
-	printf("_List Ptr = %p\n", type->context->exports.symbols);
-	printf("[0] = %p\n", *sym);
-	printf("Haz definition\n");
-	printSymbol(*sym);
-	val = (Token *) malloc(sizeof(Token));
-	val->context = type->context;
+	type->name = id->literal;
+	val = type;
 }
 
 datatype(val) ::= KEYWORD_INTEGER.{
-	struct Symbol *sym = new_symbol(NULL, tINTEGER);
-	struct List *list = (struct List *) malloc(sizeof(struct List));
-	struct Context *context;
-	printf("IList Ptr = %p\n", list);
-	printf("Isym Ptr = %p\n", sym);
-	newList(list, struct Symbol *);
-	List_Add_Value(list, sym, struct Symbol *);
-	
-	context = new_context(NULL, list, 2);
-	
-	val = (Token *) malloc(sizeof(Token));
-	val->context = context;
+	val = new_symbol(NULL, tINTEGER);
 }
 
 datatype(val) ::= KEYWORD_FLOAT.{
-	struct Symbol *sym = new_symbol(NULL, tFLOAT);
-	struct List *list = (struct List *) malloc(sizeof(struct List));
-	printf("FList Ptr = %p\n", list);
-	printf("Fsym Ptr = %p\n", sym);
-	struct Context *context;
-	newList(list, struct Symbol *);
-	List_Add_Value(list, sym, struct Symbol *);
-	context = new_context(NULL, list, 2);
-	val = (Token *) malloc(sizeof(Token));
-	val->context = context;
+	val = new_symbol(NULL, tFLOAT);
 }
 
-expression(val) ::= term(tm) PLUS expression(expTkn).{
-	struct Expression *tmExp = tm->context->exp;
-	struct Expression *expExp = expTkn->context->exp;
+expression(val) ::= term(tm) PLUS expression(exp).{
 	struct Expression *tmp;
 	tmp = new_expression(ADD);
-	tmp->left = tmExp;
-	tmp->right = expExp;
+	tmp->left = tm;
+	tmp->right = exp;
 
-	expTkn->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = expTkn->context;
+	val = tmp;
 }
 
-expression(val) ::= term(tm) MINUS expression(expTkn).{
-	struct Expression *tmExp = tm->context->exp;
-	struct Expression *expExp = expTkn->context->exp;
+expression(val) ::= term(tm) MINUS expression(exp).{
 	struct Expression *tmp;
 	tmp = new_expression(SUBTRACT);
-	tmp->left = tmExp;
-	tmp->right = expExp;
+	tmp->left = tm;
+	tmp->right = exp;
 
-	expTkn->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = expTkn->context;
+	val = tmp;
 }
 
 expression(val) ::= term(tm).{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = tm->context;
+	val = tm;
 }
 
 %left MUL DIV MOD.
 %right EXP.
 
 term(val) ::= term(tm1) MUL term(tm2).{
-	struct Expression *tm1Exp = tm1->context->exp;
-	struct Expression *tm2Exp = tm2->context->exp;
 	struct Expression *tmp;
 	tmp = new_expression(MULTIPLY);
-	tmp->left = tm1Exp;
-	tmp->right = tm2Exp;
+	tmp->left = tm1;
+	tmp->right = tm2;
 
-	tm2->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = tm2->context;
+	val = tmp;
 }
 
 term(val) ::= term(tm1) DIV term(tm2).{
-	struct Expression *tm1Exp = tm1->context->exp;
-	struct Expression *tm2Exp = tm2->context->exp;
 	struct Expression *tmp;
 	tmp = new_expression(DIVIDE);
-	tmp->left = tm1Exp;
-	tmp->right = tm2Exp;
+	tmp->left = tm1;
+	tmp->right = tm2;
 
-	tm2->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = tm2->context;
+	val = tmp;
 }
 
 term(val) ::= term(tm1) MOD term(tm2).{
-	struct Expression *tm1Exp = tm1->context->exp;
-	struct Expression *tm2Exp = tm2->context->exp;
 	struct Expression *tmp;
 	tmp = new_expression(MODULUS);
-	tmp->left = tm1Exp;
-	tmp->right = tm2Exp;
+	tmp->left = tm1;
+	tmp->right = tm2;
 
-	tm2->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = tm2->context;
+	val = tmp;
 }
 
 term(val) ::= term(tm1) EXP term(tm2).{
-	struct Expression *tm1Exp = tm1->context->exp;
-	struct Expression *tm2Exp = tm2->context->exp;
 	struct Expression *tmp;
 	tmp = new_expression(POWER);
-	tmp->left = tm1Exp;
-	tmp->right = tm2Exp;
+	tmp->left = tm1;
+	tmp->right = tm2;
 
-	tm2->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = tm2->context;
+	val = tmp;
 }
 
 term(val) ::= signedFactor(fact).{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = fact->context;
+	val = fact;
 }
 
 
 signedFactor(val) ::= PLUS factor(fact).{
 	/*possibly make this imply absolute value*/
-	val = (Token *) malloc(sizeof(Token));
-	val->context = fact->context;
+	val = fact;
 }
 signedFactor(val) ::= MINUS factor(fact).{
 	struct Expression *tmp = new_expression(MULTIPLY);
@@ -299,22 +234,17 @@ signedFactor(val) ::= MINUS factor(fact).{
 	LHS->dataSource.Integer = -1;
 	
 	tmp->left = LHS;
-	tmp->right = fact->context->exp;
+	tmp->right = fact;
 	
-	fact->context->exp = tmp;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = fact->context;
-
+	val = tmp;
 }
 
 signedFactor(val) ::= factor(fact).{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = fact->context;
+	val = fact;
 }
 
-factor(val) ::= LPAREN expression(expression) RPAREN.{
-	val = (Token *) malloc(sizeof(Token));
-	val->context = expression->context;
+factor(val) ::= LPAREN expression(exp) RPAREN.{
+	val = exp;
 }
 factor ::= SYMBOL.
 
@@ -323,8 +253,7 @@ factor(val) ::= INTEGER(intToken).{
 	tmp = new_expression(SOURCE);
 	tmp->source_type = INTEGER;
 	tmp->dataSource.Integer = intToken->intData;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = new_context(tmp, NULL, 0);
+	val = tmp;
 }
 
 factor(val) ::= FLOAT(flt).{
@@ -332,6 +261,5 @@ factor(val) ::= FLOAT(flt).{
 	tmp = new_expression(SOURCE);
 	tmp->source_type = FLOAT;
 	tmp->dataSource.Float = flt->floatData;
-	val = (Token *) malloc(sizeof(Token));
-	val->context = new_context(tmp, NULL, 0);
+	val = tmp;
 }

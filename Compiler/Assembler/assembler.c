@@ -1,6 +1,12 @@
 #include "CByteStream/FullByteStream.h"
 #include "assembler.h"
 
+void writeCompleteInstructionToStream(struct complete_instruction *instruct, struct ByteStream *stream);
+void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream);
+void assembleExpression(struct Expression *exp, struct ByteStream *stream);
+void assembleContext(struct Context *context, struct ByteStream *stream);
+
+
 void writeCompleteInstructionToStream(struct complete_instruction *instruct, struct ByteStream *stream){
 	
 	int i;
@@ -24,6 +30,17 @@ void writeInstructionToStream(struct instruction *instruct, struct ByteStream *s
 	struct paramOption tmpOption;
 	writeTypeToByteStream(*instruct,stream, struct instruction);
 	
+}
+
+void assembleStatement(struct GenericStatement *stmt, struct ByteStream *stream){
+	switch(stmt->type){
+		case GENERALSTATEMENT:
+			assembleExpression(stmt->exp, stream);
+			break;
+		default:
+			printf("Statement type is unsupported!!!\n");
+			break;
+	}
 }
 
 void assembleExpression(struct Expression *exp, struct ByteStream *stream)
@@ -78,6 +95,9 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 						writeToByteStream(in, stream);
 						writeTypeToByteStream(exp->dataSource.Float, stream, double);	
 						break;
+					default:
+						printf("Source is unsupported!!!\n");
+						break;
 				}
 			}
 			break;
@@ -92,10 +112,10 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 void assembleContext(struct Context *context, struct ByteStream *stream){
 	/*write symbols to stream */
 	/*write expression to stream */
-	struct List *expressions = context->expressions;
-	printf("list size = %d\n", expressions->ListSize);
-	List_ForEach(expressions,{
-		assembleExpression(List_Ref_Value(expressions, i, struct Expression *), stream);	
+	struct List *statements = context->statements;
+	printf("list size = %d\n", statements->ListSize);
+	List_ForEach(statements,{
+		assembleStatement(List_Ref_Value(statements, i, struct GenericStatement *), stream);	
 	});
 	
 }

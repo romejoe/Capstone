@@ -3,10 +3,18 @@
 #include "FileUtil.h"
 #include "Lexer_Parser/lexer.h"
 
-void printExpression(struct Expression *expression, int depth){
+void printContext(struct Context *prog, int depth);
+
+void printPadding(int depth){
 	int i;
+	for(i = 0; i < depth; ++i){
+		printf("_");
+	}
+}
+
+void printExpression(struct Expression *expression, int depth){
 	if(expression == NULL) return;
-	for(i = 0; i < depth; ++i) printf("_");
+	printPadding(depth);
 
 	switch(expression->type){
 		case ASSIGNMENT:
@@ -44,30 +52,46 @@ void printExpression(struct Expression *expression, int depth){
 	printExpression(expression->right, depth + 1);
 
 }
+void printStatement(struct GenericStatement *stmt, int depth){
+	switch(stmt->type){
+		case GENERALSTATEMENT:
+			printExpression(stmt->exp, depth);
+			break;
+		case IFSTATEMENT:
+			printPadding(depth);
+			printf("Test Expression:\n");
+			printExpression(stmt->ifstmt->testStatement, depth + 1);
+			printPadding(depth);
+			printf("Yes Code:\n");
+			printContext(stmt->ifstmt->yes, depth+1);
+			if(stmt->ifstmt->no){
+				printPadding(depth);
+				printf("No Code:\n");
+				printContext(stmt->ifstmt->no, depth+1);
+			}
+			break;
+		default:
+			printPadding(depth);
+			printf("Unkown Statement Type\n");
+			break;
+	}
+}
 
 void printContext(struct Context *prog, int depth){
 	struct List *symbols;
-	struct Symbol **symbol;
+	struct Symbol *symbol;
 	/* print symbols */
+	printPadding(depth);
 	printf("Symbols:\n======\n");
-	if(prog->exports._raw){
-		switch(prog->exportType){
-			case 1:
-				printf("1 symbol\n");
-				printSymbol(prog->exports.symbol);
-				break;
-			case 2:
-				symbols = prog->exports.symbols;
-				List_ForEach(symbols, {
-					symbol = (struct Symbol **) List_Ref(symbols, i);
-					printSymbol(*symbol);
-				});
-				break;
-			default:
-				break;
-		}
-	}
-	printExpression(prog->exp, 0);
+	
+	symbols = prog->symbols;
+	List_ForEach(symbols, {
+		symbol = List_Ref_Value(symbols, i, struct Symbol *);
+		printSymbol(symbol);
+	});
+	List_ForEach(prog->statements, {
+		printStatement(List_Ref_Value(prog->statements, i, struct GenericStatement *), depth + 1);
+	});
 }
 
 int main(int argc, char **argv)

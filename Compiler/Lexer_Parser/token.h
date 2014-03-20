@@ -7,7 +7,6 @@
 typedef struct {
 	/*int line_num;*/
 	enum datasource type;
-	struct Context *context;
 	union {
 		long intData;
 		double floatData;

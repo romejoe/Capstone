@@ -1,0 +1,20 @@
+STDERR:
+STDOUT:
+Symbols:
+======
+name: sQWERTY, type: FLOAT
+name: a, type: INTEGER
+name: n, type: FLOAT
+name: b, type: INTEGER
+name: d, type: INTEGER
+name: e, type: INTEGER
+name: c, type: INTEGER
+name: foo, type: FLOAT
+_=
+__c
+__5
+_=
+__foo
+__+
+___35
+___16

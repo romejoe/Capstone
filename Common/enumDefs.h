@@ -20,7 +20,13 @@ enum expression_type {
 	DIVIDE,
 	MODULUS,
 	POWER,
-	PRINT
+	PRINT,
+	CHECK_EQ,
+	CHECK_NE,
+	CHECK_GT,
+	CHECK_LT,
+	CHECK_GTE,
+	CHECK_LTE
 };
 enum data_type {
 	tVOID = 0,

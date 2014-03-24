@@ -59,6 +59,7 @@ struct Program {
 /*Protoypes*/
 
 struct Expression *new_expression(enum expression_type);
+struct Expression *new_expression_children(enum expression_type, struct Expression *left, struct Expression *right);
 struct Symbol *new_symbol(char *name, enum data_type type);
 struct Context *new_context(struct GenericStatement *exp);
 

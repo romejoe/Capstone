@@ -24,6 +24,8 @@
 enum instruction_type {
 	iHELLO = -1,
 	iRELJMP,
+	iJMPT,
+	iJMPF,
 	iMOV,
 	iADD,
 	iSUB,

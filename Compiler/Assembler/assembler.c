@@ -32,10 +32,41 @@ void writeInstructionToStream(struct instruction *instruct, struct ByteStream *s
 	
 }
 
+void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *stream){
+	struct IfStatement *ifStmt = stmt->ifstmt;
+	struct ByteStream *yesCode;
+	struct instruction jmp;
+	
+	assembleExpression(ifStmt->testStatement, stream);
+	
+	// if statement
+	if(!ifStmt->no){
+		jmp = new_instruction(iJMPF);
+		writeInstructionToStream(&jmp, stream);
+
+		//assemble true code
+		yesCode = malloc(sizeof(struct ByteStream));
+		initByteStream(yesCode);
+		assembleContext(ifStmt->yes, yesCode);
+
+		//write jump coordinates to stream
+		writeTypeToByteStream(sizeof(long) + yesCode->actualsize, stream, long);
+		appendByteStreamToByteStream(stream, yesCode);
+	}
+	// if/else statement
+	else{
+		printf("not implemented\n");
+	}
+	
+}
+
 void assembleStatement(struct GenericStatement *stmt, struct ByteStream *stream){
 	switch(stmt->type){
 		case GENERALSTATEMENT:
 			assembleExpression(stmt->exp, stream);
+			break;
+		case IFSTATEMENT:
+			assembleIfStatement(stmt, stream);
 			break;
 		default:
 			printf("Statement type is unsupported!!!\n");

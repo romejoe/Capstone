@@ -27,6 +27,18 @@ int initByteStream(struct ByteStream *stream)
 	return initByteStreamWithSize(stream, DEFAULTSIZE);
 }
 
+void appendByteStreamToByteStream(struct ByteStream *dst, struct ByteStream *appendee){
+	if(dst->actualsize + appendee->actualsize > dst->bufsize)
+		dst->resizeBuff(dst, dst->actualsize + appendee->actualsize);
+
+	memcpy(dst->buffer + dst->actualsize, appendee->buffer, appendee->actualsize);
+	dst->actualsize += appendee->actualsize;
+}
+
+void resetByteStream(struct ByteStream *stream){
+	stream->actualsize = 0;
+}
+
 void writeStreamToFile(FILE *f, struct ByteStream *stream)
 {
 	fwrite(stream->buffer, stream->actualsize, 1, f);

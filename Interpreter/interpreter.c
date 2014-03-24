@@ -85,6 +85,7 @@ void interpreteByteCode(char *buf, int length)
 	struct computationalStackItem resultItem;
 	int i;
 	int paramCount;
+	long offset;
 
 	initAStack(computationalStack, struct computationalStackItem);
 
@@ -143,6 +144,20 @@ void interpreteByteCode(char *buf, int length)
 				break;
 			case iHELLO:
 				printf("Hello First Instruct\n");
+				break;
+			case iJMPF:
+				item = PopComputationalStackItem();
+				offset = GetTypeAndAdvance(progBuf, long);
+				if(!item.value.l){
+					progBuf += offset;
+				}
+				break;
+			case iJMPT:
+				item = PopComputationalStackItem();
+				offset = GetTypeAndAdvance(progBuf, long);
+				if(item.value.l){
+					progBuf += offset;
+				}
 				break;
 			default:
 				printf("OP NOT SUPPORTED!\n");

@@ -47,6 +47,8 @@ int initByteStream(struct ByteStream *stream);
 		(stream)->actualsize += sizeof(type);\
 	}
 
+void appendByteStreamToByteStream(struct ByteStream *dst, struct ByteStream *appendee);
+void resetByteStream(struct ByteStream *stream);
 void writeStreamToFile(FILE *f, struct ByteStream *stream);
 
 #endif

@@ -15,14 +15,16 @@
 
 %token_type {Token *}
 
-%type statementgroup 	{struct Context *}
-%type statement 		{struct GenericStatement *}
-%type expression 		{struct Expression *}
-%type definition 		{struct Symbol *}
-%type datatype			{struct Symbol *}
-%type term				{struct Expression *}
-%type signedFactor		{struct Expression *}
-%type factor 			{struct Expression *}
+%type statementgroup 		{struct Context *}
+%type statement 			{struct GenericStatement *}
+%type flowstatement 		{struct GenericStatement *}
+%type fexpression 			{struct Expression *}
+%type expression 			{struct Expression *}
+%type definition	 		{struct Symbol *}
+%type datatype				{struct Symbol *}
+%type term					{struct Expression *}
+%type signedFactor			{struct Expression *}
+%type factor 				{struct Expression *}
 
 %token_prefix {T_}
 
@@ -56,11 +58,29 @@ statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
 	val = stmntgrp;
 }
 
+statementgroup(val) ::=  statementgroup(stmntgrp) flowstatement(stmt).{
+	/*stmntgrp will be a Context*/
+	/*stmt will be a GenericStatement*/
+	struct GenericStatement *gStmnt;
+
+	/*add statement to the end of the statement group*/
+	List_Add_Value(stmntgrp->statements, stmt,struct GenericStatement *);
+	if(stmt->hasDef){
+		List_Add_Value(stmntgrp->symbols, stmt->sym, struct Symbol *);
+	}
+	val = stmntgrp;
+}
+
+statementgroup(val) ::= flowstatement(stmt).{
+	val = new_context(stmt);
+}
+
 statementgroup(val) ::= statement(stmt) SEMICOLON.{
 	val = new_context(stmt);
 }
 
-statement(val) ::= IF LPAREN expression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY.{
+
+flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY.{
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = IFSTATEMENT;
@@ -71,7 +91,7 @@ statement(val) ::= IF LPAREN expression(test) RPAREN LCURLY statementgroup(yesCo
 	val = stmt;
 }
 
-statement(val) ::= IF LPAREN expression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY KEYWORD_ELSE LCURLY statementgroup(noCode) RCURLY.{
+flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY KEYWORD_ELSE LCURLY statementgroup(noCode) RCURLY.{
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = IFSTATEMENT;
@@ -82,8 +102,8 @@ statement(val) ::= IF LPAREN expression(test) RPAREN LCURLY statementgroup(yesCo
 	val = stmt;
 }
 
-statement(val) ::= definition(def) EQUAL expression(initial).{
-	struct Expression *dst, *exp;
+statement(val) ::= definition(def) EQUAL fexpression(initial).{
+	struct Expression *dst;
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = GENERALSTATEMENT;
@@ -94,11 +114,7 @@ statement(val) ::= definition(def) EQUAL expression(initial).{
 	dst->dataSource.sym = def;
 	dst->source_type = SYMBOL;
 	
-	exp = new_expression(ASSIGNMENT);
-	exp->left = dst;
-	exp->right = initial;
-
-	stmt->exp = exp;
+	stmt->exp = new_expression_children(ASSIGNMENT, dst, initial);
 	
 	val = stmt;
 }
@@ -114,7 +130,7 @@ statement(val) ::= definition(def).{
 	val = stmt;
 }
 
-statement(val) ::= expression(expression).{
+statement(val) ::= fexpression(expression).{
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = GENERALSTATEMENT;
@@ -127,7 +143,7 @@ statement(val) ::= expression(expression).{
 }
 
 
-statement(val) ::= KEYWORD_PRINT expression(expression).{
+statement(val) ::= KEYWORD_PRINT fexpression(expression).{
 	struct GenericStatement *stmt;
 	struct Expression *print = new_expression(PRINT);
 	print->left = NULL;
@@ -156,22 +172,41 @@ datatype(val) ::= KEYWORD_FLOAT.{
 	val = new_symbol(NULL, tFLOAT);
 }
 
-expression(val) ::= term(tm) PLUS expression(exp).{
-	struct Expression *tmp;
-	tmp = new_expression(ADD);
-	tmp->left = tm;
-	tmp->right = exp;
 
-	val = tmp;
+fexpression(val) ::= expression(leftExp) LOGICAL_EQ fexpression(rightExp).{
+	val = new_expression_children(CHECK_EQ, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_NE fexpression(rightExp).{
+	val = new_expression_children(CHECK_NE, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_GT fexpression(rightExp).{
+	val = new_expression_children(CHECK_GT, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_LT fexpression(rightExp).{
+	val = new_expression_children(CHECK_LT, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_GTE fexpression(rightExp).{
+	val = new_expression_children(CHECK_GTE, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_LTE fexpression(rightExp).{
+	val = new_expression_children(CHECK_LTE, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(exp).{
+	val = exp;
+}
+
+expression(val) ::= term(tm) PLUS expression(exp).{
+	val = new_expression_children(ADD, tm, exp);
 }
 
 expression(val) ::= term(tm) MINUS expression(exp).{
-	struct Expression *tmp;
-	tmp = new_expression(SUBTRACT);
-	tmp->left = tm;
-	tmp->right = exp;
-
-	val = tmp;
+	val = new_expression_children(SUBTRACT, tm, exp);
 }
 
 expression(val) ::= term(tm).{
@@ -182,39 +217,19 @@ expression(val) ::= term(tm).{
 %right EXP.
 
 term(val) ::= term(tm1) MUL term(tm2).{
-	struct Expression *tmp;
-	tmp = new_expression(MULTIPLY);
-	tmp->left = tm1;
-	tmp->right = tm2;
-
-	val = tmp;
+	val = new_expression_children(MULTIPLY, tm1, tm2);
 }
 
 term(val) ::= term(tm1) DIV term(tm2).{
-	struct Expression *tmp;
-	tmp = new_expression(DIVIDE);
-	tmp->left = tm1;
-	tmp->right = tm2;
-
-	val = tmp;
+	val = new_expression_children(DIVIDE, tm1, tm2);
 }
 
 term(val) ::= term(tm1) MOD term(tm2).{
-	struct Expression *tmp;
-	tmp = new_expression(MODULUS);
-	tmp->left = tm1;
-	tmp->right = tm2;
-
-	val = tmp;
+	val = new_expression_children(MODULUS, tm1, tm2);
 }
 
 term(val) ::= term(tm1) EXP term(tm2).{
-	struct Expression *tmp;
-	tmp = new_expression(POWER);
-	tmp->left = tm1;
-	tmp->right = tm2;
-
-	val = tmp;
+	val = new_expression_children(POWER, tm1, tm2);
 }
 
 term(val) ::= signedFactor(fact).{

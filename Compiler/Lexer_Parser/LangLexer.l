@@ -48,10 +48,16 @@ WHITESPACE 	[ \t\n\r]
 
 "if" {
 	LEXDEBUG_LOG("IF", yytext);
-	Token *tok = getToken(yytext, NA);
 	
-	Parse(yyextra->_pParser, T_IF, tok);
+	Parse(yyextra->_pParser, T_KEYWORD_IF, NULL);
 }
+
+"else" {
+	LEXDEBUG_LOG("ELSE", yytext);
+	
+	Parse(yyextra->_pParser, T_KEYWORD_ELSE, NULL);
+}
+
 "print" {
 	LEXDEBUG_LOG("PRINT KEYWORD", yytext);
 	Parse(yyextra->_pParser, T_KEYWORD_PRINT, NULL);
@@ -78,15 +84,15 @@ WHITESPACE 	[ \t\n\r]
 	/* Parenthesis Section */
 "(" { 
 	LEXDEBUG_LOG("Left Paren", yytext);
-	Token *tok = getToken(yytext, NA);
+	/*Token *tok = getToken(yytext, NA);*/
 	
-	Parse(yyextra->_pParser, T_LPAREN, tok);
+	Parse(yyextra->_pParser, T_LPAREN, NULL);
 }
 ")" { 
 	LEXDEBUG_LOG("Right Paren => )\n", yytext); 
-	Token *tok = getToken(yytext, NA);
+	/*Token *tok = getToken(yytext, NA);*/
 	
-	Parse(yyextra->_pParser, T_RPAREN, tok);
+	Parse(yyextra->_pParser, T_RPAREN, NULL);
 }
 	/* Curly Brace Section */
 "{" { 
@@ -161,32 +167,32 @@ WHITESPACE 	[ \t\n\r]
 "==" { 
 	LEXDEBUG_LOG("Equality", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_EQ, NULL);
 }
 "!=" { 
 	LEXDEBUG_LOG("Not Equality", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_NE, NULL);
 }
 ">" { 
 	LEXDEBUG_LOG("Greater Than", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_GT, NULL);
 }
 "<" { 
 	LEXDEBUG_LOG("Less Than", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_LT, NULL);
 }
 ">=" { 
 	LEXDEBUG_LOG("Greater Than or Equal", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_GTE, NULL);
 }
 "<=" { 
 	LEXDEBUG_LOG("Less Than or Equal", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_LTE, NULL);
 }
 	
 	/* Logical Operator Section */
@@ -264,7 +270,7 @@ WHITESPACE 	[ \t\n\r]
 	LEXDEBUG_LOG("Single Line Comment", yytext);
 }
 
-"/*".*"*/" { 
+"/*"([^*]*|[^*][^\/]*)*"*/" {
 	LEXDEBUG_LOG("Block Comment", yytext);
 }
 

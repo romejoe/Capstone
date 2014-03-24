@@ -14,6 +14,14 @@ struct Expression *new_expression(enum expression_type type)
 	return _ret;
 }
 
+struct Expression *new_expression_children(enum expression_type type, struct Expression *left, struct Expression *right){
+	struct Expression *ret;
+	ret = new_expression(type);
+	ret->left = left;
+	ret->right = right;
+	return ret;
+}
+
 struct Symbol *new_symbol(char *name, enum data_type type){
 	struct Symbol *ret;
 	ret = (struct Symbol *) malloc(sizeof(struct Symbol));

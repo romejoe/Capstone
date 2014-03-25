@@ -34,7 +34,7 @@ void writeInstructionToStream(struct instruction *instruct, struct ByteStream *s
 
 void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *stream){
 	struct IfStatement *ifStmt = stmt->ifstmt;
-	struct ByteStream *yesCode;
+	struct ByteStream *yesCode, *noCode;
 	struct instruction jmp;
 	
 	assembleExpression(ifStmt->testStatement, stream);
@@ -50,12 +50,35 @@ void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *strea
 		assembleContext(ifStmt->yes, yesCode);
 
 		//write jump coordinates to stream
-		writeTypeToByteStream(sizeof(long) + yesCode->actualsize, stream, long);
+		writeTypeToByteStream(yesCode->actualsize, stream, long);
 		appendByteStreamToByteStream(stream, yesCode);
 	}
 	// if/else statement
 	else{
-		printf("not implemented\n");
+		jmp = new_instruction(iJMPT);
+		
+
+		noCode = malloc(sizeof(struct ByteStream));
+		initByteStream(noCode);
+		assembleContext(ifStmt->no, noCode);
+		
+		//write jump coordinate, bad code + jmp instruction
+		writeInstructionToStream(&jmp, stream);
+		writeTypeToByteStream(noCode->actualsize + sizeof(long) + sizeof(struct instruction), stream, long);
+		
+		appendByteStreamToByteStream(stream, noCode);
+		
+
+		//assemble true code
+		yesCode = malloc(sizeof(struct ByteStream));
+		initByteStream(yesCode);
+		assembleContext(ifStmt->yes, yesCode);
+		//write jump coordinate, good code
+		jmp = new_instruction(iJMP);
+		writeInstructionToStream(&jmp, stream);
+		writeTypeToByteStream(yesCode->actualsize, stream, long);
+		appendByteStreamToByteStream(stream, yesCode);
+		
 	}
 	
 }
@@ -103,6 +126,24 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 			goto recurse;
 		case PRINT:
 			in = new_instruction(iPRINT);
+			goto recurse;
+		case CHECK_EQ:
+			in = new_instruction(iEQ);
+			goto recurse;
+		case CHECK_NE:
+			in = new_instruction(iNEQ);
+			goto recurse;
+		case CHECK_GT:
+			in = new_instruction(iGT);
+			goto recurse;
+		case CHECK_LT:
+			in = new_instruction(iLT);
+			goto recurse;
+		case CHECK_GTE:
+			in = new_instruction(iGTE);
+			goto recurse;
+		case CHECK_LTE:
+			in = new_instruction(iLTE);
 			goto recurse;
 
 			recurse:

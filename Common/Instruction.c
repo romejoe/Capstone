@@ -14,7 +14,7 @@ int getParamCountForInstruction(struct instruction instruct){
 	switch(instruct.opType){
 		case iIPUSH:
 		case iFPUSH:
-		case iRELJMP:
+		case iJMP:
 			return 1;
 		case iHELLO:
 			return 0;

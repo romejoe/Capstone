@@ -24,6 +24,11 @@
 #define MOD(a,b) (long)(a) % (long)(b)
 #define POW(a,b) pow((double) a, (double) b)
 
+#define CHECK_LESS_THAN(a,b) a < b
+#define CHECK_LESS_THAN_EQUAL(a,b) a <= b
+#define CHECK_GREATER_THAN(a,b) a > b
+#define CHECK_GREATER_THAN_EQUAL(a,b) a >= b
+
 #define BasicArithmeticOperation(op) {\
 	assert(computationalStack.top >= 1);\
 	struct computationalStackItem i1 = PopComputationalStackItem();\
@@ -92,14 +97,11 @@ void interpreteByteCode(char *buf, int length)
 	while (progBuf < stop) {
 		/*get instruction info*/
 		instruct = GetInstructionAndAdvance(progBuf);
-		
 		switch(instruct.opType){
-			case iRELJMP:
-				progBuf += params[0].l;
+			case iJMP:
+				offset = GetTypeAndAdvance(progBuf, long);
+				progBuf += offset;
 				break;
-			/*case iMOV:
-				memcpy(GetTarget(options[1].location, params[1].ptr), GetTarget(options[0].location, params[0].ptr), options[0].size);
-				break;*/
 			case iADD:
 				BasicArithmeticOperation(ADD);
 				break;
@@ -118,6 +120,37 @@ void interpreteByteCode(char *buf, int length)
 			case iPOW:
 				BasicArithmeticOperation(POW);
 				break;
+			case iEQ:{
+					assert(computationalStack.top >= 1);
+					struct computationalStackItem i1 = PopComputationalStackItem();
+					struct computationalStackItem i2 = PopComputationalStackItem();
+					resultItem.value.l = memcmp(&i1, &i2, sizeof(union data)) == 0;
+					resultItem.type = INTEGER;
+					AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				}
+				break;
+			case iNEQ:{
+					assert(computationalStack.top >= 1);
+					struct computationalStackItem i1 = PopComputationalStackItem();
+					struct computationalStackItem i2 = PopComputationalStackItem();
+					resultItem.value.l = memcmp(&i1, &i2, sizeof(union data)) != 0;
+					resultItem.type = INTEGER;
+					AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				}
+				break;
+			case iLT:
+				BasicArithmeticOperation(CHECK_LESS_THAN);
+				break;
+			case iLTE:
+				BasicArithmeticOperation(CHECK_LESS_THAN_EQUAL);
+				break;
+			case iGT:
+				BasicArithmeticOperation(CHECK_GREATER_THAN);
+				break;
+			case iGTE:
+				BasicArithmeticOperation(CHECK_GREATER_THAN_EQUAL);
+				break;
+
 			case iPRINT:
 				item = PopComputationalStackItem();
 				switch(item.type){

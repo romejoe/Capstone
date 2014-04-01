@@ -1,35 +1,12 @@
 #include "CByteStream/FullByteStream.h"
 #include "assembler.h"
 
-void writeCompleteInstructionToStream(struct complete_instruction *instruct, struct ByteStream *stream);
 void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream);
 void assembleExpression(struct Expression *exp, struct ByteStream *stream);
 void assembleContext(struct Context *context, struct ByteStream *stream);
 
-
-void writeCompleteInstructionToStream(struct complete_instruction *instruct, struct ByteStream *stream){
-	
-	int i;
-	struct paramOption tmpOption;
-	writeTypeToByteStream(instruct->instruct,stream, struct instruction);
-	writeTypeToByteStream(instruct->optionCount,stream, char);
-	
-	i = 0;
-	while(i < instruct->optionCount){
-		tmpOption = instruct->options[i];
-		printf("%d:\n", i);
-		/*printOption(tmpOption);*/
-	 	writeSizeToByteStream(tmpOption, stream, ParamOptionSize);
-	 ++i;
-	}
-}
-
 void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream){
-	
-	int i;
-	struct paramOption tmpOption;
 	writeTypeToByteStream(*instruct,stream, struct instruction);
-	
 }
 
 void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *stream){
@@ -186,9 +163,18 @@ void assembleContext(struct Context *context, struct ByteStream *stream){
 	/*write expression to stream */
 	struct List *statements = context->statements;
 	printf("list size = %d\n", statements->ListSize);
+	struct instruction tmp;
+	long varCount = context->symbols->ListSize;
+	tmp = new_instruction(iVALLOC);
+	writeInstructionToStream(&tmp, stream);
+	writeTypeToByteStream(varCount, stream, long);
 	List_ForEach(statements,{
 		assembleStatement(List_Ref_Value(statements, i, struct GenericStatement *), stream);	
 	});
+
+	tmp = new_instruction(iVDALLOC);
+	writeInstructionToStream(&tmp, stream);
+	writeTypeToByteStream(varCount, stream, long);
 	
 }
 

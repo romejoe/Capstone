@@ -81,18 +81,23 @@ void interpreteByteCode(char *buf, int length)
 	char *progBuf = buf;
 	char *stop = progBuf + length;
 	struct instruction instruct;
-	struct paramOption options[3];
 	union data params[3];
-	union data registers [__REGISTER_COUNT];
 	struct astack computationalStack;
 	struct computationalStackItem stackItems[3];
 	struct computationalStackItem item;
 	struct computationalStackItem resultItem;
+
+	struct List *variables;
+
 	int i;
 	int paramCount;
 	long offset;
+	long count;
 
 	initAStack(computationalStack, struct computationalStackItem);
+
+	variables = (struct List *) malloc(sizeof(struct List));
+	newList(variables, struct computationalStackItem);
 
 	while (progBuf < stop) {
 		/*get instruction info*/
@@ -192,6 +197,18 @@ void interpreteByteCode(char *buf, int length)
 					progBuf += offset;
 				}
 				break;
+
+			case iVALLOC:
+				count = GetTypeAndAdvance(progBuf, long);
+				List_Resize(variables, variables->ListSize + count);
+				break;
+
+			case iVDALLOC:
+				count = GetTypeAndAdvance(progBuf, long);
+				assert(count <= variables->ListSize);
+				variables->ListSize -= count;
+				break;
+
 			default:
 				printf("OP NOT SUPPORTED!\n");
 				break;

@@ -1,0 +1,15 @@
+//symbol tests
+//basic
+Float sQWERTY;
+Integer a;
+Float n;
+Integer b;
+Integer d;
+Integer e;
+//advanced
+Integer c = 5;
+Float foo = 35 + 16;
+// even more advanced
+if(5 + 3 == 8){
+	Integer foop = 56;
+}

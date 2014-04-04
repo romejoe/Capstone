@@ -6,8 +6,8 @@
 #define T_RCURLY                           6
 #define T_KEYWORD_ELSE                     7
 #define T_EQUAL                            8
-#define T_KEYWORD_PRINT                    9
-#define T_IDENTIFIER                      10
+#define T_IDENTIFIER                       9
+#define T_KEYWORD_PRINT                   10
 #define T_KEYWORD_INTEGER                 11
 #define T_KEYWORD_FLOAT                   12
 #define T_LOGICAL_EQ                      13
@@ -22,6 +22,5 @@
 #define T_DIV                             22
 #define T_MOD                             23
 #define T_EXP                             24
-#define T_SYMBOL                          25
-#define T_INTEGER                         26
-#define T_FLOAT                           27
+#define T_INTEGER                         25
+#define T_FLOAT                           26

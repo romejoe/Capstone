@@ -6,9 +6,6 @@
 #define GetInstruction(target)              GetTypeFromTarget(target, struct instruction)
 #define GetInstructionAndAdvance(target)    GetTypeAndAdvance(target, struct instruction)
 
-#define GetParameter(target)                GetTypeFromTarget(target, struct paramOption)
-#define GetParameterAndAdvance(target)      GetTypeAndAdvance(target, struct paramOption)
-
 #define GetParamData(target, source, size)          memcpy(target, source, (size))
 #define GetParamDataAndAdvance(target, source, size)    GetParamData(target,source,(size)); source += (size)
 
@@ -55,6 +52,7 @@ union data {
 
 struct computationalStackItem{
 	union data value;
+	long varIndex;
 	enum datasource type;
 };
 struct computationalStackItem holder;
@@ -88,7 +86,7 @@ void interpreteByteCode(char *buf, int length)
 	struct computationalStackItem resultItem;
 
 	struct List *variables;
-
+	long variableIndex = 0;
 	int i;
 	int paramCount;
 	long offset;
@@ -97,11 +95,12 @@ void interpreteByteCode(char *buf, int length)
 	initAStack(computationalStack, struct computationalStackItem);
 
 	variables = (struct List *) malloc(sizeof(struct List));
-	newList(variables, struct computationalStackItem);
+	newList(variables, struct computationalStackItem *);
 
 	while (progBuf < stop) {
 		/*get instruction info*/
 		instruct = GetInstructionAndAdvance(progBuf);
+		printf("OP = %s\n", getName(instruct.opType));
 		switch(instruct.opType){
 			case iJMP:
 				offset = GetTypeAndAdvance(progBuf, long);
@@ -201,18 +200,57 @@ void interpreteByteCode(char *buf, int length)
 			case iVALLOC:
 				count = GetTypeAndAdvance(progBuf, long);
 				List_Resize(variables, variables->ListSize + count);
+				variables->ListSize += count;
 				break;
 
 			case iVDALLOC:
 				count = GetTypeAndAdvance(progBuf, long);
+				printf("Count = %ld\n", count);
+				printf("Num Variables = %d\n", variables->ListSize);
 				assert(count <= variables->ListSize);
 				variables->ListSize -= count;
 				break;
 
+			case iLVPUSH:
+				offset = GetTypeAndAdvance(progBuf, long) + variableIndex;
+				resultItem = List_Ref_Value(variables, offset, struct computationalStackItem);
+				resultItem.varIndex = offset;
+				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				break;
+			case iGVPUSH:
+				offset = GetTypeAndAdvance(progBuf, long) + variableIndex;
+				resultItem = List_Ref_Value(variables, offset, struct computationalStackItem);
+				resultItem.varIndex = offset;
+				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				break;
+			case iASSIGN:
+				resultItem = PopComputationalStackItem();
+				item = PopComputationalStackItem();
+				assert(item.varIndex >= 0);
+				printf("Index = %ld\n", item.varIndex);
+				printf("Result = %ld\n", resultItem.value.l);
+				memcpy(
+					List_Ref(variables, item.varIndex),
+					&resultItem,
+					sizeof(struct computationalStackItem));
+				break;
+
 			default:
-				printf("OP NOT SUPPORTED!\n");
+				printf("OP (%s) NOT SUPPORTED!\n", getName(instruct.opType));
 				break;
 		}
+		printf("======Begin Variable Dump\n");
+		List_ForEach(variables, {
+			printf("[%d] ", i);
+			printResultItem(List_Ref_Value(variables, i, struct computationalStackItem));
+		});
+		printf("======End Variable Dump\n");
 
+		printf("======Begin Stack Dump\n");
+		int i;
+		for(i = 0; i <= computationalStack.top; ++i){
+			printResultItem(*((struct computationalStackItem *)computationalStack.stacky + i));
+		}
+		printf("======End Stack Dump\n\n");
 	}
 }

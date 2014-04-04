@@ -1,0 +1,4 @@
+Integer a;
+print 5;
+a  = 6;
+print a;

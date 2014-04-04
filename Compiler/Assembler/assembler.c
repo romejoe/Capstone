@@ -122,32 +122,41 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 		case CHECK_LTE:
 			in = new_instruction(iLTE);
 			goto recurse;
+		case ASSIGNMENT:
+			in = new_instruction(iASSIGN);
+			goto recurse;
 
 			recurse:
 			assembleExpression(exp->left, stream);
 			assembleExpression(exp->right, stream);
 			writeToByteStream(in, stream);
-			/*writeToByteStream(*inPtr, stream);*/
 			break;
+
 		case SOURCE:
-			if(exp->source_type != SYMBOL){
-				
-				
-				switch(exp->source_type){
-					case INTEGER:
-						in = new_instruction(iIPUSH);
-						writeToByteStream(in, stream);
-						writeTypeToByteStream(exp->dataSource.Integer, stream, long);
-						break;
-					case FLOAT:
-						in = new_instruction(iFPUSH);
-						writeToByteStream(in, stream);
-						writeTypeToByteStream(exp->dataSource.Float, stream, double);	
-						break;
-					default:
-						printf("Source is unsupported!!!\n");
-						break;
-				}
+			switch(exp->source_type){
+				case INTEGER:
+					in = new_instruction(iIPUSH);
+					writeToByteStream(in, stream);
+					writeTypeToByteStream(exp->dataSource.Integer, stream, long);
+					break;
+				case FLOAT:
+					in = new_instruction(iFPUSH);
+					writeToByteStream(in, stream);
+					writeTypeToByteStream(exp->dataSource.Float, stream, double);	
+					break;
+				case SYMBOL:
+					printf("Symbol Name: %s; Global: %d\n", exp->dataSource.sym->name, exp->dataSource.sym->isGlobal);
+					if(exp->dataSource.sym->isGlobal)
+						in = new_instruction(iGVPUSH);
+					else
+						in = new_instruction(iLVPUSH);
+
+					writeToByteStream(in, stream);
+					writeTypeToByteStream(exp->dataSource.sym->index, stream, long);
+					break;
+				default:
+					printf("Source is unsupported!!!\n");
+					break;
 			}
 			break;
 			
@@ -162,12 +171,15 @@ void assembleContext(struct Context *context, struct ByteStream *stream){
 	/*write symbols to stream */
 	/*write expression to stream */
 	struct List *statements = context->statements;
-	printf("list size = %d\n", statements->ListSize);
+	
+	/*printf("list size = %d\n", statements->ListSize);*/
 	struct instruction tmp;
 	long varCount = context->symbols->ListSize;
+	
 	tmp = new_instruction(iVALLOC);
 	writeInstructionToStream(&tmp, stream);
 	writeTypeToByteStream(varCount, stream, long);
+
 	List_ForEach(statements,{
 		assembleStatement(List_Ref_Value(statements, i, struct GenericStatement *), stream);	
 	});

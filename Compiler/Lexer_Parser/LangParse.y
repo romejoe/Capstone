@@ -42,6 +42,7 @@
 
 program ::= statementgroup(stmntgrp).{
 	tmpHack = malloc(sizeof(struct Program));
+	stmntgrp->parent = NULL;
 	tmpHack->context = stmntgrp;
 }
 
@@ -51,9 +52,15 @@ statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
 	struct GenericStatement *gStmnt;
 
 	/*add statement to the end of the statement group*/
-	List_Add_Value(stmntgrp->statements, stmt,struct GenericStatement *);
+	List_Add_Value(stmntgrp->statements, stmt, struct GenericStatement *);
 	if(stmt->hasDef){
 		List_Add_Value(stmntgrp->symbols, stmt->sym, struct Symbol *);
+	}
+	if(stmt->type == IFSTATEMENT){
+		stmt->ifstmt->yes->parent = stmntgrp;
+		if(stmt->ifstmt->no){
+			stmt->ifstmt->no->parent = stmntgrp;
+		}
 	}
 	val = stmntgrp;
 }
@@ -127,6 +134,23 @@ statement(val) ::= definition(def).{
 	stmt->sym = def;
 	stmt->exp = NULL;
 
+	val = stmt;
+}
+
+statement(val) ::= IDENTIFIER(id) EQUAL fexpression(fexp).{
+	struct Expression *dst;
+	struct GenericStatement *stmt;
+
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = GENERALSTATEMENT;
+	stmt->hasDef = 0;
+
+	dst = new_expression(SOURCE);
+	dst->dataSource.sym = new_symbol(id->literal, tVOID);;
+	dst->source_type = SYMBOL;
+	
+	stmt->exp = new_expression_children(ASSIGNMENT, dst, fexp);
+	
 	val = stmt;
 }
 
@@ -261,7 +285,13 @@ signedFactor(val) ::= factor(fact).{
 factor(val) ::= LPAREN expression(exp) RPAREN.{
 	val = exp;
 }
-factor ::= SYMBOL.
+factor(val) ::= IDENTIFIER(symToken).{
+	struct Expression *tmp;
+	tmp = new_expression(SOURCE);
+	tmp->source_type = SYMBOL;
+	tmp->dataSource.sym = new_symbol(symToken->literal, tVOID);
+	val = tmp;
+}
 
 factor(val) ::= INTEGER(intToken).{
 	struct Expression *tmp;

@@ -8,4 +8,5 @@ Integer d;
 Integer e;
 //advanced
 Integer c = 5;
-Float foo = 35 + 16;
+Float foo = 35 + 16 + c;
+print foo;

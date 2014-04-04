@@ -41,8 +41,9 @@ enum instruction_type {
 	iPOW,
 	iIPUSH,
 	iFPUSH,
-	iVPUSH,
-	iVPOP,
+	iLVPUSH,
+	iGVPUSH,
+	iASSIGN,
 	iVALLOC,
 	iVDALLOC,
 	iPRINT
@@ -54,5 +55,5 @@ struct instruction {
 
 
 struct instruction new_instruction(enum instruction_type);
-
+char *getName(enum instruction_type);
 #endif

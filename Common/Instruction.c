@@ -63,6 +63,10 @@ char *getName(enum instruction_type type)
 			return "iVDALLOC";
 		case iPRINT:
 			return "iPRINT";
+		case iVSETTYPE:
+			return "iVSETTYPE";
+			case iDUMPVARS:
+			return "iDUMPVARS";
 		default:
 			return "???";
 	}

@@ -46,5 +46,5 @@ struct List {
 }
 
 #define List_Ref(target, index) ((target)->listy + (target)->_typeSize * index)
-#define List_Ref_Value(target, index, type) *(type *)((target)->listy + (target)->_typeSize * index)
+#define List_Ref_Value(target, index, type) (*(type *)((target)->listy + (target)->_typeSize * index))
 #endif

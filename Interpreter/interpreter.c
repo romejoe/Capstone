@@ -12,7 +12,7 @@
 #define GetTarget(location, ptr) ((location == 0)? (void *)&registers[location - 1] : (void *)ptr)
 
 #define PopComputationalStackItem() AStack_Top(computationalStack, holder, struct computationalStackItem); AStack_Pop(computationalStack)
-#define GetItemValue(item)	((item.type == INTEGER)? item.value.l:(item.type == FLOAT)? item.value.dbl: 0)
+#define GetItemValue(item)  ((item.type == INTEGER)? item.value.l:(item.type == FLOAT)? item.value.dbl: 0)
 
 #define ADD(a,b) a + b
 #define SUB(a,b) a - b
@@ -27,20 +27,20 @@
 #define CHECK_GREATER_THAN_EQUAL(a,b) a >= b
 
 #define BasicArithmeticOperation(op) {\
-	assert(computationalStack.top >= 1);\
-	struct computationalStackItem i1 = PopComputationalStackItem();\
-	struct computationalStackItem i2 = PopComputationalStackItem();\
-	if(i1.type == FLOAT || i2.type == FLOAT){\
-		resultItem.value.dbl = op(GetItemValue(i2), GetItemValue(i1));\
-		resultItem.type = FLOAT;\
-	}\
-	else{\
-		resultItem.value.l = op(GetItemValue(i2), GetItemValue(i1));\
-		resultItem.type = INTEGER;\
-	}\
-	AStack_Push(computationalStack, resultItem, struct computationalStackItem);\
-	break;\
-}
+		assert(computationalStack.top >= 1);\
+		struct computationalStackItem i1 = PopComputationalStackItem();\
+		struct computationalStackItem i2 = PopComputationalStackItem();\
+		if(i1.type == FLOAT || i2.type == FLOAT){\
+			resultItem.value.dbl = op(GetItemValue(i2), GetItemValue(i1));\
+			resultItem.type = FLOAT;\
+		}\
+		else{\
+			resultItem.value.l = op(GetItemValue(i2), GetItemValue(i1));\
+			resultItem.type = INTEGER;\
+		}\
+		AStack_Push(computationalStack, resultItem, struct computationalStackItem);\
+		break;\
+	}
 
 union data {
 	double dbl;
@@ -50,17 +50,19 @@ union data {
 	char rawData[8];
 };
 
-struct computationalStackItem{
+struct computationalStackItem {
 	union data value;
 	long varIndex;
 	enum datasource type;
 };
 struct computationalStackItem holder;
 
-void printResultItem(struct computationalStackItem item){
-	switch(item.type){
+void printResultItem(struct computationalStackItem item)
+{
+	switch (item.type) {
 
 		case INTEGER:
+			/*printf("Integer Value = %ld\n", item.value.l);*/
 			printf("Integer Value = %ld\n", item.value.l);
 			break;
 		case FLOAT:
@@ -91,17 +93,18 @@ void interpreteByteCode(char *buf, int length)
 	int paramCount;
 	long offset;
 	long count;
+	enum datasource type;
 
 	initAStack(computationalStack, struct computationalStackItem);
 
 	variables = (struct List *) malloc(sizeof(struct List));
-	newList(variables, struct computationalStackItem *);
+	newList(variables, struct computationalStackItem);
 
 	while (progBuf < stop) {
 		/*get instruction info*/
 		instruct = GetInstructionAndAdvance(progBuf);
-		printf("OP = %s\n", getName(instruct.opType));
-		switch(instruct.opType){
+		/*printf("OP = %s\n", getName(instruct.opType));*/
+		switch (instruct.opType) {
 			case iJMP:
 				offset = GetTypeAndAdvance(progBuf, long);
 				progBuf += offset;
@@ -124,7 +127,7 @@ void interpreteByteCode(char *buf, int length)
 			case iPOW:
 				BasicArithmeticOperation(POW);
 				break;
-			case iEQ:{
+			case iEQ: {
 					assert(computationalStack.top >= 1);
 					struct computationalStackItem i1 = PopComputationalStackItem();
 					struct computationalStackItem i2 = PopComputationalStackItem();
@@ -133,7 +136,7 @@ void interpreteByteCode(char *buf, int length)
 					AStack_Push(computationalStack, resultItem, struct computationalStackItem);
 				}
 				break;
-			case iNEQ:{
+			case iNEQ: {
 					assert(computationalStack.top >= 1);
 					struct computationalStackItem i1 = PopComputationalStackItem();
 					struct computationalStackItem i2 = PopComputationalStackItem();
@@ -157,7 +160,7 @@ void interpreteByteCode(char *buf, int length)
 
 			case iPRINT:
 				item = PopComputationalStackItem();
-				switch(item.type){
+				switch (item.type) {
 					case INTEGER:
 						printf("type: Integer, value: %ld\n", item.value.l);
 						break;
@@ -185,14 +188,14 @@ void interpreteByteCode(char *buf, int length)
 			case iJMPF:
 				item = PopComputationalStackItem();
 				offset = GetTypeAndAdvance(progBuf, long);
-				if(!item.value.l){
+				if (!item.value.l) {
 					progBuf += offset;
 				}
 				break;
 			case iJMPT:
 				item = PopComputationalStackItem();
 				offset = GetTypeAndAdvance(progBuf, long);
-				if(item.value.l){
+				if (item.value.l) {
 					progBuf += offset;
 				}
 				break;
@@ -205,8 +208,8 @@ void interpreteByteCode(char *buf, int length)
 
 			case iVDALLOC:
 				count = GetTypeAndAdvance(progBuf, long);
-				printf("Count = %ld\n", count);
-				printf("Num Variables = %d\n", variables->ListSize);
+				/*printf("Count = %ld\n", count);
+				printf("Num Variables = %d\n", variables->ListSize);*/
 				assert(count <= variables->ListSize);
 				variables->ListSize -= count;
 				break;
@@ -227,30 +230,63 @@ void interpreteByteCode(char *buf, int length)
 				resultItem = PopComputationalStackItem();
 				item = PopComputationalStackItem();
 				assert(item.varIndex >= 0);
-				printf("Index = %ld\n", item.varIndex);
-				printf("Result = %ld\n", resultItem.value.l);
-				memcpy(
-					List_Ref(variables, item.varIndex),
-					&resultItem,
-					sizeof(struct computationalStackItem));
+				offset = item.varIndex;
+				/*item = List_Ref_Value(variables,offset, struct computationalStackItem);
+				printf("result = ");
+				printResultItem(resultItem);
+				printf("item = ");
+				printResultItem(item);*/
+				switch(item.type){
+					case INTEGER:
+						List_Ref_Value(variables,offset, struct computationalStackItem).value.l = GetItemValue(resultItem);
+						break;
+					case FLOAT:
+					List_Ref_Value(variables,offset, struct computationalStackItem).value.dbl = GetItemValue(resultItem);
+						break;
+				}
+				/*printResultItem(item);*/
+				/*printf("Index = %ld\n", item.varIndex);
+				printf("Result = %ld\n", resultItem.value.l);*/
+				/*memcpy(
+				    List_Ref(variables, offset),
+				    &item,
+				    sizeof(struct computationalStackItem));*/
 				break;
 
+			case iVSETTYPE:
+				offset = GetTypeAndAdvance(progBuf, long) + variableIndex;
+				/*printf("offset: %ld\n", offset);*/
+
+				((struct computationalStackItem *)List_Ref(variables, offset))->type = GetTypeAndAdvance(progBuf, enum datasource);
+				/*List_Ref_Value(variables, offset,
+				               struct computationalStackItem).type = GetTypeAndAdvance(progBuf, enum data_type);*/
+				break;
+			case iDUMPVARS:
+				printf("======Begin Variable Dump\n");
+				List_ForEach(variables, {
+					printf("[%d] ", i);
+					printResultItem(List_Ref_Value(variables, i, struct computationalStackItem));
+				});
+				printf("======End Variable Dump\n");
+				break;
 			default:
 				printf("OP (%s) NOT SUPPORTED!\n", getName(instruct.opType));
 				break;
 		}
+		/*
 		printf("======Begin Variable Dump\n");
 		List_ForEach(variables, {
-			printf("[%d] ", i);
-			printResultItem(List_Ref_Value(variables, i, struct computationalStackItem));
+		    printf("[%d] ", i);
+		    printResultItem(List_Ref_Value(variables, i, struct computationalStackItem));
 		});
 		printf("======End Variable Dump\n");
 
 		printf("======Begin Stack Dump\n");
 		int i;
 		for(i = 0; i <= computationalStack.top; ++i){
-			printResultItem(*((struct computationalStackItem *)computationalStack.stacky + i));
+		    printResultItem(*((struct computationalStackItem *)computationalStack.stacky + i));
 		}
 		printf("======End Stack Dump\n\n");
+		*/
 	}
 }

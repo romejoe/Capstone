@@ -10,12 +10,13 @@ void AssignVariableIndices(struct Context* ctx, int startIndex){
 		lSym->index = startIndex + i;
 		if(ctx->parent == NULL) lSym->isGlobal = 1;
 		else lSym->isGlobal = 0;
-		printf("%s is %d\n", lSym->name, lSym->isGlobal);
+		
 	});
 
 	startIndex = startIndex + symbols->ListSize;
 	List_ForEach(statements, {
 		struct GenericStatement *lGstmt;
+		lGstmt = List_Ref_Value(statements, i, struct GenericStatement *);
 		if(lGstmt->type == IFSTATEMENT){
 			struct IfStatement *stmt;
 			stmt = lGstmt->ifstmt;
@@ -38,9 +39,9 @@ void fillInSymbolReferences(struct Expression *exp, struct Context *ctx){
 				List_ForEach(symbols,{
 					struct Symbol *curSym = List_Ref_Value(symbols, i, struct Symbol *);
 					if(strcmp(exp->dataSource.sym->name, curSym->name) == 0){
-						printf("Old: %d\n", exp->dataSource.sym->isGlobal);
-						free(exp->dataSource.sym);
-						printf("New: %d\n", curSym->isGlobal);
+						
+						/*free(exp->dataSource.sym);*/
+						
 						exp->dataSource.sym = curSym;
 						return;
 					}

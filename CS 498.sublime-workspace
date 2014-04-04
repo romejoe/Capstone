@@ -768,8 +768,8 @@
 						"selection":
 						[
 							[
-								847,
-								847
+								681,
+								681
 							]
 						],
 						"settings":
@@ -781,7 +781,7 @@
 						"translation.y": 123.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -875,7 +875,7 @@
 						"translation.y": 271.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{

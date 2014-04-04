@@ -4,16 +4,140 @@
 		"selected_items":
 		[
 			[
+				"IFSTTE",
+				"IFSTATEMENT"
+			],
+			[
+				"Fil",
+				"fillInSymbolReferences"
+			],
+			[
+				"l",
+				"lSym"
+			],
+			[
+				"size",
+				"sizeof"
+			],
+			[
+				"as",
+				"astack"
+			],
+			[
+				"List",
+				"List_Ref_Value"
+			],
+			[
+				"variab",
+				"variables"
+			],
+			[
+				"var",
+				"varIndex"
+			],
+			[
+				"f",
+				"fexpression"
+			],
+			[
+				"get",
+				"getName"
+			],
+			[
+				"ins",
+				"instruct"
+			],
+			[
+				"in",
+				"instruction_type"
+			],
+			[
+				"Co",
+				"computationalStackItem"
+			],
+			[
+				"comp",
+				"computationalStackItem"
+			],
+			[
+				"variable",
+				"variableIndex"
+			],
+			[
+				"com",
+				"computationalStackItem"
+			],
+			[
+				"Get",
+				"GetTypeAndAdvance"
+			],
+			[
+				"assem",
+				"assembleExpression"
+			],
+			[
+				"G",
+				"iGT"
+			],
+			[
+				"tmp",
+				"tmpContext	struct Context"
+			],
+			[
+				"As",
+				"AssignVariableIndices(struct Context *ctx , int startIndex )	void"
+			],
+			[
+				"sym",
+				"symToken"
+			],
+			[
+				"new_",
+				"new_symbol"
+			],
+			[
+				"data",
+				"dataSource"
+			],
+			[
+				"va",
+				"variableOffset"
+			],
+			[
+				"IFSTAT",
+				"IFSTATEMENT"
+			],
+			[
+				"wrtie",
+				"writeTypeToByteStream"
+			],
+			[
+				"wr",
+				"writeInstructionToStream"
+			],
+			[
+				"Lis",
+				"ListSize"
+			],
+			[
+				"GetT",
+				"GetTypeAndAdvance"
+			],
+			[
+				"co",
+				"computationalStackItem"
+			],
+			[
+				"AS",
+				"AStack_Push"
+			],
+			[
 				"write",
 				"writeInstructionToStream"
 			],
 			[
 				"op",
 				"opType"
-			],
-			[
-				"in",
-				"instruct"
 			],
 			[
 				"resu",
@@ -44,14 +168,6 @@
 				"progBuf"
 			],
 			[
-				"Get",
-				"GetTypeAndAdvance"
-			],
-			[
-				"AS",
-				"AStack_Pop"
-			],
-			[
 				"buf",
 				"bufsize"
 			],
@@ -80,10 +196,6 @@
 				"MULTIPLY"
 			],
 			[
-				"new_",
-				"new_expression_children"
-			],
-			[
 				"left",
 				"leftExp"
 			],
@@ -106,14 +218,6 @@
 			[
 				"build",
 				"buildPath"
-			],
-			[
-				"List",
-				"List_Ref_Value"
-			],
-			[
-				"assem",
-				"assembleStatement"
 			],
 			[
 				"st",
@@ -180,10 +284,6 @@
 				"_variables"
 			],
 			[
-				"l",
-				"lVal"
-			],
-			[
 				"if",
 				"ifStmt"
 			],
@@ -234,10 +334,6 @@
 			[
 				"return",
 				"returnFromHere"
-			],
-			[
-				"tmp",
-				"tmpTransition"
 			],
 			[
 				"SFAF",
@@ -319,7 +415,40 @@
 			"file": "Compiler/Lexer_Parser/LangParse.y",
 			"settings":
 			{
-				"buffer_size": 6715,
+				"buffer_size": 7479,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Compiler/compiler.c",
+			"settings":
+			{
+				"buffer_size": 2854,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Interpreter/interpreter.c",
+			"settings":
+			{
+				"buffer_size": 7657,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tests/BasicPrint.lan",
+			"settings":
+			{
+				"buffer_size": 36,
+				"line_ending": "Unix",
+				"name": "print 5;"
+			}
+		},
+		{
+			"file": "Compiler/Common/program.h",
+			"settings":
+			{
+				"buffer_size": 1449,
 				"line_ending": "Windows"
 			}
 		},
@@ -327,59 +456,16 @@
 			"file": "Compiler/Assembler/assembler.c",
 			"settings":
 			{
-				"buffer_size": 5424,
+				"buffer_size": 5442,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Common/Instruction.h",
+			"file": "tests/SymbolTests.lan",
 			"settings":
 			{
-				"buffer_size": 652,
+				"buffer_size": 152,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tests/If Tests/if test 2.lan",
-			"settings":
-			{
-				"buffer_size": 102,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "#include \"interpreter.h\"\n\n#define GetTypeFromTarget(target, type)     *((type *) target)\n#define GetTypeAndAdvance(target, type)     GetTypeFromTarget(target, type); target += sizeof(type)\n\n#define GetInstruction(target)              GetTypeFromTarget(target, struct instruction)\n#define GetInstructionAndAdvance(target)    GetTypeAndAdvance(target, struct instruction)\n\n#define GetParameter(target)                GetTypeFromTarget(target, struct paramOption)\n#define GetParameterAndAdvance(target)      GetTypeAndAdvance(target, struct paramOption)\n\n#define GetParamData(target, source, size)          memcpy(target, source, (size))\n#define GetParamDataAndAdvance(target, source, size)    GetParamData(target,source,(size)); source += (size)\n\n#define GetTarget(location, ptr) ((location == 0)? (void *)&registers[location - 1] : (void *)ptr)\n\n#define PopComputationalStackItem() AStack_Top(computationalStack, holder, struct computationalStackItem); AStack_Pop(computationalStack)\n#define GetItemValue(item)	((item.type == INTEGER)? item.value.l:(item.type == FLOAT)? item.value.dbl: 0)\n\n#define ADD(a,b) a + b\n#define SUB(a,b) a - b\n#define MUL(a,b) a * b\n#define DIV(a,b) a / b\n#define MOD(a,b) (long)(a) % (long)(b)\n#define POW(a,b) pow((double) a, (double) b)\n\n#define CHECK_LESS_THAN(a,b) a < b\n#define CHECK_LESS_THAN_EQUAL(a,b) a <= b\n#define CHECK_GREATER_THAN(a,b) a > b\n#define CHECK_GREATER_THAN_EQUAL(a,b) a >= b\n\n#define BasicArithmeticOperation(op) {\\\n	assert(computationalStack.top >= 1);\\\n	struct computationalStackItem i1 = PopComputationalStackItem();\\\n	struct computationalStackItem i2 = PopComputationalStackItem();\\\n	if(i1.type == FLOAT || i2.type == FLOAT){\\\n		resultItem.value.dbl = op(GetItemValue(i2), GetItemValue(i1));\\\n		resultItem.type = FLOAT;\\\n	}\\\n	else{\\\n		resultItem.value.l = op(GetItemValue(i2), GetItemValue(i1));\\\n		resultItem.type = INTEGER;\\\n	}\\\n	AStack_Push(computationalStack, resultItem, struct computationalStackItem);\\\n	break;\\\n}\n\nunion data {\n	double dbl;\n	long l;\n	char byte;\n	char *ptr;\n	char rawData[8];\n};\n\nstruct computationalStackItem{\n	union data value;\n	enum datasource type;\n};\nstruct computationalStackItem holder;\n\nvoid printResultItem(struct computationalStackItem item){\n	switch(item.type){\n\n		case INTEGER:\n			printf(\"Integer Value = %ld\\n\", item.value.l);\n			break;\n		case FLOAT:\n			printf(\"Float Value = %lf\\n\", item.value.dbl);\n			break;\n		default:\n			printf(\"item type is unknown\\n\");\n			break;\n\n	}\n}\n\n\nvoid interpreteByteCode(char *buf, int length)\n{\n	char *progBuf = buf;\n	char *stop = progBuf + length;\n	struct instruction instruct;\n	struct paramOption options[3];\n	union data params[3];\n	union data registers [__REGISTER_COUNT];\n	struct astack computationalStack;\n	struct computationalStackItem stackItems[3];\n	struct computationalStackItem item;\n	struct computationalStackItem resultItem;\n	int i;\n	int paramCount;\n	long offset;\n\n	initAStack(computationalStack, struct computationalStackItem);\n\n	while (progBuf < stop) {\n		/*get instruction info*/\n		instruct = GetInstructionAndAdvance(progBuf);\n		switch(instruct.opType){\n			case iJMP:\n				offset = GetTypeAndAdvance(progBuf, long);\n				progBuf += offset;\n				break;\n			case iADD:\n				BasicArithmeticOperation(ADD);\n				break;\n			case iSUB:\n				BasicArithmeticOperation(SUB);\n				break;\n			case iMUL:\n				BasicArithmeticOperation(MUL);\n				break;\n			case iDIV:\n				BasicArithmeticOperation(DIV);\n				break;\n			case iMOD:\n				BasicArithmeticOperation(MOD);\n				break;\n			case iPOW:\n				BasicArithmeticOperation(POW);\n				break;\n			case iEQ:{\n					assert(computationalStack.top >= 1);\n					struct computationalStackItem i1 = PopComputationalStackItem();\n					struct computationalStackItem i2 = PopComputationalStackItem();\n					resultItem.value.l = memcmp(&i1, &i2, sizeof(union data)) == 0;\n					resultItem.type = INTEGER;\n					AStack_Push(computationalStack, resultItem, struct computationalStackItem);\n				}\n				break;\n			case iNEQ:{\n					assert(computationalStack.top >= 1);\n					struct computationalStackItem i1 = PopComputationalStackItem();\n					struct computationalStackItem i2 = PopComputationalStackItem();\n					resultItem.value.l = memcmp(&i1, &i2, sizeof(union data)) != 0;\n					resultItem.type = INTEGER;\n					AStack_Push(computationalStack, resultItem, struct computationalStackItem);\n				}\n				break;\n			case iLT:\n				BasicArithmeticOperation(CHECK_LESS_THAN);\n				break;\n			case iLTE:\n				BasicArithmeticOperation(CHECK_LESS_THAN_EQUAL);\n				break;\n			case iGT:\n				BasicArithmeticOperation(CHECK_GREATER_THAN);\n				break;\n			case iGTE:\n				BasicArithmeticOperation(CHECK_GREATER_THAN_EQUAL);\n				break;\n\n			case iPRINT:\n				item = PopComputationalStackItem();\n				switch(item.type){\n					case INTEGER:\n						printf(\"type: Integer, value: %ld\\n\", item.value.l);\n						break;\n					case FLOAT:\n						printf(\"type: Float, value: %lf\\n\", item.value.dbl);\n						break;\n					default:\n						printf(\"Not how to tell you this but...\\n\");\n						break;\n				}\n				break;\n			case iIPUSH:\n				resultItem.type = INTEGER;\n				resultItem.value.l = GetTypeAndAdvance(progBuf, long);\n				AStack_Push(computationalStack, resultItem, struct computationalStackItem);\n				break;\n			case iFPUSH:\n				resultItem.type = FLOAT;\n				resultItem.value.dbl = GetTypeAndAdvance(progBuf, double);\n				AStack_Push(computationalStack, resultItem, struct computationalStackItem);\n				break;\n			case iHELLO:\n				printf(\"Hello First Instruct\\n\");\n				break;\n			case iJMPF:\n				item = PopComputationalStackItem();\n				offset = GetTypeAndAdvance(progBuf, long);\n				if(!item.value.l){\n					progBuf += offset;\n				}\n				break;\n			case iJMPT:\n				item = PopComputationalStackItem();\n				offset = GetTypeAndAdvance(progBuf, long);\n				if(item.value.l){\n					progBuf += offset;\n				}\n				break;\n				iVPUSH,\n	iVPOP,\n			case iVPUSH:\n				item = PopComputationalStackItem();\n				offset = GetTypeAndAdvance(progBuf, long);\n				if(item.value.l){\n					progBuf += offset;\n				}\n				break;\n\n			case iJMPT:\n				item = PopComputationalStackItem();\n				offset = GetTypeAndAdvance(progBuf, long);\n				if(item.value.l){\n					progBuf += offset;\n				}\n				break;\n			default:\n				printf(\"OP NOT SUPPORTED!\\n\");\n				break;\n		}\n\n	}\n}",
-			"file": "Interpreter/interpreter.c",
-			"file_size": 5852,
-			"file_write_time": 130406089360000000,
-			"settings":
-			{
-				"buffer_size": 6204,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "CS 498.sublime-project",
-			"settings":
-			{
-				"buffer_size": 2918,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Common/CByteStream/ByteStream.c",
-			"settings":
-			{
-				"buffer_size": 1194,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Compiler/Lexer_Parser/LangLexer.l",
-			"settings":
-			{
-				"buffer_size": 6064,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -436,10 +522,26 @@
 	},
 	"file_history":
 	[
+		"/Users/Joey/Desktop/School/CS 498/Common/List.h",
+		"/Users/Joey/Desktop/School/CS 498/Interpreter/interpreter.c",
 		"/Users/Joey/Desktop/School/CS 498/Common/Instruction.c",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/Common/program.h",
-		"/Users/Joey/Desktop/School/CS 498/Common/CByteStream/ByteStream.h",
 		"/Users/Joey/Desktop/School/CS 498/Common/Instruction.h",
+		"/Users/Joey/Desktop/School/CS 498/Common/enumDefs.h",
+		"/Users/Joey/Desktop/School/CS 498/Compiler/Assembler/assembler.c",
+		"/Users/Joey/Desktop/School/CS 498/Compiler/Common/program.h",
+		"/Users/Joey/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/Joey/Desktop/School/CS 498/Common/CByteStream/ByteStream.h",
+		"/Users/Joey/Desktop/School/CS 498/Compiler/compiler.c",
+		"/Users/Joey/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/Joey/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/Users/Joey/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Users/Joey/Desktop/School/CS 498/tests/If Tests/if test 2.lan",
+		"/Users/Joey/Desktop/School/CS 498/Compiler/Lexer_Parser/LangLexer.l",
+		"/Users/Joey/Desktop/School/CS 498/Interpreter/interpreter.h",
+		"/Users/Joey/Desktop/School/CS 498/Common/CByteStream/ByteStream.c",
+		"/Users/Joey/Desktop/School/CS 498/CS 498.sublime-project",
+		"/Users/Joey/Desktop/School/COM 308/Short Paper 1/Paper.tex",
+		"/Users/Joey/Desktop/milage.txt",
 		"/Users/Joey/Desktop/cs-498-capstone/tests/If Tests/if test 4.lan",
 		"/Users/Joey/Desktop/cs-498-capstone/tests/If Tests/if test 0.lan",
 		"/Users/Joey/Desktop/cs-498-capstone/tests/If Tests/if test 3.lan",
@@ -472,11 +574,8 @@
 		"/home/joe/Desktop/School/CS 498/Style.sublime-settings",
 		"/home/joe/Desktop/School/CS 498/Compiler/assembler.h",
 		"/home/joe/Desktop/School/CS 498/Compiler/assembler.c",
-		"/Users/Joey/Desktop/School/CS 498/CS 498.sublime-project",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/wscript",
 		"/Users/Joey/Desktop/School/CS 498/Common/astackTest.c",
-		"/Users/Joey/Desktop/School/CS 498/Interpreter/interpreter.c",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/compiler.c",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/compiler.h",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/LangLexer.l",
 		"/Users/Joey/Desktop/School/CS 498/wscript",
@@ -484,7 +583,6 @@
 		"/Users/Joey/Desktop/School/CS 498/Compiler/CompilerMain.c",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/compilerTest.c",
 		"/Users/Joey/Desktop/School/CS 498/Interpreter/wscript",
-		"/Users/Joey/Desktop/School/CS 498/Interpreter/interpreter.h",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y",
 		"/Volumes/Data/home/home/joe/Documents/science fair/url.txt",
@@ -551,19 +649,7 @@
 		"/Users/Joey/Desktop/Visilego/SConstruct",
 		"/Users/Joey/Desktop/visilego todo.txt",
 		"/Users/Joey/Downloads/GitHub.wdgt/main.js",
-		"/Users/Joey/Desktop/New Folder With Items/school/cs-480/Assignment 3/test.basic",
-		"/Users/Joey/Desktop/New Folder With Items/school/cs-480/Assignment 3/basic.lex",
-		"/Users/Joey/Desktop/school/cs-480/src-10-23/cgram.y",
-		"/Users/Joey/Desktop/school/cs-480/src-10-23/cgram.c",
-		"/Users/Joey/Desktop/school/cs370/src-10-23/cgram.y",
-		"/Users/Joey/Desktop/school/cs-480/src-10-23/lempar.c",
-		"/Users/Joey/Documents/Personal Projects/PaycheckRecords-Python/README.md",
-		"/Users/Joey/Desktop/failedtest.nxc",
-		"/Users/Joey/Desktop/Visilego/Example NXC programs/text.nxc",
-		"/Users/Joey/Desktop/Dump.sql",
-		"/Users/Joey/Desktop/CS480/Assignment 2/main.cpp",
-		"/Users/Joey/Desktop/CS480/Assignment 2/lexer.h",
-		"/Users/Joey/Desktop/CS480/Assignment 2/sfaf.h"
+		"/Users/Joey/Desktop/New Folder With Items/school/cs-480/Assignment 3/test.basic"
 	],
 	"find":
 	{
@@ -582,6 +668,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"isGlobal",
+			"isGlobal = 2",
+			";\n",
+			"\\}[ \\n\\t\\r]+\\\\paragraph.+",
 			"new_complete_instruction",
 			"getParamCountForInstruction",
 			"in ",
@@ -632,7 +722,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -641,15 +731,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6715,
+						"buffer_size": 7479,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2190,
-								2201
+								4129,
+								4129
 							]
 						],
 						"settings":
@@ -659,27 +749,121 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1025.0,
+						"translation.y": 3912.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Compiler/Assembler/assembler.c",
+					"file": "Compiler/compiler.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5424,
+						"buffer_size": 2854,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4853,
-								4853
+								847,
+								847
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1.0,
+						"translation.y": 123.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Interpreter/interpreter.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7657,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7646,
+								7646
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3012.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "tests/BasicPrint.lan",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 36,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36,
+								36
+							]
+						],
+						"settings":
+						{
+							"auto_name": "print 5;",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "Compiler/Common/program.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1449,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								756,
+								772
 							]
 						],
 						"settings":
@@ -688,55 +872,56 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 271.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "Common/Instruction.h",
+					"buffer": 5,
+					"file": "Compiler/Assembler/assembler.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 652,
+						"buffer_size": 5442,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								499,
-								499
+								4000,
+								4000
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 41.0,
+						"translation.y": 2390.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "tests/If Tests/if test 2.lan",
+					"buffer": 6,
+					"file": "tests/SymbolTests.lan",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 102,
+						"buffer_size": 152,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								66,
-								66
+								151,
+								151
 							]
 						],
 						"settings":
@@ -747,124 +932,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "Interpreter/interpreter.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6204,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5796,
-								5796
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1023.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "CS 498.sublime-project",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2918,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								167,
-								167
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "Common/CByteStream/ByteStream.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1194,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1056,
-								1056
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 97.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Compiler/Lexer_Parser/LangLexer.l",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6064,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								989,
-								989
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lisp/Lisp.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 392.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -887,11 +955,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -903,7 +978,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 221.0
+		"height": 166.0
 	},
 	"output.find_results":
 	{
@@ -920,6 +995,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"int",
+				"Interpreter/interpreter.c"
+			],
 			[
 				"lan",
 				"Compiler/Lexer_Parser/LangParse.y"

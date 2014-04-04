@@ -14,6 +14,8 @@ struct GenericStatement;
 struct Symbol{
 	char *name;
 	enum data_type type;
+	int index;
+	char isGlobal;
 };
 
 struct Expression {
@@ -31,8 +33,9 @@ struct Expression {
 };
 
 struct Context{
-	struct List *statements;
-	struct List *symbols;
+	struct Context *parent;
+	struct List *statements; /* (struct GenericStatement *) */
+	struct List *symbols; /* (struct Symbol *) */
 };
 
 struct IfStatement{

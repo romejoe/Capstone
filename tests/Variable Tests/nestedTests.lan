@@ -1,0 +1,23 @@
+Integer a = 5;
+Float b = 6;
+print a;
+if(1 == 1){
+	Float a = 7;
+	print a;
+	print b;
+	if( 1 == 2){
+		print a;
+	}
+	else{
+		Integer a;
+		a = 1;
+		b = b ^ 5;
+		print a;
+		print b;
+	}
+}
+print b;
+
+if(1 == 1){
+	print a + b;
+}

@@ -70,16 +70,32 @@ statementgroup(val) ::=  statementgroup(stmntgrp) flowstatement(stmt).{
 	/*stmt will be a GenericStatement*/
 	struct GenericStatement *gStmnt;
 
+	printf("\t\tf\n");
 	/*add statement to the end of the statement group*/
 	List_Add_Value(stmntgrp->statements, stmt,struct GenericStatement *);
 	if(stmt->hasDef){
 		List_Add_Value(stmntgrp->symbols, stmt->sym, struct Symbol *);
 	}
+
+	if(stmt->type == IFSTATEMENT){
+		stmt->ifstmt->yes->parent = stmntgrp;
+		if(stmt->ifstmt->no){
+			stmt->ifstmt->no->parent = stmntgrp;
+		}
+	}
+
 	val = stmntgrp;
 }
 
 statementgroup(val) ::= flowstatement(stmt).{
+	printf("\t\tasdf\n");
 	val = new_context(stmt);
+	if(stmt->type == IFSTATEMENT){
+		stmt->ifstmt->yes->parent = val;
+		if(stmt->ifstmt->no){
+			stmt->ifstmt->no->parent = val;
+		}
+	}
 }
 
 statementgroup(val) ::= statement(stmt) SEMICOLON.{

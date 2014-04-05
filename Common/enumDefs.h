@@ -28,7 +28,12 @@ enum expression_type {
 	CHECK_GT,
 	CHECK_LT,
 	CHECK_GTE,
-	CHECK_LTE
+	CHECK_LTE,
+	LOG_NOT,
+	LOG_AND,
+	LOG_OR,
+	LOG_XOR
+
 };
 enum data_type {
 	tVOID = 0,

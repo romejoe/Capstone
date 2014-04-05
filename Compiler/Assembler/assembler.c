@@ -60,6 +60,44 @@ void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *strea
 	
 }
 
+void assembleWhileStatement(struct GenericStatement *stmt, struct ByteStream *stream){
+	struct WhileStatement *whileStmt = stmt->whilestmt;
+	struct ByteStream *Code;
+	struct instruction jmp;
+	long offset;
+
+	offset = stream->actualsize;
+	assembleExpression(whileStmt->testStatement, stream);
+	
+	
+		jmp = new_instruction(iJMPF);
+		writeInstructionToStream(&jmp, stream);
+
+		/*assemble loop code*/
+		Code = malloc(sizeof(struct ByteStream));
+		initByteStream(Code);
+		assembleContext(whileStmt->code, Code);
+		
+		/*jump to after loop code*/
+		writeTypeToByteStream(Code->actualsize + sizeof(struct instruction) + sizeof(long), stream, long);
+
+		/* jump to before test statement */
+
+		jmp = new_instruction(iJMP);
+		writeInstructionToStream(&jmp,Code);
+
+		appendByteStreamToByteStream(stream, Code);
+
+		writeTypeToByteStream(
+			offset - stream->actualsize - sizeof(long),
+			stream, long);
+		
+		/*write jump coordinates to stream*/
+		/*writeTypeToByteStream(Code->actualsize, stream, long);
+		appendByteStreamToByteStream(stream, Code);*/
+	
+}
+
 void assembleStatement(struct GenericStatement *stmt, struct ByteStream *stream){
 	switch(stmt->type){
 		case GENERALSTATEMENT:
@@ -67,6 +105,9 @@ void assembleStatement(struct GenericStatement *stmt, struct ByteStream *stream)
 			break;
 		case IFSTATEMENT:
 			assembleIfStatement(stmt, stream);
+			break;
+		case WHILESTATEMENT:
+			assembleWhileStatement(stmt, stream);
 			break;
 		default:
 			printf("Statement type is unsupported!!!\n");
@@ -191,11 +232,13 @@ void assembleContext(struct Context *context, struct ByteStream *stream){
 			stream, long);
 		switch(lSym->type){
 			case tINTEGER:
+				printf("writing int type\n");
 				writeTypeToByteStream(
 				INTEGER,
 				stream, enum datasource);	
 				break;
 			case tFLOAT:
+				printf("writing float type\n");
 				writeTypeToByteStream(
 				FLOAT,
 				stream, enum datasource);	

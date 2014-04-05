@@ -62,6 +62,9 @@ statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
 			stmt->ifstmt->no->parent = stmntgrp;
 		}
 	}
+	else if (stmt->type == WHILESTATEMENT){
+		stmt->whilestmt->code->parent = stmntgrp;
+	}
 	val = stmntgrp;
 }
 
@@ -83,7 +86,9 @@ statementgroup(val) ::=  statementgroup(stmntgrp) flowstatement(stmt).{
 			stmt->ifstmt->no->parent = stmntgrp;
 		}
 	}
-
+	else if (stmt->type == WHILESTATEMENT){
+		stmt->whilestmt->code->parent = stmntgrp;
+	}
 	val = stmntgrp;
 }
 
@@ -95,6 +100,9 @@ statementgroup(val) ::= flowstatement(stmt).{
 		if(stmt->ifstmt->no){
 			stmt->ifstmt->no->parent = val;
 		}
+	}
+	else if (stmt->type == WHILESTATEMENT){
+		stmt->whilestmt->code->parent = val;
 	}
 }
 
@@ -122,6 +130,16 @@ flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY stateme
 	stmt->ifstmt->testStatement = test;
 	stmt->ifstmt->yes = yesCode;
 	stmt->ifstmt->no = noCode;
+	val = stmt;
+}
+
+flowstatement(val) ::= KEYWORD_WHILE LPAREN fexpression(test) RPAREN LCURLY statementgroup(loopCode) RCURLY.{
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = WHILESTATEMENT;
+	stmt->ifstmt = malloc(sizeof(struct WhileStatement));
+	stmt->whilestmt->testStatement = test;
+	stmt->whilestmt->code = loopCode;
 	val = stmt;
 }
 

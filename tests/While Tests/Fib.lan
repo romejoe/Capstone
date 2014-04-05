@@ -1,0 +1,13 @@
+Integer stop = 50;
+Integer cur = 1;
+Integer prev = 0;
+Integer i = 1;
+
+while(i < stop){
+	Integer tmp = cur;
+	cur = cur + prev;
+	prev = tmp;
+	i = i + 1;
+}
+
+print cur;

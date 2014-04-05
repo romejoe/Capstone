@@ -43,12 +43,18 @@ struct IfStatement{
 	struct Context *yes, *no;
 };
 
+struct WhileStatement{
+	struct Expression *testStatement;
+	struct Context *code;
+};
+
 struct GenericStatement{
 	enum statementType type;
 	char hasDef;
 	union{
 		struct Expression *exp;
 		struct IfStatement *ifstmt;
+		struct WhileStatement *whilestmt;
 	};
 	struct Symbol *sym;
 };

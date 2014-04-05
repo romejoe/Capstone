@@ -6,6 +6,8 @@
 #include "Instruction.h"
 #include "enumDefs.h"
 #include "astack.h"
+#include "List.h"
+
 #ifndef ___INTERPRETER_H___
 #define ___INTERPRETER_H___
 

@@ -2,74 +2,43 @@
 #ifndef ___BYTECODEDEF_H___
 #define ___BYTECODEDEF_H___
 
-
-/*
-        ihello
-    ops needed
-    	rjmp {dst}
-        mov {src}, {dst}
-        add
-        sub
-        mul
-        div
-        mod
-        exp
-        tof {src}, {dst}
-        toi {src}, {dst}
-        Ipush
-        Fpush
-
-        //exp how?
-*/
 enum instruction_type {
-	iHELLO = -1,
-	iJMP,
-	iJMPT,
-	iJMPF,
-	iEQ,
-	iNEQ,
-	iLT,
-	iLTE,
-	iGT,
-	iGTE,
-	iMOV,
-	iADD,
-	iSUB,
-	iMUL,
-	iDIV,
-	iMOD,
-	iPOW,
-	iIPUSH,
-	iFPUSH,
-	iPRINT
+	iHELLO = -1,		/*-1*/
+	iJMP,				/*0*/
+	iJMPT,				/*1*/
+	iJMPF,				/*2*/
+	iEQ,				/*3*/
+	iNEQ,				/*4*/
+	iLT,				/*5*/
+	iLTE,				/*6*/
+	iGT,				/*7*/
+	iGTE,				/*8*/
+	iMOV,				/*9*/
+	iADD,				/*A*/
+	iSUB,				/*B*/
+	iMUL,				/*C*/
+	iDIV,				/*D*/
+	iMOD,				/*E*/
+	iPOW,				/*F*/
+	iIPUSH,				/*10*/
+	iFPUSH,				/*11*/
+	/* variable instructions */
+	iLVPUSH,			/*12*/
+	iGVPUSH,			/*13*/
+	iASSIGN,			/*14*/
+	iVALLOC,			/*15*/
+	iVDALLOC,			/*16*/
+	iVSETTYPE,			/*17*/
+	iDUMPVARS,			/*18*/
+
+	iPRINT				/*19*/
 };
-
-#define __REGISTER_COUNT 14
-
-
-struct paramOption {
-	int location: 7; /* 2^4 = 16 possible locations */
-	/* 0: raw data */
-	/* 1: memory location */
-	int dereferenceLocation: 1;
-	unsigned char size:8; /*size in bytes of the following data*/
-
-};
-#define ParamOptionSize 2
 
 struct instruction {
 	char opType; /*allows for 2^8 (256) commands*/
 };
 
-struct complete_instruction {
-	struct instruction instruct;
-	char optionCount;
-	struct paramOption *options;
-};
 
 struct instruction new_instruction(enum instruction_type);
-int getParamCountForInstruction(struct instruction instruct);
-
-struct complete_instruction *new_complete_instruction(enum instruction_type);
-
+char *getName(enum instruction_type);
 #endif

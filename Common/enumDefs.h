@@ -3,11 +3,13 @@
 #define ___ENUMS_H___
 
 enum datasource {
+	__VARIABLE = -2, /* only used in interpreter */
 	NA = -1,
 	INTEGER,
 	FLOAT,
 	STRING,
-	SYMBOL
+	SYMBOL,
+	POINTER
 };
 
 enum expression_type {

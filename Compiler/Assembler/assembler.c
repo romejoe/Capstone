@@ -1,35 +1,12 @@
 #include "CByteStream/FullByteStream.h"
 #include "assembler.h"
 
-void writeCompleteInstructionToStream(struct complete_instruction *instruct, struct ByteStream *stream);
 void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream);
 void assembleExpression(struct Expression *exp, struct ByteStream *stream);
 void assembleContext(struct Context *context, struct ByteStream *stream);
 
-
-void writeCompleteInstructionToStream(struct complete_instruction *instruct, struct ByteStream *stream){
-	
-	int i;
-	struct paramOption tmpOption;
-	writeTypeToByteStream(instruct->instruct,stream, struct instruction);
-	writeTypeToByteStream(instruct->optionCount,stream, char);
-	
-	i = 0;
-	while(i < instruct->optionCount){
-		tmpOption = instruct->options[i];
-		printf("%d:\n", i);
-		/*printOption(tmpOption);*/
-	 	writeSizeToByteStream(tmpOption, stream, ParamOptionSize);
-	 ++i;
-	}
-}
-
 void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream){
-	
-	int i;
-	struct paramOption tmpOption;
 	writeTypeToByteStream(*instruct,stream, struct instruction);
-	
 }
 
 void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *stream){
@@ -39,21 +16,21 @@ void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *strea
 	
 	assembleExpression(ifStmt->testStatement, stream);
 	
-	// if statement
+	/* if statement*/
 	if(!ifStmt->no){
 		jmp = new_instruction(iJMPF);
 		writeInstructionToStream(&jmp, stream);
 
-		//assemble true code
+		/*assemble true code*/
 		yesCode = malloc(sizeof(struct ByteStream));
 		initByteStream(yesCode);
 		assembleContext(ifStmt->yes, yesCode);
 
-		//write jump coordinates to stream
+		/*write jump coordinates to stream*/
 		writeTypeToByteStream(yesCode->actualsize, stream, long);
 		appendByteStreamToByteStream(stream, yesCode);
 	}
-	// if/else statement
+	/* if/else statement*/
 	else{
 		jmp = new_instruction(iJMPT);
 		
@@ -62,18 +39,18 @@ void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *strea
 		initByteStream(noCode);
 		assembleContext(ifStmt->no, noCode);
 		
-		//write jump coordinate, bad code + jmp instruction
+		/*write jump coordinate, bad code + jmp instruction*/
 		writeInstructionToStream(&jmp, stream);
 		writeTypeToByteStream(noCode->actualsize + sizeof(long) + sizeof(struct instruction), stream, long);
 		
 		appendByteStreamToByteStream(stream, noCode);
 		
 
-		//assemble true code
+		/*assemble true code*/
 		yesCode = malloc(sizeof(struct ByteStream));
 		initByteStream(yesCode);
 		assembleContext(ifStmt->yes, yesCode);
-		//write jump coordinate, good code
+		/*write jump coordinate, good code*/
 		jmp = new_instruction(iJMP);
 		writeInstructionToStream(&jmp, stream);
 		writeTypeToByteStream(yesCode->actualsize, stream, long);
@@ -145,32 +122,41 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 		case CHECK_LTE:
 			in = new_instruction(iLTE);
 			goto recurse;
+		case ASSIGNMENT:
+			in = new_instruction(iASSIGN);
+			goto recurse;
 
 			recurse:
 			assembleExpression(exp->left, stream);
 			assembleExpression(exp->right, stream);
 			writeToByteStream(in, stream);
-			/*writeToByteStream(*inPtr, stream);*/
 			break;
+
 		case SOURCE:
-			if(exp->source_type != SYMBOL){
-				
-				
-				switch(exp->source_type){
-					case INTEGER:
-						in = new_instruction(iIPUSH);
-						writeToByteStream(in, stream);
-						writeTypeToByteStream(exp->dataSource.Integer, stream, long);
-						break;
-					case FLOAT:
-						in = new_instruction(iFPUSH);
-						writeToByteStream(in, stream);
-						writeTypeToByteStream(exp->dataSource.Float, stream, double);	
-						break;
-					default:
-						printf("Source is unsupported!!!\n");
-						break;
-				}
+			switch(exp->source_type){
+				case INTEGER:
+					in = new_instruction(iIPUSH);
+					writeToByteStream(in, stream);
+					writeTypeToByteStream(exp->dataSource.Integer, stream, long);
+					break;
+				case FLOAT:
+					in = new_instruction(iFPUSH);
+					writeToByteStream(in, stream);
+					writeTypeToByteStream(exp->dataSource.Float, stream, double);	
+					break;
+				case SYMBOL:
+					printf("Symbol Name: %s; Global: %d\n", exp->dataSource.sym->name, exp->dataSource.sym->isGlobal);
+					if(exp->dataSource.sym->isGlobal)
+						in = new_instruction(iGVPUSH);
+					else
+						in = new_instruction(iLVPUSH);
+
+					writeToByteStream(in, stream);
+					writeTypeToByteStream(exp->dataSource.sym->index, stream, long);
+					break;
+				default:
+					printf("Source is unsupported!!!\n");
+					break;
 			}
 			break;
 			
@@ -185,10 +171,55 @@ void assembleContext(struct Context *context, struct ByteStream *stream){
 	/*write symbols to stream */
 	/*write expression to stream */
 	struct List *statements = context->statements;
-	printf("list size = %d\n", statements->ListSize);
+	
+	/*printf("list size = %d\n", statements->ListSize);*/
+	struct instruction tmp;
+	long varCount = context->symbols->ListSize;
+	
+	tmp = new_instruction(iVALLOC);
+	writeInstructionToStream(&tmp, stream);
+	writeTypeToByteStream(varCount, stream, long);
+
+	tmp = new_instruction(iVSETTYPE);
+	List_ForEach(context->symbols, {
+		struct Symbol *lSym;
+		writeInstructionToStream(&tmp, stream);
+		lSym = List_Ref_Value(context->symbols, i, struct Symbol *);
+		
+		writeTypeToByteStream(
+			lSym->index,
+			stream, long);
+		switch(lSym->type){
+			case tINTEGER:
+				writeTypeToByteStream(
+				INTEGER,
+				stream, enum datasource);	
+				break;
+			case tFLOAT:
+				writeTypeToByteStream(
+				FLOAT,
+				stream, enum datasource);	
+				break;
+		}/*
+		writeTypeToByteStream(
+			lSym->type,
+			stream, enum data_type);*/
+	});
+	/*
+	tmp = new_instruction(iDUMPVARS);
+	writeInstructionToStream(&tmp, stream);
+	*/
 	List_ForEach(statements,{
 		assembleStatement(List_Ref_Value(statements, i, struct GenericStatement *), stream);	
+		/*
+		tmp = new_instruction(iDUMPVARS);
+		writeInstructionToStream(&tmp, stream);
+		*/
 	});
+
+	tmp = new_instruction(iVDALLOC);
+	writeInstructionToStream(&tmp, stream);
+	writeTypeToByteStream(varCount, stream, long);
 	
 }
 

@@ -10,29 +10,65 @@ struct instruction new_instruction(enum instruction_type type)
 	return ret;
 }
 
-int getParamCountForInstruction(struct instruction instruct){
-	switch(instruct.opType){
-		case iIPUSH:
-		case iFPUSH:
-		case iJMP:
-			return 1;
+char *getName(enum instruction_type type)
+{
+	switch (type) {
 		case iHELLO:
-			return 0;
+			return "iHELLO";
+		case iJMP:
+			return "iJMP";
+		case iJMPT:
+			return "iJMPT";
+		case iJMPF:
+			return "iJMPF";
+		case iEQ:
+			return "iEQ";
+		case iNEQ:
+			return "iNEQ";
+		case iLT:
+			return "iLT";
+		case iLTE:
+			return "iLTE";
+		case iGT:
+			return "iGT";
+		case iGTE:
+			return "iGTE";
+		case iMOV:
+			return "iMOV";
+		case iADD:
+			return "iADD";
+		case iSUB:
+			return "iSUB";
+		case iMUL:
+			return "iMUL";
+		case iDIV:
+			return "iDIV";
+		case iMOD:
+			return "iMOD";
+		case iPOW:
+			return "iPOW";
+		case iIPUSH:
+			return "iIPUSH";
+		case iFPUSH:
+			return "iFPUSH";
+		case iLVPUSH:
+			return "iLVPUSH";
+		case iGVPUSH:
+			return "iGVPUSH";
+		case iASSIGN:
+			return "iASSIGN";
+		case iVALLOC:
+			return "iVALLOC";
+		case iVDALLOC:
+			return "iVDALLOC";
+		case iPRINT:
+			return "iPRINT";
+		case iVSETTYPE:
+			return "iVSETTYPE";
+			case iDUMPVARS:
+			return "iDUMPVARS";
 		default:
-			return 0;
+			return "???";
 	}
-}
 
-struct complete_instruction *new_complete_instruction(enum instruction_type type){
-	struct complete_instruction *ret;
-	struct instruction tmp;
-	tmp = new_instruction(type);
-	int optionCount = getParamCountForInstruction(tmp);
-
-	ret = malloc(sizeof(struct complete_instruction));
-	ret->instruct = tmp;
-	ret->optionCount = optionCount;
-	ret->options =  malloc(sizeof(struct paramOption) * optionCount);
-
-	return ret;
 }

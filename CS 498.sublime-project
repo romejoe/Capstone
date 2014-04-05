@@ -3,9 +3,12 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "."
+			"path": ".",
+            "folder_exclude_patterns":[".waf*", "build"],
+            "file_exclude_patterns":[".loc*"],
 		}
 	],
+    
 
 	"settings":{
 		"AStyleFormatter":

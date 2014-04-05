@@ -221,7 +221,7 @@ void interpreteByteCode(char *buf, int length)
 				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
 				break;
 			case iGVPUSH:
-				offset = GetTypeAndAdvance(progBuf, long) + variableIndex;
+				offset = GetTypeAndAdvance(progBuf, long);
 				resultItem = List_Ref_Value(variables, offset, struct computationalStackItem);
 				resultItem.varIndex = offset;
 				AStack_Push(computationalStack, resultItem, struct computationalStackItem);
@@ -231,6 +231,7 @@ void interpreteByteCode(char *buf, int length)
 				item = PopComputationalStackItem();
 				assert(item.varIndex >= 0);
 				offset = item.varIndex;
+				/*printf("Offset = %ld\n", offset);
 				/*item = List_Ref_Value(variables,offset, struct computationalStackItem);
 				printf("result = ");
 				printResultItem(resultItem);
@@ -273,7 +274,7 @@ void interpreteByteCode(char *buf, int length)
 				printf("OP (%s) NOT SUPPORTED!\n", getName(instruct.opType));
 				break;
 		}
-		/*
+		/*		
 		printf("======Begin Variable Dump\n");
 		List_ForEach(variables, {
 		    printf("[%d] ", i);
@@ -287,6 +288,7 @@ void interpreteByteCode(char *buf, int length)
 		    printResultItem(*((struct computationalStackItem *)computationalStack.stacky + i));
 		}
 		printf("======End Stack Dump\n\n");
+		getc(stdin);
 		*/
 	}
 }

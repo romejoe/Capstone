@@ -1,0 +1,1 @@
+./build/Compiler/compiler "$1" > /dev/null && ./build/Interpreter/interpreter b.out > /dev/null

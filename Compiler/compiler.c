@@ -24,6 +24,11 @@ void AssignVariableIndices(struct Context* ctx, int startIndex){
 			if(stmt->no)
 				AssignVariableIndices(stmt->no, startIndex);
 		}
+		if(lGstmt->type == WHILESTATEMENT){
+			struct WhileStatement *stmt;
+			stmt = lGstmt->whilestmt;
+			AssignVariableIndices(stmt->code, startIndex);
+		}
 	})
 
 }
@@ -68,8 +73,12 @@ void _updateSymbolReferences(struct Context* prog){
 			if(tmp->ifstmt->no)
 				_updateSymbolReferences(tmp->ifstmt->no);
 		}
-		else{
+		else if(tmp->type == WHILESTATEMENT){
+			fillInSymbolReferences(tmp->whilestmt->testStatement, prog);
+			_updateSymbolReferences(tmp->whilestmt->code);
+		}else{
 			fillInSymbolReferences(tmp->exp, prog);
+		
 		}
 	});
 	

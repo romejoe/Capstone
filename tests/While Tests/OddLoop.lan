@@ -1,0 +1,12 @@
+Integer i;
+i = 0;
+print i;
+while(i < 10){
+	Float b;
+	//print i;
+	b = 2.0;
+	if( i % 2){
+		print i;
+	}
+	i = i + 1;
+}

@@ -39,7 +39,8 @@ enum data_type {
 
 enum statementType{
 	GENERALSTATEMENT,
-	IFSTATEMENT
+	IFSTATEMENT,
+	WHILESTATEMENT
 };
 
 #endif

@@ -6,17 +6,23 @@
 #define GetInstruction(target)              GetTypeFromTarget(target, struct instruction)
 #define GetInstructionAndAdvance(target)    GetTypeAndAdvance(target, struct instruction)
 
-char *getDataTypeName(enum data_type type)
+char *getDataTypeName(enum datasource type)
 {
 	switch (type) {
-		case tVOID:
-				return "tVOID";
-		case tINTEGER:
-			return "tINTEGER";
-		case tFLOAT:
-			return "tFLOAT";
-		case tFUNCTION:
-			return "tFUNCTION";
+		case __VARIABLE:
+			return "__VARIABLE";
+		case NA:
+			return "NA";
+		case INTEGER:
+			return "INTEGER";
+		case FLOAT:
+			return "FLOAT";
+		case STRING:
+			return "STRING";
+		case SYMBOL:
+			return "SYMBOL";
+		case POINTER:
+			return "POINTER";
 		default:
 			return "Unknown";
 	}
@@ -35,6 +41,7 @@ void interpreteByteCode(char *buf, int length)
 
 	while (progBuf < stop) {
 		/*get instruction info*/
+		printf("Offset: %ld\n", progBuf - buf);
 		instruct = GetInstructionAndAdvance(progBuf);
 		printf("OP[%X]: %s\n", instruct.opType, getName(instruct.opType));
 		switch (instruct.opType) {
@@ -64,7 +71,7 @@ void interpreteByteCode(char *buf, int length)
 
 			case iVSETTYPE:
 				offset = GetTypeAndAdvance(progBuf, long);
-				type = GetTypeAndAdvance(progBuf, enum data_type);
+				type = GetTypeAndAdvance(progBuf, enum datasource);
 				printf("\tOffset: %ld\n", offset);
 				printf("\tType: %s\n", getDataTypeName(type));
 				break;
@@ -76,7 +83,8 @@ void interpreteByteCode(char *buf, int length)
 }
 
 
-void disassembleFile(char *fileName){
+void disassembleFile(char *fileName)
+{
 	FILE *input;
 	char *byteCode;
 	long FileSize;
@@ -85,7 +93,7 @@ void disassembleFile(char *fileName){
 	FileSize = ftell(input);
 
 	fseek(input, 0, SEEK_SET);
-	
+
 	byteCode = malloc(FileSize);
 	fread(byteCode, FileSize, 1, input);
 
@@ -104,7 +112,7 @@ int main(int argc, char **argv)
 	}
 	++argv;
 	disassembleFile(*argv);
-	
+
 	fprintf(stdout, "\x1b[1m\x1b[92mExiting...\x1b[0m\n");
 	return 0;
 

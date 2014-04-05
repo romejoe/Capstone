@@ -69,16 +69,16 @@
 **                       defined, then do no error processing.
 */
 #define YYCODETYPE unsigned char
-#define YYNOCODE 40
+#define YYNOCODE 41
 #define YYACTIONTYPE unsigned char
 #define ParseTOKENTYPE Token *
 typedef union {
   int yyinit;
   ParseTOKENTYPE yy0;
-  struct GenericStatement * yy8;
-  struct Symbol * yy12;
-  struct Expression * yy32;
-  struct Context * yy67;
+  struct Context * yy9;
+  struct GenericStatement * yy10;
+  struct Expression * yy44;
+  struct Symbol * yy70;
 } YYMINORTYPE;
 #ifndef YYSTACKDEPTH
 #define YYSTACKDEPTH 100
@@ -87,8 +87,8 @@ typedef union {
 #define ParseARG_PDECL
 #define ParseARG_FETCH
 #define ParseARG_STORE
-#define YYNSTATE 70
-#define YYNRULE 37
+#define YYNSTATE 77
+#define YYNRULE 38
 #define YY_NO_ACTION      (YYNSTATE+YYNRULE+2)
 #define YY_ACCEPT_ACTION  (YYNSTATE+YYNRULE+1)
 #define YY_ERROR_ACTION   (YYNSTATE+YYNRULE)
@@ -157,85 +157,94 @@ static const YYMINORTYPE yyzerominor = { 0 };
 **                     shifting non-terminals after a reduce.
 **  yy_default[]       Default action for each state.
 */
-#define YY_ACTTAB_COUNT (222)
+#define YY_ACTTAB_COUNT (261)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */    70,   64,   40,   17,   25,   63,   57,   17,   69,   29,
- /*    10 */     6,   45,   44,   60,   40,   17,   15,   36,   37,   24,
- /*    20 */    23,   29,    6,   45,   44,   59,   58,   38,   14,   59,
- /*    30 */    58,   24,   23,    2,   56,   40,   17,   59,   58,   67,
- /*    40 */    19,    1,   29,    6,   45,   44,   18,   16,   22,   21,
- /*    50 */    20,   19,   24,   23,   33,   63,   57,    7,   59,   58,
- /*    60 */     5,   27,   43,   48,   26,   35,   28,   25,   63,   57,
- /*    70 */   108,    4,   27,   43,   48,   26,   35,   28,   25,   63,
- /*    80 */    57,   40,   17,   32,   63,   57,   46,   42,   29,    6,
- /*    90 */    45,   44,   31,   63,   57,   62,   39,   26,   24,   23,
- /*   100 */    25,   63,   57,   61,   59,   58,    3,   27,   43,   48,
- /*   110 */    26,   35,   28,   25,   63,   57,  109,  109,   41,   68,
- /*   120 */    48,   26,   35,   28,   25,   63,   57,   13,   12,   11,
- /*   130 */    10,    9,    8,   17,  109,  109,   66,   26,  109,   60,
- /*   140 */    25,   63,   57,   30,   63,   57,  109,   65,   26,   24,
- /*   150 */    23,   25,   63,   57,  109,   59,   58,   54,   26,  109,
- /*   160 */   109,   25,   63,   57,   53,   26,  109,  109,   25,   63,
- /*   170 */    57,   52,   26,  109,  109,   25,   63,   57,  109,   51,
- /*   180 */    26,  109,  109,   25,   63,   57,  109,   50,   26,  109,
- /*   190 */   109,   25,   63,   57,   49,   26,  109,  109,   25,   63,
- /*   200 */    57,   47,   26,  109,  109,   25,   63,   57,   34,  109,
- /*   210 */   109,   25,   63,   57,  109,  109,   55,  109,  109,   25,
- /*   220 */    63,   57,
+ /*     0 */    77,   70,   46,   20,   28,   69,   63,   76,   41,   44,
+ /*    10 */    32,    8,   51,   50,   21,   19,   25,   24,   23,   22,
+ /*    20 */    27,   26,   18,    3,   46,   20,   65,   64,   43,   17,
+ /*    30 */    41,   42,   32,    8,   51,   50,   37,   20,    2,   28,
+ /*    40 */    69,   63,   27,   26,   66,   39,   46,   20,   65,   64,
+ /*    50 */    74,    1,   41,   22,   32,    8,   51,   50,   16,   62,
+ /*    60 */    65,   64,    9,   48,   27,   26,   52,   68,   46,   20,
+ /*    70 */    65,   64,   73,   67,   41,  117,   32,    8,   51,   50,
+ /*    80 */    61,  117,  117,   28,   69,   63,   27,   26,  117,   46,
+ /*    90 */    20,  117,   65,   64,  117,   41,  117,   32,    8,   51,
+ /*   100 */    50,   36,   69,   63,  117,   45,   29,   27,   26,   28,
+ /*   110 */    69,   63,  117,   65,   64,  117,  117,    7,   30,   49,
+ /*   120 */    54,   29,   38,   31,   28,   69,   63,  116,    6,   30,
+ /*   130 */    49,   54,   29,   38,   31,   28,   69,   63,    5,   30,
+ /*   140 */    49,   54,   29,   38,   31,   28,   69,   63,    4,   30,
+ /*   150 */    49,   54,   29,   38,   31,   28,   69,   63,   47,   75,
+ /*   160 */    54,   29,   38,   31,   28,   69,   63,   15,   14,   13,
+ /*   170 */    12,   11,   10,   20,   35,   69,   63,   40,   29,  117,
+ /*   180 */    66,   28,   69,   63,   34,   69,   63,  117,   72,   29,
+ /*   190 */    27,   26,   28,   69,   63,  117,   65,   64,   71,   29,
+ /*   200 */   117,  117,   28,   69,   63,   60,   29,  117,  117,   28,
+ /*   210 */    69,   63,  117,   59,   29,  117,  117,   28,   69,   63,
+ /*   220 */   117,   58,   29,  117,  117,   28,   69,   63,  117,   57,
+ /*   230 */    29,  117,  117,   28,   69,   63,   56,   29,  117,  117,
+ /*   240 */    28,   69,   63,   55,   29,  117,  117,   28,   69,   63,
+ /*   250 */    53,   29,  117,  117,   28,   69,   63,  117,   33,   69,
+ /*   260 */    63,
 };
 static const YYCODETYPE yy_lookahead[] = {
- /*     0 */     0,   32,    2,    3,   35,   36,   37,    3,    1,    9,
- /*    10 */    10,   11,   12,    9,    2,    3,    3,    7,    6,   19,
- /*    20 */    20,    9,   10,   11,   12,   25,   26,    4,    8,   25,
- /*    30 */    26,   19,   20,    5,    4,    2,    3,   25,   26,    6,
- /*    40 */    24,    5,    9,   10,   11,   12,   19,   20,   21,   22,
- /*    50 */    23,   24,   19,   20,   35,   36,   37,    8,   25,   26,
- /*    60 */    28,   29,   30,   31,   32,   33,   34,   35,   36,   37,
- /*    70 */    38,   28,   29,   30,   31,   32,   33,   34,   35,   36,
- /*    80 */    37,    2,    3,   35,   36,   37,    9,    1,    9,   10,
- /*    90 */    11,   12,   35,   36,   37,   37,   31,   32,   19,   20,
- /*   100 */    35,   36,   37,   37,   25,   26,   28,   29,   30,   31,
- /*   110 */    32,   33,   34,   35,   36,   37,   39,   39,   29,   30,
- /*   120 */    31,   32,   33,   34,   35,   36,   37,   13,   14,   15,
- /*   130 */    16,   17,   18,    3,   39,   39,   31,   32,   39,    9,
- /*   140 */    35,   36,   37,   35,   36,   37,   39,   31,   32,   19,
- /*   150 */    20,   35,   36,   37,   39,   25,   26,   31,   32,   39,
- /*   160 */    39,   35,   36,   37,   31,   32,   39,   39,   35,   36,
- /*   170 */    37,   31,   32,   39,   39,   35,   36,   37,   39,   31,
- /*   180 */    32,   39,   39,   35,   36,   37,   39,   31,   32,   39,
- /*   190 */    39,   35,   36,   37,   31,   32,   39,   39,   35,   36,
- /*   200 */    37,   31,   32,   39,   39,   35,   36,   37,   32,   39,
- /*   210 */    39,   35,   36,   37,   39,   39,   32,   39,   39,   35,
- /*   220 */    36,   37,
+ /*     0 */     0,   33,    2,    3,   36,   37,   38,    1,    8,    4,
+ /*    10 */    10,   11,   12,   13,   20,   21,   22,   23,   24,   25,
+ /*    20 */    20,   21,    3,    5,    2,    3,   26,   27,    6,    3,
+ /*    30 */     8,    7,   10,   11,   12,   13,   33,    3,    5,   36,
+ /*    40 */    37,   38,   20,   21,   10,    4,    2,    3,   26,   27,
+ /*    50 */     6,    5,    8,   25,   10,   11,   12,   13,    9,    4,
+ /*    60 */    26,   27,    9,    1,   20,   21,   10,   38,    2,    3,
+ /*    70 */    26,   27,    6,   38,    8,   40,   10,   11,   12,   13,
+ /*    80 */    33,   40,   40,   36,   37,   38,   20,   21,   40,    2,
+ /*    90 */     3,   40,   26,   27,   40,    8,   40,   10,   11,   12,
+ /*   100 */    13,   36,   37,   38,   40,   32,   33,   20,   21,   36,
+ /*   110 */    37,   38,   40,   26,   27,   40,   40,   29,   30,   31,
+ /*   120 */    32,   33,   34,   35,   36,   37,   38,   39,   29,   30,
+ /*   130 */    31,   32,   33,   34,   35,   36,   37,   38,   29,   30,
+ /*   140 */    31,   32,   33,   34,   35,   36,   37,   38,   29,   30,
+ /*   150 */    31,   32,   33,   34,   35,   36,   37,   38,   30,   31,
+ /*   160 */    32,   33,   34,   35,   36,   37,   38,   14,   15,   16,
+ /*   170 */    17,   18,   19,    3,   36,   37,   38,   32,   33,   40,
+ /*   180 */    10,   36,   37,   38,   36,   37,   38,   40,   32,   33,
+ /*   190 */    20,   21,   36,   37,   38,   40,   26,   27,   32,   33,
+ /*   200 */    40,   40,   36,   37,   38,   32,   33,   40,   40,   36,
+ /*   210 */    37,   38,   40,   32,   33,   40,   40,   36,   37,   38,
+ /*   220 */    40,   32,   33,   40,   40,   36,   37,   38,   40,   32,
+ /*   230 */    33,   40,   40,   36,   37,   38,   32,   33,   40,   40,
+ /*   240 */    36,   37,   38,   32,   33,   40,   40,   36,   37,   38,
+ /*   250 */    32,   33,   40,   40,   36,   37,   38,   40,   36,   37,
+ /*   260 */    38,
 };
-#define YY_SHIFT_USE_DFLT (-1)
-#define YY_SHIFT_COUNT (41)
-#define YY_SHIFT_MIN   (0)
-#define YY_SHIFT_MAX   (130)
+#define YY_SHIFT_USE_DFLT (-7)
+#define YY_SHIFT_COUNT (47)
+#define YY_SHIFT_MIN   (-6)
+#define YY_SHIFT_MAX   (170)
 static const short yy_shift_ofst[] = {
- /*     0 */    79,   79,   79,   33,   12,    0,  130,  130,  130,  130,
- /*    10 */   130,  130,  130,  130,  130,  130,  130,  130,  130,  130,
- /*    20 */   130,  130,  130,    4,    4,   27,  114,   86,   77,   49,
- /*    30 */    16,   16,   16,   16,   30,   20,   36,   10,   28,   23,
- /*    40 */    13,    7,
+ /*     0 */    87,   87,   87,   87,   66,   44,   22,    0,  170,  170,
+ /*    10 */   170,  170,  170,  170,  170,  170,  170,  170,  170,  170,
+ /*    20 */   170,  170,  170,  170,  170,  170,   34,   34,   -6,  153,
+ /*    30 */    62,   56,   53,   28,   28,   28,   28,   55,   49,   46,
+ /*    40 */    41,   26,   33,   24,   18,    5,   19,    6,
 };
-#define YY_REDUCE_USE_DFLT (-32)
-#define YY_REDUCE_COUNT (24)
-#define YY_REDUCE_MIN   (-31)
-#define YY_REDUCE_MAX   (184)
+#define YY_REDUCE_USE_DFLT (-33)
+#define YY_REDUCE_COUNT (27)
+#define YY_REDUCE_MIN   (-32)
+#define YY_REDUCE_MAX   (222)
 static const short yy_reduce_ofst[] = {
- /*     0 */    32,   78,   43,   89,   89,   89,  170,  163,  156,  148,
- /*    10 */   140,  133,  126,  116,  105,   65,  184,  176,  -31,  108,
- /*    20 */    57,   48,   19,   66,   58,
+ /*     0 */    88,  119,  109,   99,  128,  128,  128,  128,  218,  211,
+ /*    10 */   204,  197,  189,  181,  173,  166,  156,  145,   73,   47,
+ /*    20 */     3,  -32,  222,  148,  138,   65,   35,   29,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */   107,  107,  107,  107,  107,  107,  107,  107,  107,  107,
- /*    10 */   107,  107,  107,  107,  107,  107,  107,  107,  107,  107,
- /*    20 */   107,  107,  107,  107,  107,   94,   91,  107,  107,  104,
- /*    30 */    98,   97,   96,   95,  107,   78,  107,   75,  107,  107,
- /*    40 */   107,  107,   74,   73,   84,   83,   82,   81,   80,   79,
- /*    50 */    90,   89,   88,   87,   86,   93,  103,  102,  106,  105,
- /*    60 */   104,  101,  100,   99,   92,   85,   77,   76,   72,   71,
+ /*     0 */   115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
+ /*    10 */   115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
+ /*    20 */   115,  115,  115,  115,  115,  115,  115,  115,  102,   99,
+ /*    30 */   115,  115,  112,  106,  105,  104,  103,  115,   86,  115,
+ /*    40 */   115,  115,  115,   82,  115,  115,  115,  115,   81,   80,
+ /*    50 */    92,   91,   90,   89,   88,   87,   98,   97,   96,   95,
+ /*    60 */    94,  101,  111,  110,  114,  113,  112,  109,  108,  107,
+ /*    70 */   100,   93,   85,   84,   83,   79,   78,
 };
 
 /* The next table maps tokens into fallback tokens.  If a construct
@@ -330,14 +339,14 @@ void ParseTrace(FILE *TraceFILE, char *zTracePrompt){
 static const char *const yyTokenName[] = { 
   "$",             "SEMICOLON",     "KEYWORD_IF",    "LPAREN",      
   "RPAREN",        "LCURLY",        "RCURLY",        "KEYWORD_ELSE",
-  "EQUAL",         "IDENTIFIER",    "KEYWORD_PRINT",  "KEYWORD_INTEGER",
-  "KEYWORD_FLOAT",  "LOGICAL_EQ",    "LOGICAL_NE",    "LOGICAL_GT",  
-  "LOGICAL_LT",    "LOGICAL_GTE",   "LOGICAL_LTE",   "PLUS",        
-  "MINUS",         "MUL",           "DIV",           "MOD",         
-  "EXP",           "INTEGER",       "FLOAT",         "error",       
-  "statementgroup",  "statement",     "flowstatement",  "fexpression", 
-  "expression",    "definition",    "datatype",      "term",        
-  "signedFactor",  "factor",        "program",     
+  "KEYWORD_WHILE",  "EQUAL",         "IDENTIFIER",    "KEYWORD_PRINT",
+  "KEYWORD_INTEGER",  "KEYWORD_FLOAT",  "LOGICAL_EQ",    "LOGICAL_NE",  
+  "LOGICAL_GT",    "LOGICAL_LT",    "LOGICAL_GTE",   "LOGICAL_LTE", 
+  "PLUS",          "MINUS",         "MUL",           "DIV",         
+  "MOD",           "EXP",           "INTEGER",       "FLOAT",       
+  "error",         "statementgroup",  "statement",     "flowstatement",
+  "fexpression",   "expression",    "definition",    "datatype",    
+  "term",          "signedFactor",  "factor",        "program",     
 };
 #endif /* NDEBUG */
 
@@ -352,36 +361,37 @@ static const char *const yyRuleName[] = {
  /*   4 */ "statementgroup ::= statement SEMICOLON",
  /*   5 */ "flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY",
  /*   6 */ "flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY",
- /*   7 */ "statement ::= definition EQUAL fexpression",
- /*   8 */ "statement ::= definition",
- /*   9 */ "statement ::= IDENTIFIER EQUAL fexpression",
- /*  10 */ "statement ::= fexpression",
- /*  11 */ "statement ::= KEYWORD_PRINT fexpression",
- /*  12 */ "definition ::= datatype IDENTIFIER",
- /*  13 */ "datatype ::= KEYWORD_INTEGER",
- /*  14 */ "datatype ::= KEYWORD_FLOAT",
- /*  15 */ "fexpression ::= expression LOGICAL_EQ fexpression",
- /*  16 */ "fexpression ::= expression LOGICAL_NE fexpression",
- /*  17 */ "fexpression ::= expression LOGICAL_GT fexpression",
- /*  18 */ "fexpression ::= expression LOGICAL_LT fexpression",
- /*  19 */ "fexpression ::= expression LOGICAL_GTE fexpression",
- /*  20 */ "fexpression ::= expression LOGICAL_LTE fexpression",
- /*  21 */ "fexpression ::= expression",
- /*  22 */ "expression ::= term PLUS expression",
- /*  23 */ "expression ::= term MINUS expression",
- /*  24 */ "expression ::= term",
- /*  25 */ "term ::= term MUL term",
- /*  26 */ "term ::= term DIV term",
- /*  27 */ "term ::= term MOD term",
- /*  28 */ "term ::= term EXP term",
- /*  29 */ "term ::= signedFactor",
- /*  30 */ "signedFactor ::= PLUS factor",
- /*  31 */ "signedFactor ::= MINUS factor",
- /*  32 */ "signedFactor ::= factor",
- /*  33 */ "factor ::= LPAREN expression RPAREN",
- /*  34 */ "factor ::= IDENTIFIER",
- /*  35 */ "factor ::= INTEGER",
- /*  36 */ "factor ::= FLOAT",
+ /*   7 */ "flowstatement ::= KEYWORD_WHILE LPAREN fexpression RPAREN LCURLY statementgroup RCURLY",
+ /*   8 */ "statement ::= definition EQUAL fexpression",
+ /*   9 */ "statement ::= definition",
+ /*  10 */ "statement ::= IDENTIFIER EQUAL fexpression",
+ /*  11 */ "statement ::= fexpression",
+ /*  12 */ "statement ::= KEYWORD_PRINT fexpression",
+ /*  13 */ "definition ::= datatype IDENTIFIER",
+ /*  14 */ "datatype ::= KEYWORD_INTEGER",
+ /*  15 */ "datatype ::= KEYWORD_FLOAT",
+ /*  16 */ "fexpression ::= expression LOGICAL_EQ fexpression",
+ /*  17 */ "fexpression ::= expression LOGICAL_NE fexpression",
+ /*  18 */ "fexpression ::= expression LOGICAL_GT fexpression",
+ /*  19 */ "fexpression ::= expression LOGICAL_LT fexpression",
+ /*  20 */ "fexpression ::= expression LOGICAL_GTE fexpression",
+ /*  21 */ "fexpression ::= expression LOGICAL_LTE fexpression",
+ /*  22 */ "fexpression ::= expression",
+ /*  23 */ "expression ::= term PLUS expression",
+ /*  24 */ "expression ::= term MINUS expression",
+ /*  25 */ "expression ::= term",
+ /*  26 */ "term ::= term MUL term",
+ /*  27 */ "term ::= term DIV term",
+ /*  28 */ "term ::= term MOD term",
+ /*  29 */ "term ::= term EXP term",
+ /*  30 */ "term ::= signedFactor",
+ /*  31 */ "signedFactor ::= PLUS factor",
+ /*  32 */ "signedFactor ::= MINUS factor",
+ /*  33 */ "signedFactor ::= factor",
+ /*  34 */ "factor ::= LPAREN expression RPAREN",
+ /*  35 */ "factor ::= IDENTIFIER",
+ /*  36 */ "factor ::= INTEGER",
+ /*  37 */ "factor ::= FLOAT",
 };
 #endif /* NDEBUG */
 
@@ -642,7 +652,7 @@ static void yyStackOverflow(yyParser *yypParser, YYMINORTYPE *yypMinor){
 #line 37 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 
 	printf("\tstack overflowed\n");
-#line 646 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 656 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
    ParseARG_STORE; /* Suppress warning about unused %extra_argument var */
 }
 
@@ -699,43 +709,44 @@ static const struct {
   YYCODETYPE lhs;         /* Symbol on the left-hand side of the rule */
   unsigned char nrhs;     /* Number of right-hand side symbols in the rule */
 } yyRuleInfo[] = {
-  { 38, 1 },
-  { 28, 3 },
-  { 28, 2 },
-  { 28, 1 },
-  { 28, 2 },
-  { 30, 7 },
-  { 30, 11 },
+  { 39, 1 },
   { 29, 3 },
-  { 29, 1 },
-  { 29, 3 },
+  { 29, 2 },
   { 29, 1 },
   { 29, 2 },
-  { 33, 2 },
-  { 34, 1 },
-  { 34, 1 },
-  { 31, 3 },
-  { 31, 3 },
-  { 31, 3 },
-  { 31, 3 },
-  { 31, 3 },
-  { 31, 3 },
-  { 31, 1 },
+  { 31, 7 },
+  { 31, 11 },
+  { 31, 7 },
+  { 30, 3 },
+  { 30, 1 },
+  { 30, 3 },
+  { 30, 1 },
+  { 30, 2 },
+  { 34, 2 },
+  { 35, 1 },
+  { 35, 1 },
+  { 32, 3 },
+  { 32, 3 },
+  { 32, 3 },
+  { 32, 3 },
   { 32, 3 },
   { 32, 3 },
   { 32, 1 },
-  { 35, 3 },
-  { 35, 3 },
-  { 35, 3 },
-  { 35, 3 },
-  { 35, 1 },
-  { 36, 2 },
-  { 36, 2 },
+  { 33, 3 },
+  { 33, 3 },
+  { 33, 1 },
+  { 36, 3 },
+  { 36, 3 },
+  { 36, 3 },
+  { 36, 3 },
   { 36, 1 },
-  { 37, 3 },
+  { 37, 2 },
+  { 37, 2 },
   { 37, 1 },
-  { 37, 1 },
-  { 37, 1 },
+  { 38, 3 },
+  { 38, 1 },
+  { 38, 1 },
+  { 38, 1 },
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -794,143 +805,164 @@ static void yy_reduce(
 #line 43 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	tmpHack = malloc(sizeof(struct Program));
-	yymsp[0].minor.yy67->parent = NULL;
-	tmpHack->context = yymsp[0].minor.yy67;
+	yymsp[0].minor.yy9->parent = NULL;
+	tmpHack->context = yymsp[0].minor.yy9;
 }
-#line 801 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 812 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       case 1: /* statementgroup ::= statementgroup statement SEMICOLON */
 #line 49 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	/*yymsp[-2].minor.yy67 will be a Context*/
-	/*yymsp[-1].minor.yy8 will be a GenericStatement*/
+	/*yymsp[-2].minor.yy9 will be a Context*/
+	/*yymsp[-1].minor.yy10 will be a GenericStatement*/
 	struct GenericStatement *gStmnt;
 
 	/*add statement to the end of the statement group*/
-	List_Add_Value(yymsp[-2].minor.yy67->statements, yymsp[-1].minor.yy8, struct GenericStatement *);
-	if(yymsp[-1].minor.yy8->hasDef){
-		List_Add_Value(yymsp[-2].minor.yy67->symbols, yymsp[-1].minor.yy8->sym, struct Symbol *);
+	List_Add_Value(yymsp[-2].minor.yy9->statements, yymsp[-1].minor.yy10, struct GenericStatement *);
+	if(yymsp[-1].minor.yy10->hasDef){
+		List_Add_Value(yymsp[-2].minor.yy9->symbols, yymsp[-1].minor.yy10->sym, struct Symbol *);
 	}
-	if(yymsp[-1].minor.yy8->type == IFSTATEMENT){
-		yymsp[-1].minor.yy8->ifstmt->yes->parent = yymsp[-2].minor.yy67;
-		if(yymsp[-1].minor.yy8->ifstmt->no){
-			yymsp[-1].minor.yy8->ifstmt->no->parent = yymsp[-2].minor.yy67;
+	if(yymsp[-1].minor.yy10->type == IFSTATEMENT){
+		yymsp[-1].minor.yy10->ifstmt->yes->parent = yymsp[-2].minor.yy9;
+		if(yymsp[-1].minor.yy10->ifstmt->no){
+			yymsp[-1].minor.yy10->ifstmt->no->parent = yymsp[-2].minor.yy9;
 		}
 	}
-	yygotominor.yy67 = yymsp[-2].minor.yy67;
+	else if (yymsp[-1].minor.yy10->type == WHILESTATEMENT){
+		yymsp[-1].minor.yy10->whilestmt->code->parent = yymsp[-2].minor.yy9;
+	}
+	yygotominor.yy9 = yymsp[-2].minor.yy9;
 }
-#line 823 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 837 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       case 2: /* statementgroup ::= statementgroup flowstatement */
-#line 68 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+#line 71 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	/*yymsp[-1].minor.yy67 will be a Context*/
-	/*yymsp[0].minor.yy8 will be a GenericStatement*/
+	/*yymsp[-1].minor.yy9 will be a Context*/
+	/*yymsp[0].minor.yy10 will be a GenericStatement*/
 	struct GenericStatement *gStmnt;
 
 	printf("\t\tf\n");
 	/*add statement to the end of the statement group*/
-	List_Add_Value(yymsp[-1].minor.yy67->statements, yymsp[0].minor.yy8,struct GenericStatement *);
-	if(yymsp[0].minor.yy8->hasDef){
-		List_Add_Value(yymsp[-1].minor.yy67->symbols, yymsp[0].minor.yy8->sym, struct Symbol *);
+	List_Add_Value(yymsp[-1].minor.yy9->statements, yymsp[0].minor.yy10,struct GenericStatement *);
+	if(yymsp[0].minor.yy10->hasDef){
+		List_Add_Value(yymsp[-1].minor.yy9->symbols, yymsp[0].minor.yy10->sym, struct Symbol *);
 	}
 
-	if(yymsp[0].minor.yy8->type == IFSTATEMENT){
-		yymsp[0].minor.yy8->ifstmt->yes->parent = yymsp[-1].minor.yy67;
-		if(yymsp[0].minor.yy8->ifstmt->no){
-			yymsp[0].minor.yy8->ifstmt->no->parent = yymsp[-1].minor.yy67;
+	if(yymsp[0].minor.yy10->type == IFSTATEMENT){
+		yymsp[0].minor.yy10->ifstmt->yes->parent = yymsp[-1].minor.yy9;
+		if(yymsp[0].minor.yy10->ifstmt->no){
+			yymsp[0].minor.yy10->ifstmt->no->parent = yymsp[-1].minor.yy9;
 		}
 	}
-
-	yygotominor.yy67 = yymsp[-1].minor.yy67;
+	else if (yymsp[0].minor.yy10->type == WHILESTATEMENT){
+		yymsp[0].minor.yy10->whilestmt->code->parent = yymsp[-1].minor.yy9;
+	}
+	yygotominor.yy9 = yymsp[-1].minor.yy9;
 }
-#line 848 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 864 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       case 3: /* statementgroup ::= flowstatement */
-#line 90 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+#line 95 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	printf("\t\tasdf\n");
-	yygotominor.yy67 = new_context(yymsp[0].minor.yy8);
-	if(yymsp[0].minor.yy8->type == IFSTATEMENT){
-		yymsp[0].minor.yy8->ifstmt->yes->parent = yygotominor.yy67;
-		if(yymsp[0].minor.yy8->ifstmt->no){
-			yymsp[0].minor.yy8->ifstmt->no->parent = yygotominor.yy67;
+	yygotominor.yy9 = new_context(yymsp[0].minor.yy10);
+	if(yymsp[0].minor.yy10->type == IFSTATEMENT){
+		yymsp[0].minor.yy10->ifstmt->yes->parent = yygotominor.yy9;
+		if(yymsp[0].minor.yy10->ifstmt->no){
+			yymsp[0].minor.yy10->ifstmt->no->parent = yygotominor.yy9;
 		}
 	}
+	else if (yymsp[0].minor.yy10->type == WHILESTATEMENT){
+		yymsp[0].minor.yy10->whilestmt->code->parent = yygotominor.yy9;
+	}
 }
-#line 862 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 881 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       case 4: /* statementgroup ::= statement SEMICOLON */
-#line 101 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+#line 109 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy67 = new_context(yymsp[-1].minor.yy8);
+	yygotominor.yy9 = new_context(yymsp[-1].minor.yy10);
 }
-#line 869 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 888 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       case 5: /* flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY */
-#line 106 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+#line 114 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = IFSTATEMENT;
 	stmt->ifstmt = malloc(sizeof(struct IfStatement));
-	stmt->ifstmt->testStatement = yymsp[-4].minor.yy32;
-	stmt->ifstmt->yes = yymsp[-1].minor.yy67;
+	stmt->ifstmt->testStatement = yymsp[-4].minor.yy44;
+	stmt->ifstmt->yes = yymsp[-1].minor.yy9;
 	stmt->ifstmt->no = NULL;
-	yygotominor.yy8 = stmt;
+	yygotominor.yy10 = stmt;
 }
-#line 883 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 902 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       case 6: /* flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY */
-#line 117 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+#line 125 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = IFSTATEMENT;
 	stmt->ifstmt = malloc(sizeof(struct IfStatement));
-	stmt->ifstmt->testStatement = yymsp[-8].minor.yy32;
-	stmt->ifstmt->yes = yymsp[-5].minor.yy67;
-	stmt->ifstmt->no = yymsp[-1].minor.yy67;
-	yygotominor.yy8 = stmt;
+	stmt->ifstmt->testStatement = yymsp[-8].minor.yy44;
+	stmt->ifstmt->yes = yymsp[-5].minor.yy9;
+	stmt->ifstmt->no = yymsp[-1].minor.yy9;
+	yygotominor.yy10 = stmt;
 }
-#line 897 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 916 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 7: /* statement ::= definition EQUAL fexpression */
-#line 128 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 7: /* flowstatement ::= KEYWORD_WHILE LPAREN fexpression RPAREN LCURLY statementgroup RCURLY */
+#line 136 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+{
+	struct GenericStatement *stmt;
+	stmt = malloc(sizeof(struct GenericStatement));
+	stmt->type = WHILESTATEMENT;
+	stmt->ifstmt = malloc(sizeof(struct WhileStatement));
+	stmt->whilestmt->testStatement = yymsp[-4].minor.yy44;
+	stmt->whilestmt->code = yymsp[-1].minor.yy9;
+	yygotominor.yy10 = stmt;
+}
+#line 929 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+        break;
+      case 8: /* statement ::= definition EQUAL fexpression */
+#line 146 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct Expression *dst;
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 1;
-	stmt->sym = yymsp[-2].minor.yy12;
+	stmt->sym = yymsp[-2].minor.yy70;
 
 	dst = new_expression(SOURCE);
-	dst->dataSource.sym = yymsp[-2].minor.yy12;
+	dst->dataSource.sym = yymsp[-2].minor.yy70;
 	dst->source_type = SYMBOL;
 	
-	stmt->exp = new_expression_children(ASSIGNMENT, dst, yymsp[0].minor.yy32);
+	stmt->exp = new_expression_children(ASSIGNMENT, dst, yymsp[0].minor.yy44);
 	
-	yygotominor.yy8 = stmt;
+	yygotominor.yy10 = stmt;
 }
-#line 917 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 949 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 8: /* statement ::= definition */
-#line 145 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 9: /* statement ::= definition */
+#line 163 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 1;
-	stmt->sym = yymsp[0].minor.yy12;
+	stmt->sym = yymsp[0].minor.yy70;
 	stmt->exp = NULL;
 
-	yygotominor.yy8 = stmt;
+	yygotominor.yy10 = stmt;
 }
-#line 931 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 963 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 9: /* statement ::= IDENTIFIER EQUAL fexpression */
-#line 156 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 10: /* statement ::= IDENTIFIER EQUAL fexpression */
+#line 174 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct Expression *dst;
 	struct GenericStatement *stmt;
@@ -943,14 +975,14 @@ static void yy_reduce(
 	dst->dataSource.sym = new_symbol(yymsp[-2].minor.yy0->literal, tVOID);;
 	dst->source_type = SYMBOL;
 	
-	stmt->exp = new_expression_children(ASSIGNMENT, dst, yymsp[0].minor.yy32);
+	stmt->exp = new_expression_children(ASSIGNMENT, dst, yymsp[0].minor.yy44);
 	
-	yygotominor.yy8 = stmt;
+	yygotominor.yy10 = stmt;
 }
-#line 951 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 983 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 10: /* statement ::= fexpression */
-#line 173 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 11: /* statement ::= fexpression */
+#line 191 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct GenericStatement *stmt;
 	stmt = malloc(sizeof(struct GenericStatement));
@@ -958,19 +990,19 @@ static void yy_reduce(
 	stmt->hasDef = 0;
 	stmt->sym = NULL;
 
-	stmt->exp = yymsp[0].minor.yy32;
+	stmt->exp = yymsp[0].minor.yy44;
 	
-	yygotominor.yy8 = stmt;
+	yygotominor.yy10 = stmt;
 }
-#line 966 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 998 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 11: /* statement ::= KEYWORD_PRINT fexpression */
-#line 186 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 12: /* statement ::= KEYWORD_PRINT fexpression */
+#line 204 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct GenericStatement *stmt;
 	struct Expression *print = new_expression(PRINT);
 	print->left = NULL;
-	print->right = yymsp[0].minor.yy32;
+	print->right = yymsp[0].minor.yy44;
 
 	stmt = malloc(sizeof(struct GenericStatement));
 	stmt->type = GENERALSTATEMENT;
@@ -979,136 +1011,136 @@ static void yy_reduce(
 
 	stmt->exp = print;
 	
-	yygotominor.yy8 = stmt;
+	yygotominor.yy10 = stmt;
 }
-#line 985 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1017 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 12: /* definition ::= datatype IDENTIFIER */
-#line 202 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
-{
-	yymsp[-1].minor.yy12->name = yymsp[0].minor.yy0->literal;
-	yygotominor.yy12 = yymsp[-1].minor.yy12;
-}
-#line 993 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
-        break;
-      case 13: /* datatype ::= KEYWORD_INTEGER */
-#line 207 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
-{
-	yygotominor.yy12 = new_symbol(NULL, tINTEGER);
-}
-#line 1000 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
-        break;
-      case 14: /* datatype ::= KEYWORD_FLOAT */
-#line 211 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
-{
-	yygotominor.yy12 = new_symbol(NULL, tFLOAT);
-}
-#line 1007 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
-        break;
-      case 15: /* fexpression ::= expression LOGICAL_EQ fexpression */
-#line 216 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
-{
-	yygotominor.yy32 = new_expression_children(CHECK_EQ, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
-}
-#line 1014 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
-        break;
-      case 16: /* fexpression ::= expression LOGICAL_NE fexpression */
+      case 13: /* definition ::= datatype IDENTIFIER */
 #line 220 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(CHECK_NE, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yymsp[-1].minor.yy70->name = yymsp[0].minor.yy0->literal;
+	yygotominor.yy70 = yymsp[-1].minor.yy70;
 }
-#line 1021 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1025 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 17: /* fexpression ::= expression LOGICAL_GT fexpression */
-#line 224 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 14: /* datatype ::= KEYWORD_INTEGER */
+#line 225 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(CHECK_GT, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy70 = new_symbol(NULL, tINTEGER);
 }
-#line 1028 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1032 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 18: /* fexpression ::= expression LOGICAL_LT fexpression */
-#line 228 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 15: /* datatype ::= KEYWORD_FLOAT */
+#line 229 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(CHECK_LT, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy70 = new_symbol(NULL, tFLOAT);
 }
-#line 1035 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1039 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 19: /* fexpression ::= expression LOGICAL_GTE fexpression */
-#line 232 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 16: /* fexpression ::= expression LOGICAL_EQ fexpression */
+#line 234 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(CHECK_GTE, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(CHECK_EQ, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1042 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1046 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 20: /* fexpression ::= expression LOGICAL_LTE fexpression */
-#line 236 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 17: /* fexpression ::= expression LOGICAL_NE fexpression */
+#line 238 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(CHECK_LTE, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(CHECK_NE, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1049 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1053 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 21: /* fexpression ::= expression */
-      case 24: /* expression ::= term */ yytestcase(yyruleno==24);
-      case 29: /* term ::= signedFactor */ yytestcase(yyruleno==29);
-      case 32: /* signedFactor ::= factor */ yytestcase(yyruleno==32);
-#line 240 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 18: /* fexpression ::= expression LOGICAL_GT fexpression */
+#line 242 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = yymsp[0].minor.yy32;
+	yygotominor.yy44 = new_expression_children(CHECK_GT, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1059 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1060 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 22: /* expression ::= term PLUS expression */
-#line 244 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 19: /* fexpression ::= expression LOGICAL_LT fexpression */
+#line 246 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(ADD, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(CHECK_LT, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1066 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1067 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 23: /* expression ::= term MINUS expression */
-#line 248 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 20: /* fexpression ::= expression LOGICAL_GTE fexpression */
+#line 250 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(SUBTRACT, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(CHECK_GTE, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1073 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1074 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 25: /* term ::= term MUL term */
-#line 259 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 21: /* fexpression ::= expression LOGICAL_LTE fexpression */
+#line 254 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(MULTIPLY, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(CHECK_LTE, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1080 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1081 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 26: /* term ::= term DIV term */
-#line 263 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 22: /* fexpression ::= expression */
+      case 25: /* expression ::= term */ yytestcase(yyruleno==25);
+      case 30: /* term ::= signedFactor */ yytestcase(yyruleno==30);
+      case 33: /* signedFactor ::= factor */ yytestcase(yyruleno==33);
+#line 258 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(DIVIDE, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = yymsp[0].minor.yy44;
 }
-#line 1087 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1091 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 27: /* term ::= term MOD term */
-#line 267 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 23: /* expression ::= term PLUS expression */
+#line 262 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(MODULUS, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(ADD, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1094 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1098 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 28: /* term ::= term EXP term */
-#line 271 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 24: /* expression ::= term MINUS expression */
+#line 266 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = new_expression_children(POWER, yymsp[-2].minor.yy32, yymsp[0].minor.yy32);
+	yygotominor.yy44 = new_expression_children(SUBTRACT, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
 }
-#line 1101 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1105 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 30: /* signedFactor ::= PLUS factor */
-#line 280 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 26: /* term ::= term MUL term */
+#line 277 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+{
+	yygotominor.yy44 = new_expression_children(MULTIPLY, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
+}
+#line 1112 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+        break;
+      case 27: /* term ::= term DIV term */
+#line 281 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+{
+	yygotominor.yy44 = new_expression_children(DIVIDE, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
+}
+#line 1119 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+        break;
+      case 28: /* term ::= term MOD term */
+#line 285 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+{
+	yygotominor.yy44 = new_expression_children(MODULUS, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
+}
+#line 1126 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+        break;
+      case 29: /* term ::= term EXP term */
+#line 289 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+{
+	yygotominor.yy44 = new_expression_children(POWER, yymsp[-2].minor.yy44, yymsp[0].minor.yy44);
+}
+#line 1133 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+        break;
+      case 31: /* signedFactor ::= PLUS factor */
+#line 298 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	/*possibly make this imply absolute value*/
-	yygotominor.yy32 = yymsp[0].minor.yy32;
+	yygotominor.yy44 = yymsp[0].minor.yy44;
 }
-#line 1109 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1141 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 31: /* signedFactor ::= MINUS factor */
-#line 284 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 32: /* signedFactor ::= MINUS factor */
+#line 302 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct Expression *tmp = new_expression(MULTIPLY);
 	struct Expression *LHS = new_expression(SOURCE);
@@ -1117,51 +1149,51 @@ static void yy_reduce(
 	LHS->dataSource.Integer = -1;
 	
 	tmp->left = LHS;
-	tmp->right = yymsp[0].minor.yy32;
+	tmp->right = yymsp[0].minor.yy44;
 	
-	yygotominor.yy32 = tmp;
+	yygotominor.yy44 = tmp;
 }
-#line 1125 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1157 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 33: /* factor ::= LPAREN expression RPAREN */
-#line 301 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 34: /* factor ::= LPAREN expression RPAREN */
+#line 319 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
-	yygotominor.yy32 = yymsp[-1].minor.yy32;
+	yygotominor.yy44 = yymsp[-1].minor.yy44;
 }
-#line 1132 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1164 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 34: /* factor ::= IDENTIFIER */
-#line 304 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 35: /* factor ::= IDENTIFIER */
+#line 322 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct Expression *tmp;
 	tmp = new_expression(SOURCE);
 	tmp->source_type = SYMBOL;
 	tmp->dataSource.sym = new_symbol(yymsp[0].minor.yy0->literal, tVOID);
-	yygotominor.yy32 = tmp;
+	yygotominor.yy44 = tmp;
 }
-#line 1143 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1175 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 35: /* factor ::= INTEGER */
-#line 312 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 36: /* factor ::= INTEGER */
+#line 330 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct Expression *tmp;
 	tmp = new_expression(SOURCE);
 	tmp->source_type = INTEGER;
 	tmp->dataSource.Integer = yymsp[0].minor.yy0->intData;
-	yygotominor.yy32 = tmp;
+	yygotominor.yy44 = tmp;
 }
-#line 1154 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1186 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
-      case 36: /* factor ::= FLOAT */
-#line 320 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
+      case 37: /* factor ::= FLOAT */
+#line 338 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 {
 	struct Expression *tmp;
 	tmp = new_expression(SOURCE);
 	tmp->source_type = FLOAT;
 	tmp->dataSource.Float = yymsp[0].minor.yy0->floatData;
-	yygotominor.yy32 = tmp;
+	yygotominor.yy44 = tmp;
 }
-#line 1165 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1197 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
         break;
       default:
         break;
@@ -1212,7 +1244,7 @@ static void yy_parse_failed(
 #line 34 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 
 	printf("\tparse failed\n");
-#line 1216 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1248 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 #endif /* YYNOERRORRECOVERY */
@@ -1229,7 +1261,7 @@ static void yy_syntax_error(
 #define TOKEN (yyminor.yy0)
 #line 41 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
  printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n");  exit(-1);
-#line 1233 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1265 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 
@@ -1251,7 +1283,7 @@ static void yy_accept(
 #line 31 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.y"
 
 	printf("\tparse accepted\n");
-#line 1255 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
+#line 1287 "/home/joe/Desktop/School/cs-498-capstone/Compiler/Lexer_Parser/LangParse.c"
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 

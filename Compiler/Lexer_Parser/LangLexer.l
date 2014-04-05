@@ -58,6 +58,11 @@ WHITESPACE 	[ \t\n\r]
 	Parse(yyextra->_pParser, T_KEYWORD_ELSE, NULL);
 }
 
+"while" {
+	LEXDEBUG_LOG("WHILE", yytext);
+	Parse(yyextra->_pParser, T_KEYWORD_WHILE, NULL);
+}
+
 "print" {
 	LEXDEBUG_LOG("PRINT KEYWORD", yytext);
 	Parse(yyextra->_pParser, T_KEYWORD_PRINT, NULL);

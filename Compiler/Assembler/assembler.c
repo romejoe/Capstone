@@ -5,19 +5,21 @@ void writeInstructionToStream(struct instruction *instruct, struct ByteStream *s
 void assembleExpression(struct Expression *exp, struct ByteStream *stream);
 void assembleContext(struct Context *context, struct ByteStream *stream);
 
-void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream){
-	writeTypeToByteStream(*instruct,stream, struct instruction);
+void writeInstructionToStream(struct instruction *instruct, struct ByteStream *stream)
+{
+	writeTypeToByteStream(*instruct, stream, struct instruction);
 }
 
-void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *stream){
+void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *stream)
+{
 	struct IfStatement *ifStmt = stmt->ifstmt;
 	struct ByteStream *yesCode, *noCode;
 	struct instruction jmp;
-	
+
 	assembleExpression(ifStmt->testStatement, stream);
-	
+
 	/* if statement*/
-	if(!ifStmt->no){
+	if (!ifStmt->no) {
 		jmp = new_instruction(iJMPF);
 		writeInstructionToStream(&jmp, stream);
 
@@ -31,20 +33,20 @@ void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *strea
 		appendByteStreamToByteStream(stream, yesCode);
 	}
 	/* if/else statement*/
-	else{
+	else {
 		jmp = new_instruction(iJMPT);
-		
+
 
 		noCode = malloc(sizeof(struct ByteStream));
 		initByteStream(noCode);
 		assembleContext(ifStmt->no, noCode);
-		
+
 		/*write jump coordinate, bad code + jmp instruction*/
 		writeInstructionToStream(&jmp, stream);
 		writeTypeToByteStream(noCode->actualsize + sizeof(long) + sizeof(struct instruction), stream, long);
-		
+
 		appendByteStreamToByteStream(stream, noCode);
-		
+
 
 		/*assemble true code*/
 		yesCode = malloc(sizeof(struct ByteStream));
@@ -55,12 +57,13 @@ void assembleIfStatement(struct GenericStatement *stmt, struct ByteStream *strea
 		writeInstructionToStream(&jmp, stream);
 		writeTypeToByteStream(yesCode->actualsize, stream, long);
 		appendByteStreamToByteStream(stream, yesCode);
-		
+
 	}
-	
+
 }
 
-void assembleWhileStatement(struct GenericStatement *stmt, struct ByteStream *stream){
+void assembleWhileStatement(struct GenericStatement *stmt, struct ByteStream *stream)
+{
 	struct WhileStatement *whileStmt = stmt->whilestmt;
 	struct ByteStream *Code;
 	struct instruction jmp;
@@ -68,38 +71,39 @@ void assembleWhileStatement(struct GenericStatement *stmt, struct ByteStream *st
 
 	offset = stream->actualsize;
 	assembleExpression(whileStmt->testStatement, stream);
-	
-	
-		jmp = new_instruction(iJMPF);
-		writeInstructionToStream(&jmp, stream);
 
-		/*assemble loop code*/
-		Code = malloc(sizeof(struct ByteStream));
-		initByteStream(Code);
-		assembleContext(whileStmt->code, Code);
-		
-		/*jump to after loop code*/
-		writeTypeToByteStream(Code->actualsize + sizeof(struct instruction) + sizeof(long), stream, long);
 
-		/* jump to before test statement */
+	jmp = new_instruction(iJMPF);
+	writeInstructionToStream(&jmp, stream);
 
-		jmp = new_instruction(iJMP);
-		writeInstructionToStream(&jmp,Code);
+	/*assemble loop code*/
+	Code = malloc(sizeof(struct ByteStream));
+	initByteStream(Code);
+	assembleContext(whileStmt->code, Code);
 
-		appendByteStreamToByteStream(stream, Code);
+	/*jump to after loop code*/
+	writeTypeToByteStream(Code->actualsize + sizeof(struct instruction) + sizeof(long), stream, long);
 
-		writeTypeToByteStream(
-			offset - stream->actualsize - sizeof(long),
-			stream, long);
-		
-		/*write jump coordinates to stream*/
-		/*writeTypeToByteStream(Code->actualsize, stream, long);
-		appendByteStreamToByteStream(stream, Code);*/
-	
+	/* jump to before test statement */
+
+	jmp = new_instruction(iJMP);
+	writeInstructionToStream(&jmp, Code);
+
+	appendByteStreamToByteStream(stream, Code);
+
+	writeTypeToByteStream(
+	    offset - stream->actualsize - sizeof(long),
+	    stream, long);
+
+	/*write jump coordinates to stream*/
+	/*writeTypeToByteStream(Code->actualsize, stream, long);
+	appendByteStreamToByteStream(stream, Code);*/
+
 }
 
-void assembleStatement(struct GenericStatement *stmt, struct ByteStream *stream){
-	switch(stmt->type){
+void assembleStatement(struct GenericStatement *stmt, struct ByteStream *stream)
+{
+	switch (stmt->type) {
 		case GENERALSTATEMENT:
 			assembleExpression(stmt->exp, stream);
 			break;
@@ -123,7 +127,7 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 	if (!exp) return;
 	/*determine instruction to use*/
 	switch (exp->type) {
-		
+
 		case ADD:
 			in = new_instruction(iADD);
 			goto recurse;
@@ -163,18 +167,31 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 		case CHECK_LTE:
 			in = new_instruction(iLTE);
 			goto recurse;
+
+		case LOG_NOT:
+			in = new_instruction(iLOGNOT);
+			goto recurse;
+		case LOG_AND:
+			in = new_instruction(iLOGAND);
+			goto recurse;
+		case LOG_OR:
+			in = new_instruction(iLOGOR);
+			goto recurse;
+		case LOG_XOR:
+			in = new_instruction(iLOGXOR);
+			goto recurse;
 		case ASSIGNMENT:
 			in = new_instruction(iASSIGN);
 			goto recurse;
 
-			recurse:
+recurse:
 			assembleExpression(exp->left, stream);
 			assembleExpression(exp->right, stream);
 			writeToByteStream(in, stream);
 			break;
 
 		case SOURCE:
-			switch(exp->source_type){
+			switch (exp->source_type) {
 				case INTEGER:
 					in = new_instruction(iIPUSH);
 					writeToByteStream(in, stream);
@@ -183,11 +200,11 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 				case FLOAT:
 					in = new_instruction(iFPUSH);
 					writeToByteStream(in, stream);
-					writeTypeToByteStream(exp->dataSource.Float, stream, double);	
+					writeTypeToByteStream(exp->dataSource.Float, stream, double);
 					break;
 				case SYMBOL:
 					printf("Symbol Name: %s; Global: %d\n", exp->dataSource.sym->name, exp->dataSource.sym->isGlobal);
-					if(exp->dataSource.sym->isGlobal)
+					if (exp->dataSource.sym->isGlobal)
 						in = new_instruction(iGVPUSH);
 					else
 						in = new_instruction(iLVPUSH);
@@ -200,7 +217,7 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 					break;
 			}
 			break;
-			
+
 		default:
 			if (exp->left) assembleExpression(exp->left, stream);
 			if (exp->right) assembleExpression(exp->right, stream);
@@ -208,15 +225,16 @@ void assembleExpression(struct Expression *exp, struct ByteStream *stream)
 	}
 }
 
-void assembleContext(struct Context *context, struct ByteStream *stream){
+void assembleContext(struct Context *context, struct ByteStream *stream)
+{
 	/*write symbols to stream */
 	/*write expression to stream */
 	struct List *statements = context->statements;
-	
+
 	/*printf("list size = %d\n", statements->ListSize);*/
 	struct instruction tmp;
 	long varCount = context->symbols->ListSize;
-	
+
 	tmp = new_instruction(iVALLOC);
 	writeInstructionToStream(&tmp, stream);
 	writeTypeToByteStream(varCount, stream, long);
@@ -226,34 +244,35 @@ void assembleContext(struct Context *context, struct ByteStream *stream){
 		struct Symbol *lSym;
 		writeInstructionToStream(&tmp, stream);
 		lSym = List_Ref_Value(context->symbols, i, struct Symbol *);
-		
+
 		writeTypeToByteStream(
-			lSym->index,
-			stream, long);
-		switch(lSym->type){
+		    lSym->index,
+		    stream, long);
+		switch (lSym->type)
+		{
 			case tINTEGER:
 				printf("writing int type\n");
 				writeTypeToByteStream(
-				INTEGER,
-				stream, enum datasource);	
+				    INTEGER,
+				    stream, enum datasource);
 				break;
 			case tFLOAT:
 				printf("writing float type\n");
 				writeTypeToByteStream(
-				FLOAT,
-				stream, enum datasource);	
+				    FLOAT,
+				    stream, enum datasource);
 				break;
 		}/*
-		writeTypeToByteStream(
-			lSym->type,
-			stream, enum data_type);*/
+        writeTypeToByteStream(
+            lSym->type,
+            stream, enum data_type);*/
 	});
 	/*
 	tmp = new_instruction(iDUMPVARS);
 	writeInstructionToStream(&tmp, stream);
 	*/
-	List_ForEach(statements,{
-		assembleStatement(List_Ref_Value(statements, i, struct GenericStatement *), stream);	
+	List_ForEach(statements, {
+		assembleStatement(List_Ref_Value(statements, i, struct GenericStatement *), stream);
 		/*
 		tmp = new_instruction(iDUMPVARS);
 		writeInstructionToStream(&tmp, stream);
@@ -263,7 +282,7 @@ void assembleContext(struct Context *context, struct ByteStream *stream){
 	tmp = new_instruction(iVDALLOC);
 	writeInstructionToStream(&tmp, stream);
 	writeTypeToByteStream(varCount, stream, long);
-	
+
 }
 
 struct ByteStream *AssembleProgram(struct Program *program)

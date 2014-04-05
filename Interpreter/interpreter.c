@@ -26,6 +26,32 @@
 #define CHECK_GREATER_THAN(a,b) a > b
 #define CHECK_GREATER_THAN_EQUAL(a,b) a >= b
 
+#define LOGICAL_AND(a,b) {\
+		resultItem.value.l = (a.value.l != 0) && (b.value.l != 0);\
+		resultItem.type = INTEGER;\
+	}
+
+#define LOGICAL_OR(a,b) {\
+		resultItem.value.l = (a.value.l != 0) || (b.value.l != 0);\
+		resultItem.type = INTEGER;\
+	}
+
+#define LOGICAL_XOR(a,b) {\
+		resultItem.value.l = (a.value.l != 0) ^ (b.value.l != 0);\
+		resultItem.type = INTEGER;\
+	}
+
+
+
+#define BasicOperation(op) {\
+		assert(computationalStack.top >= 1);\
+		struct computationalStackItem i1 = PopComputationalStackItem();\
+		struct computationalStackItem i2 = PopComputationalStackItem();\
+		op(i2, i1);\
+		AStack_Push(computationalStack, resultItem, struct computationalStackItem);\
+		break;\
+	}
+
 #define BasicArithmeticOperation(op) {\
 		assert(computationalStack.top >= 1);\
 		struct computationalStackItem i1 = PopComputationalStackItem();\
@@ -41,6 +67,7 @@
 		AStack_Push(computationalStack, resultItem, struct computationalStackItem);\
 		break;\
 	}
+
 
 union data {
 	double dbl;
@@ -158,6 +185,24 @@ void interpreteByteCode(char *buf, int length)
 				BasicArithmeticOperation(CHECK_GREATER_THAN_EQUAL);
 				break;
 
+			case iLOGNOT: {
+					assert(computationalStack.top >= 0);
+					struct computationalStackItem i1 = PopComputationalStackItem();
+					resultItem.value.l = !(i1.value.l != 0);
+					resultItem.type = INTEGER;
+					AStack_Push(computationalStack, resultItem, struct computationalStackItem);
+				}
+				break;
+			case iLOGAND:
+				BasicOperation(LOGICAL_AND);
+				break;
+			case iLOGOR:
+				BasicOperation(LOGICAL_OR);
+				break;
+			case iLOGXOR:
+				BasicOperation(LOGICAL_XOR);
+				break;
+
 			case iPRINT:
 				item = PopComputationalStackItem();
 				switch (item.type) {
@@ -237,12 +282,13 @@ void interpreteByteCode(char *buf, int length)
 				printResultItem(resultItem);
 				printf("item = ");
 				printResultItem(item);*/
-				switch(item.type){
+				switch (item.type) {
 					case INTEGER:
-						List_Ref_Value(variables,offset, struct computationalStackItem).value.l = GetItemValue(resultItem);
+						List_Ref_Value(variables, offset, struct computationalStackItem).value.l = GetItemValue(resultItem);
 						break;
 					case FLOAT:
-					List_Ref_Value(variables,offset, struct computationalStackItem).value.dbl = GetItemValue(resultItem);
+						List_Ref_Value(variables, offset,
+						               struct computationalStackItem).value.dbl = GetItemValue(resultItem);
 						break;
 				}
 				/*printResultItem(item);*/
@@ -258,7 +304,8 @@ void interpreteByteCode(char *buf, int length)
 				offset = GetTypeAndAdvance(progBuf, long) + variableIndex;
 				/*printf("offset: %ld\n", offset);*/
 
-				((struct computationalStackItem *)List_Ref(variables, offset))->type = GetTypeAndAdvance(progBuf, enum datasource);
+				((struct computationalStackItem *)List_Ref(variables, offset))->type = GetTypeAndAdvance(progBuf,
+				        enum datasource);
 				/*List_Ref_Value(variables, offset,
 				               struct computationalStackItem).type = GetTypeAndAdvance(progBuf, enum data_type);*/
 				break;
@@ -274,7 +321,7 @@ void interpreteByteCode(char *buf, int length)
 				printf("OP (%s) NOT SUPPORTED!\n", getName(instruct.opType));
 				break;
 		}
-		/*		
+		/*
 		printf("======Begin Variable Dump\n");
 		List_ForEach(variables, {
 		    printf("[%d] ", i);

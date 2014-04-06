@@ -37,13 +37,13 @@ State 0:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
@@ -105,13 +105,13 @@ State 1:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
@@ -172,13 +172,13 @@ State 2:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
@@ -240,13 +240,13 @@ State 3:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
@@ -305,13 +305,13 @@ State 4:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                         RCURLY shift  81
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
@@ -370,13 +370,13 @@ State 5:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                         RCURLY shift  82
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
@@ -436,13 +436,13 @@ State 6:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                         RCURLY shift  47
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
@@ -501,14 +501,14 @@ State 7:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                              $ reduce 0
                     KEYWORD_IF shift  50
-                        LPAREN shift  23
+                        LPAREN shift  18
                  KEYWORD_WHILE shift  45
                     IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
@@ -553,12 +553,12 @@ State 8:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -595,12 +595,12 @@ State 9:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -637,12 +637,12 @@ State 10:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -679,12 +679,12 @@ State 11:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -721,12 +721,12 @@ State 12:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -763,12 +763,12 @@ State 13:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -805,12 +805,12 @@ State 14:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -847,12 +847,12 @@ State 15:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -889,12 +889,12 @@ State 16:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -931,12 +931,12 @@ State 17:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -950,6 +950,48 @@ State 17:
                         factor shift  70
 
 State 18:
+          fexpression ::= * expression LOGICAL_EQ fexpression
+          fexpression ::= * expression LOGICAL_NE fexpression
+          fexpression ::= * expression LOGICAL_GT fexpression
+          fexpression ::= * expression LOGICAL_LT fexpression
+          fexpression ::= * expression LOGICAL_GTE fexpression
+          fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
+          fexpression ::= * expression
+          expression ::= * term PLUS expression
+          expression ::= * term MINUS expression
+          expression ::= * term
+          term ::= * term MUL term
+          term ::= * term DIV term
+          term ::= * term MOD term
+          term ::= * term EXP term
+          term ::= * signedFactor
+          signedFactor ::= * PLUS factor
+          signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
+          signedFactor ::= * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= LPAREN * fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  41
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
+
+State 19:
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= expression LOGICAL_EQ * fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
@@ -973,12 +1015,12 @@ State 18:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -991,7 +1033,7 @@ State 18:
                   signedFactor shift  77
                         factor shift  70
 
-State 19:
+State 20:
           statement ::= definition EQUAL * fexpression
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
@@ -1015,12 +1057,12 @@ State 19:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1033,7 +1075,7 @@ State 19:
                   signedFactor shift  77
                         factor shift  70
 
-State 20:
+State 21:
           flowstatement ::= KEYWORD_WHILE LPAREN * fexpression RPAREN LCURLY statementgroup RCURLY
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
@@ -1057,12 +1099,12 @@ State 20:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1075,7 +1117,7 @@ State 20:
                   signedFactor shift  77
                         factor shift  70
 
-State 21:
+State 22:
           flowstatement ::= KEYWORD_IF LPAREN * fexpression RPAREN LCURLY statementgroup RCURLY
           flowstatement ::= KEYWORD_IF LPAREN * fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY
           fexpression ::= * expression LOGICAL_EQ fexpression
@@ -1100,12 +1142,12 @@ State 21:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1118,7 +1160,7 @@ State 21:
                   signedFactor shift  77
                         factor shift  70
 
-State 22:
+State 23:
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
           expression ::= term MINUS * expression
@@ -1132,12 +1174,12 @@ State 22:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1145,37 +1187,6 @@ State 22:
                        INTEGER shift  73
                          FLOAT shift  72
                     expression shift  68
-                          term shift  33
-                  signedFactor shift  77
-                        factor shift  70
-
-State 23:
-          expression ::= * term PLUS expression
-          expression ::= * term MINUS expression
-          expression ::= * term
-          term ::= * term MUL term
-          term ::= * term DIV term
-          term ::= * term MOD term
-          term ::= * term EXP term
-          term ::= * signedFactor
-          signedFactor ::= * PLUS factor
-          signedFactor ::= * MINUS factor
-          signedFactor ::= * LOGICAL_NOT factor
-          signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
-          factor ::= LPAREN * expression RPAREN
-          factor ::= * IDENTIFIER
-          factor ::= * INTEGER
-          factor ::= * FLOAT
-
-                        LPAREN shift  23
-                    IDENTIFIER shift  74
-                          PLUS shift  31
-                         MINUS shift  30
-                   LOGICAL_NOT shift  29
-                       INTEGER shift  73
-                         FLOAT shift  72
-                    expression shift  41
                           term shift  33
                   signedFactor shift  77
                         factor shift  70
@@ -1194,12 +1205,12 @@ State 24:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1222,12 +1233,12 @@ State 25:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1249,12 +1260,12 @@ State 26:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1276,12 +1287,12 @@ State 27:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1303,12 +1314,12 @@ State 28:
           signedFactor ::= * MINUS factor
           signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                           PLUS shift  31
                          MINUS shift  30
@@ -1321,12 +1332,12 @@ State 28:
 
 State 29:
           signedFactor ::= LOGICAL_NOT * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                        INTEGER shift  73
                          FLOAT shift  72
@@ -1334,12 +1345,12 @@ State 29:
 
 State 30:
           signedFactor ::= MINUS * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                        INTEGER shift  73
                          FLOAT shift  72
@@ -1347,12 +1358,12 @@ State 30:
 
 State 31:
           signedFactor ::= PLUS * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  23
+                        LPAREN shift  18
                     IDENTIFIER shift  74
                        INTEGER shift  73
                          FLOAT shift  72
@@ -1370,7 +1381,7 @@ State 32:
           fexpression ::= expression * LOGICAL_XOR fexpression
      (25) fexpression ::= expression *
 
-                    LOGICAL_EQ shift  18
+                    LOGICAL_EQ shift  19
                     LOGICAL_NE shift  17
                     LOGICAL_GT shift  16
                     LOGICAL_LT shift  15
@@ -1391,7 +1402,7 @@ State 33:
           term ::= term * EXP term
 
                           PLUS shift  24
-                         MINUS shift  22
+                         MINUS shift  23
                            MUL shift  28
                            DIV shift  27
                            MOD shift  26
@@ -1456,7 +1467,7 @@ State 40:
                      {default} reduce 29
 
 State 41:
-          factor ::= LPAREN expression * RPAREN
+          factor ::= LPAREN fexpression * RPAREN
 
                         RPAREN shift  69
 
@@ -1464,7 +1475,7 @@ State 42:
           statement ::= definition * EQUAL fexpression
       (9) statement ::= definition *
 
-                         EQUAL shift  19
+                         EQUAL shift  20
                      {default} reduce 9
 
 State 43:
@@ -1480,7 +1491,7 @@ State 44:
 State 45:
           flowstatement ::= KEYWORD_WHILE * LPAREN fexpression RPAREN LCURLY statementgroup RCURLY
 
-                        LPAREN shift  20
+                        LPAREN shift  21
 
 State 46:
           flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE * LCURLY statementgroup RCURLY
@@ -1510,7 +1521,7 @@ State 50:
           flowstatement ::= KEYWORD_IF * LPAREN fexpression RPAREN LCURLY statementgroup RCURLY
           flowstatement ::= KEYWORD_IF * LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY
 
-                        LPAREN shift  21
+                        LPAREN shift  22
 
 State 51:
           statementgroup ::= statementgroup statement * SEMICOLON
@@ -1603,7 +1614,7 @@ State 68:
                      {default} reduce 27
 
 State 69:
-     (38) factor ::= LPAREN expression RPAREN *
+     (38) factor ::= LPAREN fexpression RPAREN *
 
                      {default} reduce 38
 

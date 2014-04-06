@@ -331,7 +331,7 @@ signedFactor(val) ::= factor(fact).{
 	val = fact;
 }
 
-factor(val) ::= LPAREN expression(exp) RPAREN.{
+factor(val) ::= LPAREN fexpression(exp) RPAREN.{
 	val = exp;
 }
 factor(val) ::= IDENTIFIER(symToken).{

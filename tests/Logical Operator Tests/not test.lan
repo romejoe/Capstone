@@ -1,0 +1,14 @@
+Integer a = 1;
+Integer b = 2;
+Float c = 3.14;
+
+if(a){
+	print a;
+}
+
+if(!a){
+	print a;
+}
+else{
+	print b;
+}

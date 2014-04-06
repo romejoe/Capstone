@@ -255,6 +255,18 @@ fexpression(val) ::= expression(leftExp) LOGICAL_LTE fexpression(rightExp).{
 	val = new_expression_children(CHECK_LTE, leftExp, rightExp);
 }
 
+fexpression(val) ::= expression(leftExp) LOGICAL_AND fexpression(rightExp).{
+	val = new_expression_children(LOG_AND, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_OR fexpression(rightExp).{
+	val = new_expression_children(LOG_OR, leftExp, rightExp);
+}
+
+fexpression(val) ::= expression(leftExp) LOGICAL_XOR fexpression(rightExp).{
+	val = new_expression_children(LOG_XOR, leftExp, rightExp);
+}
+
 fexpression(val) ::= expression(exp).{
 	val = exp;
 }
@@ -294,7 +306,6 @@ term(val) ::= signedFactor(fact).{
 	val = fact;
 }
 
-
 signedFactor(val) ::= PLUS factor(fact).{
 	/*possibly make this imply absolute value*/
 	val = fact;
@@ -312,11 +323,15 @@ signedFactor(val) ::= MINUS factor(fact).{
 	val = tmp;
 }
 
+signedFactor(val) ::= LOGICAL_NOT factor(factor).{
+	val = new_expression_children(LOG_NOT, NULL, factor);
+}
+
 signedFactor(val) ::= factor(fact).{
 	val = fact;
 }
 
-factor(val) ::= LPAREN expression(exp) RPAREN.{
+factor(val) ::= LPAREN fexpression(exp) RPAREN.{
 	val = exp;
 }
 factor(val) ::= IDENTIFIER(symToken).{

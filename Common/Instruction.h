@@ -30,7 +30,10 @@ enum instruction_type {
 	iVDALLOC,			/*16*/
 	iVSETTYPE,			/*17*/
 	iDUMPVARS,			/*18*/
-
+	iLOGNOT,
+	iLOGAND,
+	iLOGOR,
+	iLOGXOR,
 	iPRINT				/*19*/
 };
 

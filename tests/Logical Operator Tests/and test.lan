@@ -1,0 +1,18 @@
+Integer a = 1;
+Integer b = 2;
+Float c = 3.14;
+
+if((a < b) && (b < c)){
+	print a;
+}
+
+if(!(a < b) && (b < c)){
+	print a;
+}
+else{
+	print b;
+}
+
+print !(a < b);
+print (b < c);
+print !(a < b) && (b < c);

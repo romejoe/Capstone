@@ -204,22 +204,22 @@ WHITESPACE 	[ \t\n\r]
 "!" { 
 	LEXDEBUG_LOG("Logical Not", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_NOT, NULL);
 }
 "&&" { 
 	LEXDEBUG_LOG("Logical AND", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_AND, NULL);
 }
 "||" { 
 	LEXDEBUG_LOG("Logical OR", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_OR, NULL);
 }
 "@@" { 
 	LEXDEBUG_LOG("Logical XOR", yytext);
 	
-	/*Parse(yyextra->_pParser, T_, <<<token>>>);*/
+	Parse(yyextra->_pParser, T_LOGICAL_XOR, NULL);
 }
 
 	/* Bitwise Operator Section */

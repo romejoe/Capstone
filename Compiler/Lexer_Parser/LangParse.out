@@ -21,6 +21,9 @@ State 0:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -32,33 +35,35 @@ State 0:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
                 statementgroup shift  7
-                     statement shift  30
-                 flowstatement shift  49
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                     statement shift  34
+                 flowstatement shift  53
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
                        program accept
 
 State 1:
@@ -84,6 +89,9 @@ State 1:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -95,33 +103,35 @@ State 1:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
                 statementgroup shift  4
-                     statement shift  30
-                 flowstatement shift  49
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                     statement shift  34
+                 flowstatement shift  53
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 2:
           statementgroup ::= * statementgroup statement SEMICOLON
@@ -146,6 +156,9 @@ State 2:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -157,33 +170,35 @@ State 2:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
                 statementgroup shift  5
-                     statement shift  30
-                 flowstatement shift  49
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                     statement shift  34
+                 flowstatement shift  53
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 3:
           statementgroup ::= * statementgroup statement SEMICOLON
@@ -209,6 +224,9 @@ State 3:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -220,33 +238,35 @@ State 3:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
                 statementgroup shift  6
-                     statement shift  30
-                 flowstatement shift  49
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                     statement shift  34
+                 flowstatement shift  53
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 4:
           statementgroup ::= statementgroup * statement SEMICOLON
@@ -269,6 +289,9 @@ State 4:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -280,33 +303,35 @@ State 4:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                        RCURLY shift  73
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                        RCURLY shift  81
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                     statement shift  47
-                 flowstatement shift  75
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                     statement shift  51
+                 flowstatement shift  83
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 5:
           statementgroup ::= statementgroup * statement SEMICOLON
@@ -329,6 +354,9 @@ State 5:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -340,33 +368,35 @@ State 5:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                        RCURLY shift  74
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                        RCURLY shift  82
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                     statement shift  47
-                 flowstatement shift  75
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                     statement shift  51
+                 flowstatement shift  83
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 6:
           statementgroup ::= statementgroup * statement SEMICOLON
@@ -390,6 +420,9 @@ State 6:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -401,33 +434,35 @@ State 6:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                        RCURLY shift  43
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                        RCURLY shift  47
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                     statement shift  47
-                 flowstatement shift  75
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                     statement shift  51
+                 flowstatement shift  83
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 7:
       (0) program ::= statementgroup *
@@ -450,6 +485,9 @@ State 7:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -461,33 +499,35 @@ State 7:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
                              $ reduce 0
-                    KEYWORD_IF shift  46
-                        LPAREN shift  20
-                 KEYWORD_WHILE shift  41
-                    IDENTIFIER shift  32
+                    KEYWORD_IF shift  50
+                        LPAREN shift  18
+                 KEYWORD_WHILE shift  45
+                    IDENTIFIER shift  36
                  KEYWORD_PRINT shift  8
-               KEYWORD_INTEGER shift  51
-                 KEYWORD_FLOAT shift  50
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                     statement shift  47
-                 flowstatement shift  75
-                   fexpression shift  54
-                    expression shift  29
-                    definition shift  38
-                      datatype shift  31
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+               KEYWORD_INTEGER shift  55
+                 KEYWORD_FLOAT shift  54
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                     statement shift  51
+                 flowstatement shift  83
+                   fexpression shift  58
+                    expression shift  32
+                    definition shift  42
+                      datatype shift  35
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 8:
           statement ::= KEYWORD_PRINT * fexpression
@@ -497,6 +537,9 @@ State 8:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -508,23 +551,25 @@ State 8:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  53
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  57
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 9:
           statement ::= IDENTIFIER EQUAL * fexpression
@@ -534,6 +579,9 @@ State 9:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -545,23 +593,25 @@ State 9:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  55
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  59
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 10:
           fexpression ::= * expression LOGICAL_EQ fexpression
@@ -570,7 +620,10 @@ State 10:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
-          fexpression ::= expression LOGICAL_LTE * fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
+          fexpression ::= expression LOGICAL_XOR * fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -582,23 +635,25 @@ State 10:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  56
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  60
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 11:
           fexpression ::= * expression LOGICAL_EQ fexpression
@@ -606,8 +661,11 @@ State 11:
           fexpression ::= * expression LOGICAL_GT fexpression
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
-          fexpression ::= expression LOGICAL_GTE * fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= expression LOGICAL_OR * fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -619,25 +677,153 @@ State 11:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  57
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  61
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
 State 12:
+          fexpression ::= * expression LOGICAL_EQ fexpression
+          fexpression ::= * expression LOGICAL_NE fexpression
+          fexpression ::= * expression LOGICAL_GT fexpression
+          fexpression ::= * expression LOGICAL_LT fexpression
+          fexpression ::= * expression LOGICAL_GTE fexpression
+          fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= expression LOGICAL_AND * fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
+          fexpression ::= * expression
+          expression ::= * term PLUS expression
+          expression ::= * term MINUS expression
+          expression ::= * term
+          term ::= * term MUL term
+          term ::= * term DIV term
+          term ::= * term MOD term
+          term ::= * term EXP term
+          term ::= * signedFactor
+          signedFactor ::= * PLUS factor
+          signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
+          signedFactor ::= * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  62
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
+
+State 13:
+          fexpression ::= * expression LOGICAL_EQ fexpression
+          fexpression ::= * expression LOGICAL_NE fexpression
+          fexpression ::= * expression LOGICAL_GT fexpression
+          fexpression ::= * expression LOGICAL_LT fexpression
+          fexpression ::= * expression LOGICAL_GTE fexpression
+          fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= expression LOGICAL_LTE * fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
+          fexpression ::= * expression
+          expression ::= * term PLUS expression
+          expression ::= * term MINUS expression
+          expression ::= * term
+          term ::= * term MUL term
+          term ::= * term DIV term
+          term ::= * term MOD term
+          term ::= * term EXP term
+          term ::= * signedFactor
+          signedFactor ::= * PLUS factor
+          signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
+          signedFactor ::= * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  63
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
+
+State 14:
+          fexpression ::= * expression LOGICAL_EQ fexpression
+          fexpression ::= * expression LOGICAL_NE fexpression
+          fexpression ::= * expression LOGICAL_GT fexpression
+          fexpression ::= * expression LOGICAL_LT fexpression
+          fexpression ::= * expression LOGICAL_GTE fexpression
+          fexpression ::= expression LOGICAL_GTE * fexpression
+          fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
+          fexpression ::= * expression
+          expression ::= * term PLUS expression
+          expression ::= * term MINUS expression
+          expression ::= * term
+          term ::= * term MUL term
+          term ::= * term DIV term
+          term ::= * term MOD term
+          term ::= * term EXP term
+          term ::= * signedFactor
+          signedFactor ::= * PLUS factor
+          signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
+          signedFactor ::= * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  64
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
+
+State 15:
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
           fexpression ::= * expression LOGICAL_GT fexpression
@@ -645,6 +831,9 @@ State 12:
           fexpression ::= expression LOGICAL_LT * fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -656,25 +845,27 @@ State 12:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  58
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  65
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 13:
+State 16:
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
           fexpression ::= * expression LOGICAL_GT fexpression
@@ -682,6 +873,9 @@ State 13:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -693,25 +887,27 @@ State 13:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  59
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  66
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 14:
+State 17:
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
           fexpression ::= expression LOGICAL_NE * fexpression
@@ -719,6 +915,9 @@ State 14:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -730,25 +929,69 @@ State 14:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  60
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  67
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 15:
+State 18:
+          fexpression ::= * expression LOGICAL_EQ fexpression
+          fexpression ::= * expression LOGICAL_NE fexpression
+          fexpression ::= * expression LOGICAL_GT fexpression
+          fexpression ::= * expression LOGICAL_LT fexpression
+          fexpression ::= * expression LOGICAL_GTE fexpression
+          fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
+          fexpression ::= * expression
+          expression ::= * term PLUS expression
+          expression ::= * term MINUS expression
+          expression ::= * term
+          term ::= * term MUL term
+          term ::= * term DIV term
+          term ::= * term MOD term
+          term ::= * term EXP term
+          term ::= * signedFactor
+          signedFactor ::= * PLUS factor
+          signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
+          signedFactor ::= * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= LPAREN * fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  41
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
+
+State 19:
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= expression LOGICAL_EQ * fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
@@ -756,6 +999,9 @@ State 15:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -767,25 +1013,27 @@ State 15:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  71
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  79
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 16:
+State 20:
           statement ::= definition EQUAL * fexpression
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
@@ -793,6 +1041,9 @@ State 16:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -804,25 +1055,27 @@ State 16:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  72
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  80
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 17:
+State 21:
           flowstatement ::= KEYWORD_WHILE LPAREN * fexpression RPAREN LCURLY statementgroup RCURLY
           fexpression ::= * expression LOGICAL_EQ fexpression
           fexpression ::= * expression LOGICAL_NE fexpression
@@ -830,6 +1083,9 @@ State 17:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -841,25 +1097,27 @@ State 17:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  40
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  44
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 18:
+State 22:
           flowstatement ::= KEYWORD_IF LPAREN * fexpression RPAREN LCURLY statementgroup RCURLY
           flowstatement ::= KEYWORD_IF LPAREN * fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY
           fexpression ::= * expression LOGICAL_EQ fexpression
@@ -868,6 +1126,9 @@ State 18:
           fexpression ::= * expression LOGICAL_LT fexpression
           fexpression ::= * expression LOGICAL_GTE fexpression
           fexpression ::= * expression LOGICAL_LTE fexpression
+          fexpression ::= * expression LOGICAL_AND fexpression
+          fexpression ::= * expression LOGICAL_OR fexpression
+          fexpression ::= * expression LOGICAL_XOR fexpression
           fexpression ::= * expression
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
@@ -879,25 +1140,27 @@ State 18:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                   fexpression shift  45
-                    expression shift  29
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                   fexpression shift  49
+                    expression shift  32
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 19:
+State 23:
           expression ::= * term PLUS expression
           expression ::= * term MINUS expression
           expression ::= term MINUS * expression
@@ -909,53 +1172,26 @@ State 19:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                    expression shift  61
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                    expression shift  68
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 20:
-          expression ::= * term PLUS expression
-          expression ::= * term MINUS expression
-          expression ::= * term
-          term ::= * term MUL term
-          term ::= * term DIV term
-          term ::= * term MOD term
-          term ::= * term EXP term
-          term ::= * signedFactor
-          signedFactor ::= * PLUS factor
-          signedFactor ::= * MINUS factor
-          signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
-          factor ::= LPAREN * expression RPAREN
-          factor ::= * IDENTIFIER
-          factor ::= * INTEGER
-          factor ::= * FLOAT
-
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                    expression shift  37
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
-
-State 21:
+State 24:
           expression ::= * term PLUS expression
           expression ::= term PLUS * expression
           expression ::= * term MINUS expression
@@ -967,24 +1203,26 @@ State 21:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                    expression shift  70
-                          term shift  28
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                    expression shift  78
+                          term shift  33
+                  signedFactor shift  77
+                        factor shift  70
 
-State 22:
+State 25:
           term ::= * term MUL term
           term ::= * term DIV term
           term ::= * term MOD term
@@ -993,23 +1231,25 @@ State 22:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                          term shift  33
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                          term shift  37
+                  signedFactor shift  77
+                        factor shift  70
 
-State 23:
+State 26:
           term ::= * term MUL term
           term ::= * term DIV term
           term ::= * term MOD term
@@ -1018,23 +1258,25 @@ State 23:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                          term shift  34
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                          term shift  38
+                  signedFactor shift  77
+                        factor shift  70
 
-State 24:
+State 27:
           term ::= * term MUL term
           term ::= * term DIV term
           term ::= term DIV * term
@@ -1043,23 +1285,25 @@ State 24:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                          term shift  35
-                  signedFactor shift  69
-                        factor shift  63
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                          term shift  39
+                  signedFactor shift  77
+                        factor shift  70
 
-State 25:
+State 28:
           term ::= * term MUL term
           term ::= term MUL * term
           term ::= * term DIV term
@@ -1068,342 +1312,383 @@ State 25:
           term ::= * signedFactor
           signedFactor ::= * PLUS factor
           signedFactor ::= * MINUS factor
+          signedFactor ::= * LOGICAL_NOT factor
           signedFactor ::= * factor
-          factor ::= * LPAREN expression RPAREN
+          factor ::= * LPAREN fexpression RPAREN
           factor ::= * IDENTIFIER
           factor ::= * INTEGER
           factor ::= * FLOAT
 
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                          PLUS shift  27
-                         MINUS shift  26
-                       INTEGER shift  65
-                         FLOAT shift  64
-                          term shift  36
-                  signedFactor shift  69
-                        factor shift  63
-
-State 26:
-          signedFactor ::= MINUS * factor
-          factor ::= * LPAREN expression RPAREN
-          factor ::= * IDENTIFIER
-          factor ::= * INTEGER
-          factor ::= * FLOAT
-
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                       INTEGER shift  65
-                         FLOAT shift  64
-                        factor shift  67
-
-State 27:
-          signedFactor ::= PLUS * factor
-          factor ::= * LPAREN expression RPAREN
-          factor ::= * IDENTIFIER
-          factor ::= * INTEGER
-          factor ::= * FLOAT
-
-                        LPAREN shift  20
-                    IDENTIFIER shift  66
-                       INTEGER shift  65
-                         FLOAT shift  64
-                        factor shift  68
-
-State 28:
-          expression ::= term * PLUS expression
-          expression ::= term * MINUS expression
-     (25) expression ::= term *
-          term ::= term * MUL term
-          term ::= term * DIV term
-          term ::= term * MOD term
-          term ::= term * EXP term
-
-                          PLUS shift  21
-                         MINUS shift  19
-                           MUL shift  25
-                           DIV shift  24
-                           MOD shift  23
-                           EXP shift  22
-                     {default} reduce 25
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                          PLUS shift  31
+                         MINUS shift  30
+                   LOGICAL_NOT shift  29
+                       INTEGER shift  73
+                         FLOAT shift  72
+                          term shift  40
+                  signedFactor shift  77
+                        factor shift  70
 
 State 29:
+          signedFactor ::= LOGICAL_NOT * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                       INTEGER shift  73
+                         FLOAT shift  72
+                        factor shift  71
+
+State 30:
+          signedFactor ::= MINUS * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                       INTEGER shift  73
+                         FLOAT shift  72
+                        factor shift  75
+
+State 31:
+          signedFactor ::= PLUS * factor
+          factor ::= * LPAREN fexpression RPAREN
+          factor ::= * IDENTIFIER
+          factor ::= * INTEGER
+          factor ::= * FLOAT
+
+                        LPAREN shift  18
+                    IDENTIFIER shift  74
+                       INTEGER shift  73
+                         FLOAT shift  72
+                        factor shift  76
+
+State 32:
           fexpression ::= expression * LOGICAL_EQ fexpression
           fexpression ::= expression * LOGICAL_NE fexpression
           fexpression ::= expression * LOGICAL_GT fexpression
           fexpression ::= expression * LOGICAL_LT fexpression
           fexpression ::= expression * LOGICAL_GTE fexpression
           fexpression ::= expression * LOGICAL_LTE fexpression
-     (22) fexpression ::= expression *
+          fexpression ::= expression * LOGICAL_AND fexpression
+          fexpression ::= expression * LOGICAL_OR fexpression
+          fexpression ::= expression * LOGICAL_XOR fexpression
+     (25) fexpression ::= expression *
 
-                    LOGICAL_EQ shift  15
-                    LOGICAL_NE shift  14
-                    LOGICAL_GT shift  13
-                    LOGICAL_LT shift  12
-                   LOGICAL_GTE shift  11
-                   LOGICAL_LTE shift  10
-                     {default} reduce 22
-
-State 30:
-          statementgroup ::= statement * SEMICOLON
-
-                     SEMICOLON shift  48
-
-State 31:
-          definition ::= datatype * IDENTIFIER
-
-                    IDENTIFIER shift  52
-
-State 32:
-          statement ::= IDENTIFIER * EQUAL fexpression
-     (35) factor ::= IDENTIFIER *
-
-                         EQUAL shift  9
-                     {default} reduce 35
+                    LOGICAL_EQ shift  19
+                    LOGICAL_NE shift  17
+                    LOGICAL_GT shift  16
+                    LOGICAL_LT shift  15
+                   LOGICAL_GTE shift  14
+                   LOGICAL_LTE shift  13
+                   LOGICAL_AND shift  12
+                    LOGICAL_OR shift  11
+                   LOGICAL_XOR shift  10
+                     {default} reduce 25
 
 State 33:
+          expression ::= term * PLUS expression
+          expression ::= term * MINUS expression
+     (28) expression ::= term *
           term ::= term * MUL term
           term ::= term * DIV term
           term ::= term * MOD term
           term ::= term * EXP term
-     (29) term ::= term EXP term *
 
-                           EXP shift  22
-                     {default} reduce 29
-
-State 34:
-          term ::= term * MUL term
-          term ::= term * DIV term
-          term ::= term * MOD term
-     (28) term ::= term MOD term *
-          term ::= term * EXP term
-
-                           EXP shift  22
+                          PLUS shift  24
+                         MINUS shift  23
+                           MUL shift  28
+                           DIV shift  27
+                           MOD shift  26
+                           EXP shift  25
                      {default} reduce 28
 
-State 35:
-          term ::= term * MUL term
-          term ::= term * DIV term
-     (27) term ::= term DIV term *
-          term ::= term * MOD term
-          term ::= term * EXP term
+State 34:
+          statementgroup ::= statement * SEMICOLON
 
-                           EXP shift  22
-                     {default} reduce 27
+                     SEMICOLON shift  52
+
+State 35:
+          definition ::= datatype * IDENTIFIER
+
+                    IDENTIFIER shift  56
 
 State 36:
+          statement ::= IDENTIFIER * EQUAL fexpression
+     (39) factor ::= IDENTIFIER *
+
+                         EQUAL shift  9
+                     {default} reduce 39
+
+State 37:
           term ::= term * MUL term
-     (26) term ::= term MUL term *
+          term ::= term * DIV term
+          term ::= term * MOD term
+          term ::= term * EXP term
+     (32) term ::= term EXP term *
+
+                           EXP shift  25
+                     {default} reduce 32
+
+State 38:
+          term ::= term * MUL term
+          term ::= term * DIV term
+          term ::= term * MOD term
+     (31) term ::= term MOD term *
+          term ::= term * EXP term
+
+                           EXP shift  25
+                     {default} reduce 31
+
+State 39:
+          term ::= term * MUL term
+          term ::= term * DIV term
+     (30) term ::= term DIV term *
+          term ::= term * MOD term
+          term ::= term * EXP term
+
+                           EXP shift  25
+                     {default} reduce 30
+
+State 40:
+          term ::= term * MUL term
+     (29) term ::= term MUL term *
           term ::= term * DIV term
           term ::= term * MOD term
           term ::= term * EXP term
 
-                           EXP shift  22
-                     {default} reduce 26
+                           EXP shift  25
+                     {default} reduce 29
 
-State 37:
-          factor ::= LPAREN expression * RPAREN
+State 41:
+          factor ::= LPAREN fexpression * RPAREN
 
-                        RPAREN shift  62
+                        RPAREN shift  69
 
-State 38:
+State 42:
           statement ::= definition * EQUAL fexpression
       (9) statement ::= definition *
 
-                         EQUAL shift  16
+                         EQUAL shift  20
                      {default} reduce 9
 
-State 39:
+State 43:
           flowstatement ::= KEYWORD_WHILE LPAREN fexpression RPAREN * LCURLY statementgroup RCURLY
 
                         LCURLY shift  1
 
-State 40:
+State 44:
           flowstatement ::= KEYWORD_WHILE LPAREN fexpression * RPAREN LCURLY statementgroup RCURLY
 
-                        RPAREN shift  39
+                        RPAREN shift  43
 
-State 41:
+State 45:
           flowstatement ::= KEYWORD_WHILE * LPAREN fexpression RPAREN LCURLY statementgroup RCURLY
 
-                        LPAREN shift  17
+                        LPAREN shift  21
 
-State 42:
+State 46:
           flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE * LCURLY statementgroup RCURLY
 
                         LCURLY shift  2
 
-State 43:
+State 47:
       (5) flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY *
           flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY * KEYWORD_ELSE LCURLY statementgroup RCURLY
 
-                  KEYWORD_ELSE shift  42
+                  KEYWORD_ELSE shift  46
                      {default} reduce 5
 
-State 44:
+State 48:
           flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN * LCURLY statementgroup RCURLY
           flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN * LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY
 
                         LCURLY shift  3
 
-State 45:
+State 49:
           flowstatement ::= KEYWORD_IF LPAREN fexpression * RPAREN LCURLY statementgroup RCURLY
           flowstatement ::= KEYWORD_IF LPAREN fexpression * RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY
 
-                        RPAREN shift  44
+                        RPAREN shift  48
 
-State 46:
+State 50:
           flowstatement ::= KEYWORD_IF * LPAREN fexpression RPAREN LCURLY statementgroup RCURLY
           flowstatement ::= KEYWORD_IF * LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY
 
-                        LPAREN shift  18
+                        LPAREN shift  22
 
-State 47:
+State 51:
           statementgroup ::= statementgroup statement * SEMICOLON
 
-                     SEMICOLON shift  76
+                     SEMICOLON shift  84
 
-State 48:
+State 52:
       (4) statementgroup ::= statement SEMICOLON *
 
                      {default} reduce 4
 
-State 49:
+State 53:
       (3) statementgroup ::= flowstatement *
 
                      {default} reduce 3
 
-State 50:
+State 54:
      (15) datatype ::= KEYWORD_FLOAT *
 
                      {default} reduce 15
 
-State 51:
+State 55:
      (14) datatype ::= KEYWORD_INTEGER *
 
                      {default} reduce 14
 
-State 52:
+State 56:
      (13) definition ::= datatype IDENTIFIER *
 
                      {default} reduce 13
 
-State 53:
+State 57:
      (12) statement ::= KEYWORD_PRINT fexpression *
 
                      {default} reduce 12
 
-State 54:
+State 58:
      (11) statement ::= fexpression *
 
                      {default} reduce 11
 
-State 55:
+State 59:
      (10) statement ::= IDENTIFIER EQUAL fexpression *
 
                      {default} reduce 10
 
-State 56:
+State 60:
+     (24) fexpression ::= expression LOGICAL_XOR fexpression *
+
+                     {default} reduce 24
+
+State 61:
+     (23) fexpression ::= expression LOGICAL_OR fexpression *
+
+                     {default} reduce 23
+
+State 62:
+     (22) fexpression ::= expression LOGICAL_AND fexpression *
+
+                     {default} reduce 22
+
+State 63:
      (21) fexpression ::= expression LOGICAL_LTE fexpression *
 
                      {default} reduce 21
 
-State 57:
+State 64:
      (20) fexpression ::= expression LOGICAL_GTE fexpression *
 
                      {default} reduce 20
 
-State 58:
+State 65:
      (19) fexpression ::= expression LOGICAL_LT fexpression *
 
                      {default} reduce 19
 
-State 59:
+State 66:
      (18) fexpression ::= expression LOGICAL_GT fexpression *
 
                      {default} reduce 18
 
-State 60:
+State 67:
      (17) fexpression ::= expression LOGICAL_NE fexpression *
 
                      {default} reduce 17
 
-State 61:
-     (24) expression ::= term MINUS expression *
+State 68:
+     (27) expression ::= term MINUS expression *
 
-                     {default} reduce 24
+                     {default} reduce 27
 
-State 62:
-     (34) factor ::= LPAREN expression RPAREN *
+State 69:
+     (38) factor ::= LPAREN fexpression RPAREN *
 
-                     {default} reduce 34
+                     {default} reduce 38
 
-State 63:
-     (33) signedFactor ::= factor *
-
-                     {default} reduce 33
-
-State 64:
-     (37) factor ::= FLOAT *
+State 70:
+     (37) signedFactor ::= factor *
 
                      {default} reduce 37
 
-State 65:
-     (36) factor ::= INTEGER *
+State 71:
+     (36) signedFactor ::= LOGICAL_NOT factor *
 
                      {default} reduce 36
 
-State 66:
-     (35) factor ::= IDENTIFIER *
+State 72:
+     (41) factor ::= FLOAT *
+
+                     {default} reduce 41
+
+State 73:
+     (40) factor ::= INTEGER *
+
+                     {default} reduce 40
+
+State 74:
+     (39) factor ::= IDENTIFIER *
+
+                     {default} reduce 39
+
+State 75:
+     (35) signedFactor ::= MINUS factor *
 
                      {default} reduce 35
 
-State 67:
-     (32) signedFactor ::= MINUS factor *
+State 76:
+     (34) signedFactor ::= PLUS factor *
 
-                     {default} reduce 32
+                     {default} reduce 34
 
-State 68:
-     (31) signedFactor ::= PLUS factor *
+State 77:
+     (33) term ::= signedFactor *
 
-                     {default} reduce 31
+                     {default} reduce 33
 
-State 69:
-     (30) term ::= signedFactor *
+State 78:
+     (26) expression ::= term PLUS expression *
 
-                     {default} reduce 30
+                     {default} reduce 26
 
-State 70:
-     (23) expression ::= term PLUS expression *
-
-                     {default} reduce 23
-
-State 71:
+State 79:
      (16) fexpression ::= expression LOGICAL_EQ fexpression *
 
                      {default} reduce 16
 
-State 72:
+State 80:
       (8) statement ::= definition EQUAL fexpression *
 
                      {default} reduce 8
 
-State 73:
+State 81:
       (7) flowstatement ::= KEYWORD_WHILE LPAREN fexpression RPAREN LCURLY statementgroup RCURLY *
 
                      {default} reduce 7
 
-State 74:
+State 82:
       (6) flowstatement ::= KEYWORD_IF LPAREN fexpression RPAREN LCURLY statementgroup RCURLY KEYWORD_ELSE LCURLY statementgroup RCURLY *
 
                      {default} reduce 6
 
-State 75:
+State 83:
       (2) statementgroup ::= statementgroup flowstatement *
 
                      {default} reduce 2
 
-State 76:
+State 84:
       (1) statementgroup ::= statementgroup statement SEMICOLON *
 
                      {default} reduce 1
@@ -1430,23 +1715,27 @@ Symbols:
    17: LOGICAL_LT
    18: LOGICAL_GTE
    19: LOGICAL_LTE
-   20: PLUS
-   21: MINUS
-   22: MUL
-   23: DIV
-   24: MOD
-   25: EXP
-   26: INTEGER
-   27: FLOAT
-   28: error:
-   29: statementgroup: KEYWORD_IF LPAREN KEYWORD_WHILE IDENTIFIER KEYWORD_PRINT KEYWORD_INTEGER KEYWORD_FLOAT PLUS MINUS INTEGER FLOAT
-   30: statement: LPAREN IDENTIFIER KEYWORD_PRINT KEYWORD_INTEGER KEYWORD_FLOAT PLUS MINUS INTEGER FLOAT
-   31: flowstatement: KEYWORD_IF KEYWORD_WHILE
-   32: fexpression: LPAREN IDENTIFIER PLUS MINUS INTEGER FLOAT
-   33: expression: LPAREN IDENTIFIER PLUS MINUS INTEGER FLOAT
-   34: definition: KEYWORD_INTEGER KEYWORD_FLOAT
-   35: datatype: KEYWORD_INTEGER KEYWORD_FLOAT
-   36: term: LPAREN IDENTIFIER PLUS MINUS INTEGER FLOAT
-   37: signedFactor: LPAREN IDENTIFIER PLUS MINUS INTEGER FLOAT
-   38: factor: LPAREN IDENTIFIER INTEGER FLOAT
-   39: program: KEYWORD_IF LPAREN KEYWORD_WHILE IDENTIFIER KEYWORD_PRINT KEYWORD_INTEGER KEYWORD_FLOAT PLUS MINUS INTEGER FLOAT
+   20: LOGICAL_AND
+   21: LOGICAL_OR
+   22: LOGICAL_XOR
+   23: PLUS
+   24: MINUS
+   25: MUL
+   26: DIV
+   27: MOD
+   28: EXP
+   29: LOGICAL_NOT
+   30: INTEGER
+   31: FLOAT
+   32: error:
+   33: statementgroup: KEYWORD_IF LPAREN KEYWORD_WHILE IDENTIFIER KEYWORD_PRINT KEYWORD_INTEGER KEYWORD_FLOAT PLUS MINUS LOGICAL_NOT INTEGER FLOAT
+   34: statement: LPAREN IDENTIFIER KEYWORD_PRINT KEYWORD_INTEGER KEYWORD_FLOAT PLUS MINUS LOGICAL_NOT INTEGER FLOAT
+   35: flowstatement: KEYWORD_IF KEYWORD_WHILE
+   36: fexpression: LPAREN IDENTIFIER PLUS MINUS LOGICAL_NOT INTEGER FLOAT
+   37: expression: LPAREN IDENTIFIER PLUS MINUS LOGICAL_NOT INTEGER FLOAT
+   38: definition: KEYWORD_INTEGER KEYWORD_FLOAT
+   39: datatype: KEYWORD_INTEGER KEYWORD_FLOAT
+   40: term: LPAREN IDENTIFIER PLUS MINUS LOGICAL_NOT INTEGER FLOAT
+   41: signedFactor: LPAREN IDENTIFIER PLUS MINUS LOGICAL_NOT INTEGER FLOAT
+   42: factor: LPAREN IDENTIFIER INTEGER FLOAT
+   43: program: KEYWORD_IF LPAREN KEYWORD_WHILE IDENTIFIER KEYWORD_PRINT KEYWORD_INTEGER KEYWORD_FLOAT PLUS MINUS LOGICAL_NOT INTEGER FLOAT

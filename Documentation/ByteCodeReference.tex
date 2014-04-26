@@ -1,0 +1,263 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+ \newcommand{\tab}{\hspace*{2em}}
+\begin{document}
+\chapter{Assembly/Byte Code Language Reference}
+	All instructions in the defined in an enum, defined in "Common/Instruction.h".
+	All here are all of the assemble language instructions that are currently supported (Note, the parameters/output for any given instruction represent how the top of the computational stack should look like before/after the instruction executes) :
+
+\subsection{iHello}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & This is a debug instruction. Causes interpreter to print out "Hello First Instruct"\\
+Parameters:  & None & ~ \\
+Output:      & None & ~ \\
+\end{tabular}
+
+
+\subsection{iJMP}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Does a relative jump. Offset is added to the instruction pointer.\\
+Parameters:  & ~ & ~ \\
+~			 & Offset: & Offset to jump by.\\
+Output:      & None & ~ \\
+\end{tabular}
+
+\subsection{iJMPT}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Does a relative jump if condition is true. Offset is added to the instruction pointer.\\
+Parameters:  & ~ & ~ \\
+~			 & Offset: & Offset to jump by.\\
+~			 & Condition: & Result of Conditional Statement.\\
+Output:      & None & ~ \\
+\end{tabular}
+
+\subsection{iJMPF}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Does a relative jump if condition is false. Offset is added to the instruction pointer.\\
+Parameters:  & ~ & ~ \\
+~			 & Offset: & Offset to jump by.\\
+~			 & Condition: & Result of Conditional Statement.\\
+Output:      & None & ~ \\
+\end{tabular}
+
+\subsection{iEQ}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Compares the bits of LHS and RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & true if all bits of LHS are the same as RHS, false otherwise                        \\
+\end{tabular}
+
+\subsection{iNEQ}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Compares the bits of LHS and RHS\\
+Parameters:  & ~ & ~\\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & false if all bits of LHS are the same as RHS, true otherwise\\
+\end{tabular}
+
+\subsection{iLT}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns true if LHS $<$ RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & true if LHS $<$ RHS, false otherwise\\
+\end{tabular}
+
+\subsection{iLTE}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns true if LHS $<=$ RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & true if LHS $<=$ RHS, false otherwise\\
+\end{tabular}
+
+\subsection{iGT}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns true if LHS $>$ RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & true if LHS $>$ RHS, false otherwise\\
+\end{tabular}
+
+\subsection{iGTE}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns true if LHS $>=$ RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & true if LHS $>=$ RHS, false otherwise\\
+\end{tabular}
+
+\subsection{iADD}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns LHS + RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & LHS + RHS\\
+\end{tabular}
+
+\subsection{iSUB}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns LHS - RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & LHS - RHS\\
+\end{tabular}
+
+\subsection{iMUL}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns LHS * RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & LHS * RHS\\
+\end{tabular}
+
+\subsection{iDIV}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to appropriate types (See typecast guide) and returns LHS / RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & LHS / RHS\\
+\end{tabular}
+
+\subsection{iMOD}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to integers and returns LHS (mod RHS)\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & LHS (mod RHS)\\
+\end{tabular}
+
+\subsection{iPOW}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts BASE and EXP to floats and returns $\text{BASE}^{\text{EXP}}$\\
+Parameters:  & ~ & ~ \\
+~			 & EXP: & Result of prior computation\\
+~			 & BASE: & Result of prior computation\\
+Output:      & Result & $\text{BASE}^{\text{EXP}}$\\
+\end{tabular}
+
+\subsection{iIPUSH}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as an integer and pushes the value onto the computational stack, where N is the interpreter's defined size of an integer\\
+Parameters:  & None & ~ \\
+Output:      & Result & Integer following the instruction\\
+\end{tabular}
+
+\subsection{iFPUSH}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as a float and pushes the value onto the computational stack, where N is the interpreter's defined size of a float\\
+Parameters:  & None & ~ \\
+Output:      & Result & Float following the instruction\\
+\end{tabular}
+
+\subsection{iLVPUSH}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as an integer offset and pushes the variable with the offset relative to the local variable pointer, where N is the interpreter's defined size of a integer \\
+Parameters:  & None & ~ \\
+Output:      & Result & Variable at index\\
+\end{tabular}
+
+\subsection{iGVPUSH}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as an integer offset and pushes the variable with the offset relative to the global variable pointer, where N is the interpreter's defined size of a integer \\
+Parameters:  & None & ~ \\
+Output:      & Result & Variable at index\\
+\end{tabular}
+
+\subsection{iASSIGN}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Assigns Result to Target\\
+Parameters:  & ~ & ~ \\
+~			 & Result: & Result of prior computation\\
+~			 & Target: & Variable Item\\
+Output:      & ~ & ~\\
+\end{tabular}
+
+\subsection{iVALLOC}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as an integer amount and allocates that many raw variables onto the variable stack, where N is the interpreter's defined size of a integer \\
+Parameters:  & None & ~ \\
+Output:      & ~ & ~\\
+\end{tabular}
+
+\subsection{iVDALLOC}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as an integer amount and deallocates that many raw variables from the variable stack, where N is the interpreter's defined size of a integer \\
+Parameters:  & None & ~ \\
+Output:      & ~ & ~\\
+\end{tabular}
+
+\subsection{iVSETTYPE}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Interprets the next N bytes of the program buffer as an integer offset, Interprets the next M bytes of the program buffer as a datasource and sets the variable with the offset relative to the local variable pointer to that type, where N is the interpreter's defined size of a integer and M is the interpreter's defined size of a datasource enum\\
+Parameters:  & None & ~ \\
+Output:      & ~ & ~\\
+\end{tabular}
+
+\subsection{iDUMPVARS}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & This is a debug instruction. Prints all variables in the variable list\\
+Parameters:  & None & ~ \\
+Output:      & ~ & ~\\
+\end{tabular}
+
+\subsection{iLOGNOT}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS to boolean (See typecast guide) and returns the inverse of RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+Output:      & Result & inverse of RHS\\
+\end{tabular}
+
+\subsection{iLOGAND}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to booleans (See typecast guide) and returns true if LHS $=$ RHS\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & true if LHS $=$ RHS, false otherwise\\
+\end{tabular}
+
+\subsection{iLOGOR}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to booleans (See typecast guide) and returns true if LHS or RHS or (LHS and RHS) are true (i.e. standard logical or)\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & standard logical or\\
+\end{tabular}
+
+\subsection{iLOGXOR}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Casts RHS and LHS to booleans (See typecast guide) and returns true if LHS or RHS are true (i.e. standard logical xor)\\
+Parameters:  & ~ & ~ \\
+~			 & RHS: & Result of prior computation\\
+~			 & LHS: & Result of prior computation\\
+Output:      & Result & standard logical xor\\
+\end{tabular}
+
+\subsection{iPRINT}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Prints Result\\
+Parameters:  & ~ & ~ \\
+~			 & Result & Result of prior computation\\
+Output:      & ~ & ~\\
+\end{tabular}
+
+
+\end{document}

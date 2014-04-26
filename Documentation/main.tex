@@ -25,12 +25,6 @@
 	\subsection{Model}
 	The interpreter, rather than being register based, is stack based. I went with a stack-based mode primarily for its ease of use and ease of development. 
 
-\chapter{Assembly/Byte Code Language Reference}
-	All instructions in the defined in an enum, defined in "Common/Instruction.h".
-	All here are all of the assemble language instructions that are currently supported (Note, the parameters/output for any given instruction represent how the top of the computational stack should look like before/after the instruction executes) :
-
-	\input{ByteCode.tex}
-
 
 \chapter{Model of Computation}
 	The interpreter is currently equivalent to a push down automata (it may be more powerful, but I'm not sure how to prove it). However, the compiler and language are currently equivalent to a finite state machine. This is do to the grammar not providing a mechanism for modifying the computational stack.

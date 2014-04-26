@@ -15,5 +15,10 @@ def build(bld):
 	bld(
 			features = 'tex',
 			type = 'pdflatex',
+			source = 'ByteCodeReference.tex'
+			)
+	bld(
+			features = 'tex',
+			type = 'pdflatex',
 			source = 'main.tex'
 			)

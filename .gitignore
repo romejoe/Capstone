@@ -4,3 +4,4 @@ build/
 b.out
 tmp.out
 y2c.pyc
+waf-*

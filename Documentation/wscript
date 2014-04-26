@@ -1,0 +1,19 @@
+top = "."
+
+
+def options(opt):
+	pass
+
+def configure(conf):
+	conf.load('tex')
+	if not conf.env.LATEX:
+		conf.msg('LaTex is missing! Without it, the documentation can\'t be built', "")
+	if not conf.env.PDFLATEX:
+		conf.msg('PDFLaTex is missing! Without it, the documentation can\'t be built', "")
+
+def build(bld):
+	bld(
+			features = 'tex',
+			type = 'pdflatex',
+			source = 'main.tex'
+			)

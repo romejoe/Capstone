@@ -1,0 +1,42 @@
+\subsection{iHello}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & This is a debug instruction. Causes interpreter to print out "Hello First Instruct"\\
+Parameters:  & None & ~                                                                                   \\
+Output:      & None & ~                                                                                   \\
+\end{tabular}
+
+
+\subsection{iJMP}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Unconditionally does a relative jump. Offset is added to the instruction pointer.\\
+Parameters:  & ~ & ~                                                                                   \\
+~			 & Offset: & Offset to jump by.\\
+Output:      & None & ~                                                                                   \\
+\end{tabular}
+
+\subsection{iJMPT}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Does a relative jump if condition is true. Offset is added to the instruction pointer.\\
+Parameters:  & ~ & ~                                                                                   \\
+~			 & Offset: & Offset to jump by.\\
+~			 & Condition: & Result of Conditional Statement.\\
+Output:      & None & ~                                                                                   \\
+\end{tabular}
+
+\subsection{iJMPF}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Does a relative jump if condition is false. Offset is added to the instruction pointer.\\
+Parameters:  & ~ & ~                                                                                   \\
+~			 & Offset: & Offset to jump by.\\
+~			 & Condition: & Result of Conditional Statement.\\
+Output:      & None & ~                                                                                   \\
+\end{tabular}
+
+\subsection{iEQ}
+\begin{tabular}{l l p{10cm}}
+Description: & ~    & Compares the bits of LHS and RHS\\
+Parameters:  & ~ & ~                                                                                   \\
+~			 & RHS: & Result of computation\\
+~			 & LHS: & Result of computation\\
+Output:      & Result & true if all bits of LHS are the same as RHS, false otherwise                        \\
+\end{tabular}

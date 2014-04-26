@@ -1,6 +1,6 @@
 top = "."
 
-recurseDirs = ["Compiler", "Interpreter", "Common"]
+recurseDirs = ["Compiler", "Interpreter", "Common", "Documentation"]
 
 def options(opt):
 	opt.add_option("--Docs", "--BuildDocumentation", default=False, action='store_true', help="Build the Documentation")
@@ -9,7 +9,7 @@ def options(opt):
 
 def configure(conf):
 	conf.recurse(recurseDirs)
-
+	conf.load('tex')
 	if conf.options.Docs:
 		conf.load('tex')
 		if not conf.env.LATEX:
@@ -25,6 +25,11 @@ def build(bld):
 			features = 'tex',
 			type = 'pdflatex',
 			source = 'Documentation.tex'
+			)
+		bld(
+			features = 'tex',
+			type = 'pdflatex',
+			source = 'WriteUp.tex'
 			)
 
 def test(ctx):

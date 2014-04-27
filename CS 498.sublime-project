@@ -66,6 +66,11 @@
             "working_dir": "${project_path}"
         },
         {
+            "name": "Configure Build (Only Documentation)",
+            "shell_cmd": "python waf configure --OnlyDocumentation",
+            "working_dir": "${project_path}"
+        },
+        {
             "name": "Debug Build",
             "shell_cmd": "python waf build",
             "working_dir": "${project_path}"
@@ -88,6 +93,11 @@
         {
             "name": "Clean Build",
             "shell_cmd": "python waf Clean",
+            "working_dir": "${project_path}"
+        },
+        {
+            "name": "Only Build Documentation",
+            "shell_cmd": "python waf build --OnlyDocumentation",
             "working_dir": "${project_path}"
         }
     ]

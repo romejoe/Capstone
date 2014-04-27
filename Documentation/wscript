@@ -12,11 +12,16 @@ def configure(conf):
 		conf.msg('PDFLaTex is missing! Without it, the documentation can\'t be built', "")
 
 def build(bld):
-	bld(
-			features = 'tex',
-			type = 'pdflatex',
-			source = 'ByteCodeReference.tex'
-			)
+	#bld(
+	#		features = 'tex',
+	#		type = 'pdflatex',
+	#		source = 'ByteCodeReference.tex'
+	#		)
+	#bld(
+	#		features = 'tex',
+	#		type = 'pdflatex',
+	#		source = 'InterpreterReference.tex'
+	#		)
 	bld(
 			features = 'tex',
 			type = 'pdflatex',

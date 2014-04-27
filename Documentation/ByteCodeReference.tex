@@ -1,10 +1,11 @@
-\documentclass{report}
+\documentclass{standalone}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 
  \newcommand{\tab}{\hspace*{2em}}
 \begin{document}
+
 \chapter{Assembly/Byte Code Language Reference}
 	All instructions in the defined in an enum, defined in "Common/Instruction.h".
 	All here are all of the assemble language instructions that are currently supported (Note, the parameters/output for any given instruction represent how the top of the computational stack should look like before/after the instruction executes) :
@@ -258,6 +259,5 @@ Parameters:  & ~ & ~ \\
 ~			 & Result & Result of prior computation\\
 Output:      & ~ & ~\\
 \end{tabular}
-
 
 \end{document}

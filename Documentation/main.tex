@@ -1,31 +1,47 @@
 \documentclass{report}
- \newcommand{\tab}{\hspace*{2em}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{comment}
+\usepackage{standalone}
+\usepackage{hyperref}
+\usepackage{color}
+
+\newcommand{\tab}{\hspace*{2em}}
+
+\hypersetup{linktocpage}
+
 
 \begin{document}
 \tableofcontents
-\chapter{Language Spec}
-	\subsection{Keywords}
-		\begin{enumerate}
-			\item if
-			\item else
-			\item while
-			\item print
-			\item Integer
-			\item Float
-		\end{enumerate}
-	
+
+\input{LanguageReference.tex}
+
 \chapter{Compiler}
 	\subsection{Lexer}
 		The
 	\subsection{Lemon}
+
+
+\input{InterpreterReference.tex}
+\input{ByteCodeReference.tex}
+
+
+\begin{comment}
 \chapter{Interpreter}
 	\subsection{Executable Format}
 	Currently the executable is just code. The interpreter simply starts at the beginning of the file and starts executing.
 	This file format is reaching its limits. To avoid a huge mess, an alternate file format is going to be needed. 
 	\subsection{Model}
 	The interpreter, rather than being register based, is stack based. I went with a stack-based mode primarily for its ease of use and ease of development. 
+\end{comment}
 
 
+\begin{comment}
 \chapter{Model of Computation}
 	The interpreter is currently equivalent to a push down automata (it may be more powerful, but I'm not sure how to prove it). However, the compiler and language are currently equivalent to a finite state machine. This is do to the grammar not providing a mechanism for modifying the computational stack.
+\end{comment}
+
+
+
 \end{document}

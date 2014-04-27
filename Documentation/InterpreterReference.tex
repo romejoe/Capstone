@@ -1,0 +1,33 @@
+\documentclass{standalone}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+ \newcommand{\tab}{\hspace*{2em}}
+\begin{document}
+
+\chapter{Interpreter Reference}
+	\section{Executable Format}
+		Currently executables consist of only code. The interpreter simply starts at the beginning of the file and starts executing.
+
+		\subsection{Proposed Executable Format}
+			The current file format is reaching its limits. The following features are probably out of reach of the current format:
+			\begin{enumerate}
+				\item Different object types: Shared Code and Executable Code
+				\item 32/64 bit executables
+				\item String data
+			\end{enumerate}
+			I am therefor proposing the Executable and Linkable Format(ELF) as a good starting point, if not complete solution.
+
+	\section{Execution PseudoCode}
+		The interpreter follows the following process for execution.
+		\begin{enumerate}
+			\item Initialize computational stack and variable list 
+			\item While instruction pointer doesn't equal the end of the instruction buffer
+				\begin{enumerate}
+					\item Retrieve instruction
+					\item Execute instruction (see the ByteCode Reference for the function of each instruction)
+				\end{enumerate}
+		\end{enumerate}
+
+\end{document}

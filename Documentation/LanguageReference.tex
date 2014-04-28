@@ -2,10 +2,13 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-
+\usepackage{syntax}
 
  \newcommand{\tab}{\hspace*{2em}}
 \begin{document}
+
+\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
 
 \chapter{Language Reference}
 
@@ -62,7 +65,7 @@
 		The following table contains all available operators, their purpose and their implementation status:\\
 		\begin{tabular}{| c | l | c |}
 			\hline
-			Operation & Symbol & Status\\
+			Symbol & Operation & Status\\
 			\hline
 			$+$ & Addition & \textcolor{green}{Available} \\
 			\hline
@@ -111,5 +114,9 @@
 			$>>$ & Right Bitwise Shift & \textcolor{red}{Unavailable} \\
 			\hline
 		\end{tabular}
+
+	\section{Variables}
+		\subsection{Definition}
+			Variables follow the following 
 
 \end{document}

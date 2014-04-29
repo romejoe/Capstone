@@ -1,0 +1,32 @@
+\documentclass{standalone}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+
+\begin{document}
+
+\chapter{Compiler}
+	The compiler is broken down into 3 distinct components: Lexer/Parser, Variable Assignment and bytecode generation.
+
+	\section{Lexer/Parser}
+		The Lexer/Parser bundle is packaged together, with the lexer directly calling the parser. The bundle is designed to allow multiple bundles to be running concurrently. However, a temporary hack was necessary in order for pointers to not be corrupted (search for tmpHack in LangParse.y).
+		\subsection{Lexer}
+			Flex is currently used. It takes LangLexer.l and generates an intermediate C file that is fed back into the compilation process.
+
+			The lexer exposes one function, parseString. This function takes the source code of a program as input and returns a parsed representation of the code in a Program structure.
+
+			An alternative to Flex may be necessary as Windows support for Flex appears to be spotty at best.
+		\subsection{Parser}
+			Lemon is used as the compiler's parser. It takes care of transforming the raw tokens recieved from Flex into a parsed program. Creation of sub-expressions, symbol references and contexts are handled here.
+
+	\section{Variable Assignment}
+		This step updates all references to variables (and in the future functions). A first walk of the expression tree representing the program determines whether a variable is global and assigns an overall index based on context depth and definition order in the context. The following walk determines the correct symbol reference for every variable usage. It does this by starting at the current context and checking every parent context until it finds a variable with a matching name.
+
+	\section{Bytecode Generation}
+		The final step of the compiler is bytecode generation. It does this by recursively generating code for every context of the program. All statements are walked in order. If a statement is general, then its expression tree is recursively walked in a post-order fashion. If a statement is a control statement (if/ifelse/while), the nested context(s) is (are) assembled first and the code is then wrapped in the appropriate conditional code.
+
+		Variables are handled at the start and end of every context. From the Lexer/Parser stage, the number of local variables to allocate is known and from the Variable Assignment stage, the correct index of each variable is known.
+
+
+\end{document}

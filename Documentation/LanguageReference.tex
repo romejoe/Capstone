@@ -2,7 +2,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{syntax}
+
 
  \newcommand{\tab}{\hspace*{2em}}
 \begin{document}
@@ -22,6 +22,17 @@
 			\item Integer
 			\item Float
 		\end{itemize}
+
+	\section{Identifier Naming Conventions}
+		Identifiers must start with a letter or `_' and can be followed by any combination of letters numbers or `_', including nothing. Identifiers are case-sensitive. Identifiers are currently only used for variables, but will be used for functions when the time comes. Below are some example identifiers:
+		\begin{enumerate}
+			\item `i'
+			\item `I'
+			\item `i1'
+			\item `__i__'
+			\item `_'
+		\end{enumerate}
+		All identifiers in the above list are distinguishable to the language.
 
 	\section{Comments}
 		\subsection{Line Comment}
@@ -116,7 +127,48 @@
 		\end{tabular}
 
 	\section{Variables}
+		\subsection{Variable Naming Conventions}
+			Variable names
 		\subsection{Definition}
-			Variables follow the following 
+			Variable definitions follow the following grammar definition:
+			\begin{grammar}
+				<variable-def> ::= <type> <varname>
+					\alt <type> <varname> `=' <expression>'
+
+				<type> ::= `Integer'
+					\alt `Float'
+			\end{grammar}
+			`varname' must follow the identifier naming conventions.
+		\subsection{Usage}
+			Variables are used by simply using their name.
+	
+	\section{Statements}
+		Statements are broken down into 2 categories: general and control. General statements must always end with a `;'. Control statements in general will not end in a `;'.
+		Below is a list of available general statements:
+		\begin{grammar}
+			<general-statement> ::= <variable-def> `;'
+				\alt <variable> `=' <expression> `;'
+				\alt `print' <expression> `;'
+				\alt <expression> `;'
+		\end{grammar}
+		Below is a list of available control statements:
+		\begin{grammar}
+			<control-statement> ::= 
+				`if' `(' <expression> `)' `{' <statement-group> `}'
+				\alt `if' `(' <expression> `)' `{' <statement-group> `}' `else' `{' <statement-group> `}'
+				\alt `while' `(' <expression> `)' `{' <statement-group> `}'
+		
+			<statement-group> ::= <statement-group> <statement>
+				\alt <statement>
+
+			<statement> ::= <general-statement>
+				\alt <control-statement>
+	
+		\end{grammar}
+
+	\section{Scope}
+		Scope level of code increases with every pair of `\{' `\}' enclosing it. Any code not enclosed is considered global code. It follows that variables defined in global code are global variables, with all other variable definitions defining local variables.
+
+		Variables are available to all scopes that they are defined above. Should a variable defined in a local scope take the same name as a variable in a higher scope, the local variable is still used for that scope and all lower scopes.
 
 \end{document}

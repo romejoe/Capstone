@@ -7,15 +7,15 @@
 \begin{document}
 
 \chapter{Todo}
-	This section summarizes the largest outstanding tasks and includes space to sketch notes.
+	This section summerizes the largest outstanding tasks and includes space to sketch notes.
 
 	\section{Embed interpreter}
-		A structure containing the standard internal structures(i.e. variable stack, computational stack, byte code) is needed.
+		A structure containing the standard internal structures(i.e. variable stack, computational stack, bytecode) is needed.
 
 	\newpage
 
 	\section{Functions}
-		These functions are functions either local or external. A way of registering functions in the interpreter is needed. Context functions will be needed (enter, return, exit, etc.). Handle parameters dynamically, push parameters onto computational stack and let receiving function decide how to proceed?
+		These functions are functions either local or external. A way of registering functions in the interpreter is needed. Context functions will be needed (enter, return, exit, etc.). Handle parameters dynamically, push parameters onto computational stack and let recieving function decide how to proceed?
 	\newpage
 
 	\section{Dynamic Memory Allocation}

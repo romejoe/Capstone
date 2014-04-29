@@ -69,7 +69,7 @@
 				\hline
 				Assignment	& type on both sides of the assignment don't match up & The data item is cast to the type of the variable being assigned to. \\ 
 				\hline
-				Mathematical Operation & types differ on both sides of the operator & Both sides of the operation are up-cast to floats\\
+				Mathematical Operation & types differ on both sides of the operator & Both sides of the operation are upcast to floats\\
 				\hline
 			\end{tabular}
 	\section{Operators}

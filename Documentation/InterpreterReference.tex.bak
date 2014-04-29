@@ -26,7 +26,7 @@
 			\item While instruction pointer doesn't equal the end of the instruction buffer
 				\begin{enumerate}
 					\item Retrieve instruction
-					\item Execute instruction (see the Byte Code Reference for the function of each instruction)
+					\item Execute instruction (see the ByteCode Reference for the function of each instruction)
 				\end{enumerate}
 		\end{enumerate}
 

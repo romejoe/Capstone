@@ -1,0 +1,42 @@
+\documentclass{standalone}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+ \newcommand{\tab}{\hspace*{2em}}
+\begin{document}
+
+\chapter{Todo}
+	This section summerizes the largest outstanding tasks and includes space to sketch notes.
+
+	\section{Embed interpreter}
+		A structure containing the standard internal structures(i.e. variable stack, computational stack, bytecode) is needed.
+
+	\newpage
+
+	\section{Functions}
+		These functions are functions either local or external. A way of registering functions in the interpreter is needed. Context functions will be needed (enter, return, exit, etc.). Handle parameters dynamically, push parameters onto computational stack and let recieving function decide how to proceed?
+	\newpage
+
+	\section{Dynamic Memory Allocation}
+		Need pointer data types. Malloc/free can be implemented as keywords or as built in functions, the former allowing for easier/faster implementation.
+	\newpage
+
+	\section{Arrays}
+		Implement using pointers?
+	\newpage
+
+	\section{Strings}
+		Implement using pointers and new char type? With arrays? ASCII/Unicode variants? Provide abstract good idea?
+	\newpage
+
+	\section{Structures}
+		????
+	\newpage
+
+	\section{Lambda Expressions?}
+		????
+	\newpage
+	
+
+\end{document}

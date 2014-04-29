@@ -43,7 +43,7 @@
 	\section{Constants}
 		\subsection{Integer Constants}
 			Integer constants are recognized as a contiguous sequence of digits.
-		\subsection{Floating point Constants}
+		\subsection{Floating Point Constants}
 			Floating point constants are recognized as one of the following formats:
 			\begin{enumerate}
 				\item \{Sequence of digits\}.
@@ -145,12 +145,17 @@
 	\section{Statements}
 		Statements are broken down into 2 categories: general and control. General statements must always end with a `;'. Control statements in general will not end in a `;'.
 		Below is a list of available general statements:
+		\subsection{General statements}
 		\begin{grammar}
 			<general-statement> ::= <variable-def> `;'
 				\alt <variable> `=' <expression> `;'
 				\alt `print' <expression> `;'
 				\alt <expression> `;'
 		\end{grammar}
+		\subsubsection{Print statement}
+			Printing variables is supported via the print keyword. The type and value of the expression following `print' is output.
+
+		\subsection{Control statements}
 		Below is a list of available control statements:
 		\begin{grammar}
 			<control-statement> ::= 
@@ -165,6 +170,8 @@
 				\alt <control-statement>
 	
 		\end{grammar}
+
+		
 
 	\section{Scope}
 		Scope level of code increases with every pair of `\{' `\}' enclosing it. Any code not enclosed is considered global code. It follows that variables defined in global code are global variables, with all other variable definitions defining local variables.

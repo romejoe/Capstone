@@ -24,7 +24,7 @@
 		This step updates all references to variables (and in the future functions). A first walk of the expression tree representing the program determines whether a variable is global and assigns an overall index based on context depth and definition order in the context. The following walk determines the correct symbol reference for every variable usage. It does this by starting at the current context and checking every parent context until it finds a variable with a matching name.
 
 	\section{Bytecode Generation}
-		The final step of the compiler is bytecode generation. It does this by recursively generating code for every context of the program. All statements are walked in order. If a statement is general, then its expression tree is recursively walked in a post-order fashion. If a statement is a control statement (if/ifelse/while), the nested context(s) is (are) assembled first and the code is then wrapped in the appropriate conditional code.
+		The final step of the compiler is bytecode generation. It does this by recursively generating code for every context of the program. All statements are walked in order. If a statement is general, then its expression tree is recursively walked in a post-order fashion. If a statement is a control statement (if/ifelse/while), the nested context(s) is (are) assembled first and the resulting code is then wrapped in the appropriate conditional code.
 
 		Variables are handled at the start and end of every context. From the Lexer/Parser stage, the number of local variables to allocate is known and from the Variable Assignment stage, the correct index of each variable is known.
 

@@ -1,12 +1,18 @@
-Import('env')
+Import('env Lemon Lempar')
 
 #flex lexer
 env.Flex('LangLexer.c', 'LangLexer.l')
 
+#setup lemon in local directory
+LemonMove = env.Command('lemon', Lemon, Copy('$TARGET', '$SOURCE'))
+LemparMove = env.Command('lempar.c', Lempar, Copy('$TARGET', '$SOURCE'))
+Depends(LemonMove, Lemon)
+
 #lemon parser
-Lemony = env.Command('', 'LangParse.y', action='./lemon $SOURCE')
-move = Move('lemon.c', 'LangParse.c')
+Lemony = env.Command('LangParse.c', '', action='pwd && ./lemon LangParse.y', chdir=1)
+Depends(Lemony, LemparMove)
+Depends(Lemony, LemonMove)
 
 #compile LangLib
 env.Append(CPPDEFINES=['___LEX_LIBRARY___'])
-LangLib = env.Library('LangLib', ['LangLexer.c', 'LangParse.c', 'token.c'])
+LangLib = env.Library('LangLib', ['LangLexer.c', Lemony, 'token.c'])#'LangParse.c', 'token.c'])

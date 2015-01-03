@@ -1,5 +1,5 @@
-import os
+#import os
 Import('env')
 
-env['ENV']['TEXMFHOME'] = os.path.join(os.environ['HOME'],'texmf')
-env.PDF('main.tex')
+#env['ENV']['TEXMFHOME'] = os.path.join(os.environ['HOME'],'texmf')
+env.PDF('Documentation.pdf','main.tex')

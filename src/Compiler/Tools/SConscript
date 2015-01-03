@@ -1,0 +1,6 @@
+Import('env')
+
+Lemon = env.Program('lemon.c')
+Lempar = env.File('lempar.c')
+
+Return('Lemon Lempar')

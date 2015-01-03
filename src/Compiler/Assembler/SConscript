@@ -1,0 +1,2 @@
+Import('env')
+env.Library('AssemblerLib', 'assembler.c')

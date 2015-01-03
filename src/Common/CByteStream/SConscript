@@ -1,0 +1,3 @@
+Import('env')
+
+env.Library('ByteStreamLib', 'ByteStream.c')

@@ -262,6 +262,8 @@ void assembleContext(struct Context *context, struct ByteStream *stream)
 				    FLOAT,
 				    stream, enum datasource);
 				break;
+			default:
+				break;
 		}/*
         writeTypeToByteStream(
             lSym->type,

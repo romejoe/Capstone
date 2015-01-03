@@ -276,7 +276,7 @@ void interpreteByteCode(char *buf, int length)
 				item = PopComputationalStackItem();
 				assert(item.varIndex >= 0);
 				offset = item.varIndex;
-				/*printf("Offset = %ld\n", offset);
+				/*printf("Offset = %ld\n", offset);*/
 				/*item = List_Ref_Value(variables,offset, struct computationalStackItem);
 				printf("result = ");
 				printResultItem(resultItem);
@@ -289,6 +289,8 @@ void interpreteByteCode(char *buf, int length)
 					case FLOAT:
 						List_Ref_Value(variables, offset,
 						               struct computationalStackItem).value.dbl = GetItemValue(resultItem);
+						break;
+					default:
 						break;
 				}
 				/*printResultItem(item);*/

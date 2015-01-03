@@ -1,0 +1,10 @@
+
+Import('env')
+
+SConscript('CByteStream/SConscript', exports='env')
+
+env.Append(LIBPATH=['#build/Common/CByteStream'])
+
+env.Library('InstructionLib', 'Instruction.c')
+env.Library('FileUtil', 'FileUtil.c')
+

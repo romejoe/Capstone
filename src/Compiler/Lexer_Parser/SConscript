@@ -1,0 +1,12 @@
+Import('env')
+
+#flex lexer
+env.Flex('LangLexer.c', 'LangLexer.l')
+
+#lemon parser
+Lemony = env.Command('', 'LangParse.y', action='./lemon $SOURCE')
+move = Move('lemon.c', 'LangParse.c')
+
+#compile LangLib
+env.Append(CPPDEFINES=['___LEX_LIBRARY___'])
+LangLib = env.Library('LangLib', ['LangLexer.c', 'LangParse.c', 'token.c'])

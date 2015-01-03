@@ -37,7 +37,7 @@ void interpreteByteCode(char *buf, int length)
 	long count;
 	long l;
 	double d;
-	enum data_type type;
+	enum datasource type;
 
 	while (progBuf < stop) {
 		/*get instruction info*/

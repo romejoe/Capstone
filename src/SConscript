@@ -1,0 +1,13 @@
+
+Import('env')
+SubScripts = ['Compiler/SConscript',
+			  'Interpreter/SConscript',
+			  'Common/SConscript']
+
+if GetOption('WithDocs'):
+	SubScripts += ['Documentation/SConscript']
+
+env.Append(CPPPATH=['#build/Common', '.'])
+env.Append(LIBPATH=['#build/Common', '.'])
+
+SConscript(SubScripts, exports='env')

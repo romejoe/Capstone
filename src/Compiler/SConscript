@@ -1,0 +1,21 @@
+Import('env')
+SubScripts = ['Assembler/SConscript', 'Common/SConscript', 'Lexer_Parser/SConscript']
+
+#prepare lemon
+Copy('Lexer_Parser/lempar.c','Tools/lempar.c')
+#Copy('Lexer_Parser/lemon','Tools/lemon')
+Lemon = env.Program('Tools/lemon.c')
+env.Command(target='Lexer_Parser/lemon', source=Lemon, action=Copy('$TARGET', '$SOURCE'))
+#Copy('Lexer_Parser/lemon','Tools/lemon')
+#LemonBuilder = Builder(action = 'echo `pwd` && ls && ./lemon $SOURCE',chdir=1)
+#env['BUILDERS']['Lemon'] = LemonBuilder
+
+env.Append(CPPPATH=['#build/Compiler/Common'])
+env.Append(LIBPATH=['#build/Compiler/Lexer_Parser', '#build/Compiler/Common', '#build/Compiler/Assembler'])
+
+SConscript(SubScripts, exports='env')
+
+env.Library('CompilerLib', 'compiler.c')
+
+parserTest = env.Program('parserTest', 'parseTest.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'FileUtil'])
+env.Program('Compiler', 'CompilerMain.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'AssemblerLib', 'InstructionLib', 'ByteStreamLib'])

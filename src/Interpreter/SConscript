@@ -1,0 +1,6 @@
+Import('env')
+
+env.Library('InterpreterLib', 'interpreter.c', LIBS=['InstructionLib'])#, CPPPATH=['.'])
+
+env.Program('Interpreter', 'InterpreterMain.c', LIBS=['InterpreterLib', 'InstructionLib'])
+env.Program('Disassembler', 'disassembler.c', LIBS=['InstructionLib'])

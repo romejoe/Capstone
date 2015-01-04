@@ -1,6 +1,8 @@
 Import('env Lemon Lempar')
 
 #flex lexer
+FlexBuilder = Builder(action = 'flex -o $TARGET $SOURCE')
+env['BUILDERS']['Flex'] = FlexBuilder
 env.Flex('LangLexer.c', 'LangLexer.l')
 
 #setup lemon in local directory

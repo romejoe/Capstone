@@ -2,19 +2,16 @@ Import('env')
 SubScripts = ['Assembler/SConscript', 'Common/SConscript', 'Lexer_Parser/SConscript']
 
 #prepare lemon
-#Copy('Lexer_Parser/lempar.c','Tools/lempar.c')
-
 [Lemon, Lempar] = SConscript('Tools/SConscript', exports='env')
 
 
 env.Append(CPPPATH=['#build/Compiler/Common'])
 env.Append(LIBPATH=['#build/Compiler/Lexer_Parser', '#build/Compiler/Common', '#build/Compiler/Assembler'])
 
+#build dependecies
 SConscript(SubScripts, exports='env Lemon Lempar')
-
-#Depends(SubScons, Lemon)
 
 env.Library('CompilerLib', 'compiler.c')
 
-parserTest = env.Program('parserTest', 'parseTest.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'FileUtil'])
+env.Program('parserTest', 'parseTest.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'FileUtil'])
 env.Program('Compiler', 'CompilerMain.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'AssemblerLib', 'InstructionLib', 'ByteStreamLib'])

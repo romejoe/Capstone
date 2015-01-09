@@ -11,7 +11,7 @@ env.Append(LIBPATH=['#build/Compiler/Lexer_Parser', '#build/Compiler/Common', '#
 #build dependecies
 SConscript(SubScripts, exports='env Lemon Lempar')
 
-env.Library('CompilerLib', 'compiler.c')
+env.Library('CompilerLib', 'compiler.cpp')
 
-env.Program('parserTest', 'parseTest.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'FileUtil'])
-env.Program('Compiler', 'CompilerMain.c', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'AssemblerLib', 'InstructionLib', 'ByteStreamLib'])
+env.Program('parserTest', 'parseTest.cpp', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'FileUtil'])
+env.Program('Compiler', 'CompilerMain.cpp', LIBS=['CompilerLib', 'LangLib', 'ProgramLib', 'AssemblerLib', 'InstructionLib', 'BytestreamLib'])

@@ -1,4 +1,5 @@
 #include "interpreter.h"
+#include "common.h"
 
 #define GetTypeFromTarget(target, type)     *((type *) target)
 #define GetTypeAndAdvance(target, type)     GetTypeFromTarget(target, type); target += sizeof(type)
@@ -130,7 +131,7 @@ void interpreteByteCode(char *buf, int length)
 	while (progBuf < stop) {
 		/*get instruction info*/
 		instruct = GetInstructionAndAdvance(progBuf);
-		/*printf("OP = %s\n", getName(instruct.opType));*/
+		/*printf("OP = %s\n", getInstructionName(instruct.opType));*/
 		switch (instruct.opType) {
 			case iJMP:
 				offset = GetTypeAndAdvance(progBuf, long);
@@ -320,7 +321,7 @@ void interpreteByteCode(char *buf, int length)
 				printf("======End Variable Dump\n");
 				break;
 			default:
-				printf("OP (%s) NOT SUPPORTED!\n", getName(instruct.opType));
+				printf("OP (%s) NOT SUPPORTED!\n", getInstructionName(instruct.opType));
 				break;
 		}
 		/*

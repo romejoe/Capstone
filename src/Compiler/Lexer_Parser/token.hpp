@@ -4,7 +4,7 @@
 #ifndef __TOKEN_H__
 #define __TOKEN_H__
 
-typedef struct {
+struct Token{
 	/*int line_num;*/
 	enum datasource type;
 	union {
@@ -13,11 +13,11 @@ typedef struct {
 		char *stringData;
 		char *literal;
 	};
-} Token;
 
-Token *getToken(char *, enum datasource);
-Token *getEmptyToken();
+	Token(char *, enum datasource);
+	static Token *getEmptyToken();
+};
 
 
-#endif /* __TOKEN_H__ */
+#endif /* __TOKEN_HPP__ */
 

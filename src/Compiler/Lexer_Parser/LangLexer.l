@@ -1,9 +1,9 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "lexer.h"
-#include "LangParse.h"
-#include "token.h"
+#include "lexer.hpp"
+#include "LangParse.hpp"
+#include "token.hpp"
 
 
 struct lexerData{
@@ -19,6 +19,14 @@ void LEXDEBUG_LOG(const char *item, char *ytext) {
 
 void *ParseAlloc(void *(*mallocProc)(size_t));
 struct Program *getProgram(void *yyparser);
+void Parse(
+  void *yyp,                   /* The parser */
+  int yymajor,                 /* The major token code number */
+  Token * yyminor       /* The value for the token */
+
+);
+void ParseTrace(FILE *TraceFILE, char *zTracePrompt);
+
 %}
 
 %option noyywrap
@@ -33,7 +41,7 @@ WHITESPACE 	[ \t\n\r]
 	/* Integer */
 {DIGIT}+ { 
 	LEXDEBUG_LOG("Integer", yytext);
-	Token *tok = getToken(yytext, INTEGER);
+	Token *tok = new Token(yytext, INTEGER);
 	
 	Parse(yyextra->_pParser, T_INTEGER, tok);
 }
@@ -41,7 +49,7 @@ WHITESPACE 	[ \t\n\r]
 	/* Float */
 {DIGIT}*"."{DIGIT}* { 
 	LEXDEBUG_LOG("Float", yytext);
-	Token *tok = getToken(yytext, FLOAT);
+	Token *tok = new Token(yytext, FLOAT);
 	
 	Parse(yyextra->_pParser, T_FLOAT, tok);
 }
@@ -82,33 +90,33 @@ WHITESPACE 	[ \t\n\r]
 	/* Identifier */
 [a-zA-Z_]([a-zA-Z_]|{DIGIT})* { 
 	LEXDEBUG_LOG("Identifier", yytext);
-	Token *tok = getToken(yytext, SYMBOL);
+	Token *tok = new Token(yytext, SYMBOL);
 	Parse(yyextra->_pParser, T_IDENTIFIER, tok);
 }
 
 	/* Parenthesis Section */
 "(" { 
 	LEXDEBUG_LOG("Left Paren", yytext);
-	/*Token *tok = getToken(yytext, NA);*/
+	/*Token *tok = new Token(yytext, NA);*/
 	
 	Parse(yyextra->_pParser, T_LPAREN, NULL);
 }
 ")" { 
 	LEXDEBUG_LOG("Right Paren => )\n", yytext); 
-	/*Token *tok = getToken(yytext, NA);*/
+	/*Token *tok = new Token(yytext, NA);*/
 	
 	Parse(yyextra->_pParser, T_RPAREN, NULL);
 }
 	/* Curly Brace Section */
 "{" { 
 	LEXDEBUG_LOG("Left Curly", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_LCURLY, tok);
 }
 "}" { 
 	LEXDEBUG_LOG("Right Curly", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_RCURLY, tok);
 }
@@ -128,37 +136,37 @@ WHITESPACE 	[ \t\n\r]
 	/* Operator Section */
 "+" { 
 	LEXDEBUG_LOG("Plus", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	/*printf("prog = %p\n".prog);*/
 	Parse(yyextra->_pParser, T_PLUS, tok);
 }
 "-" { 
 	LEXDEBUG_LOG("Minus", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_MINUS, tok);
 }
 "*" { 
 	LEXDEBUG_LOG("Multiplication", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_MUL, tok);
 }
 "/" { 
 	LEXDEBUG_LOG("Division", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_DIV, tok);
 }
 "%" { 
 	LEXDEBUG_LOG("Mod", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_MOD, tok);
 }
 "^" { 
 	LEXDEBUG_LOG("Exp", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_EXP, tok);
 }
@@ -265,7 +273,7 @@ WHITESPACE 	[ \t\n\r]
 	/* Semicolon Section */
 ";" { 
 	LEXDEBUG_LOG("Semicolon", yytext);
-	Token *tok = getToken(yytext, NA);
+	Token *tok = new Token(yytext, NA);
 	
 	Parse(yyextra->_pParser, T_SEMICOLON, tok);
 }

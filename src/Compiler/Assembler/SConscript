@@ -1,2 +1,2 @@
 Import('env')
-env.Library('AssemblerLib', 'assembler.c')
+env.Library('AssemblerLib', 'assembler.cpp')

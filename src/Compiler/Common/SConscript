@@ -1,2 +1,2 @@
 Import('env')
-env.Library('ProgramLib', 'program.c')
+env.Library('ProgramLib', 'program.cpp')

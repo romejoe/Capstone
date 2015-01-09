@@ -11,7 +11,7 @@ AddOption('--WithoutDocs', action='store_false', dest='WithDocs', default=False)
 tools = ['default']
 if GetOption('WithDocs'):
 	tools += ['pdf', 'pdftex']
-env = Environment(CCFLAGS=['-std=c89', '-ansi'],
+env = Environment(CXXFLAGS=['--std=c++11', '-Wno-deprecated-register'],
 				  CCCOMSTR = "Compiling $TARGET",
                   LINKCOMSTR = "Linking $TARGET",
                   ENV=os.environ,

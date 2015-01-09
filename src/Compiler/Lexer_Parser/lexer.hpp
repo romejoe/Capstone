@@ -1,4 +1,4 @@
-#include "../Common/program.h"
+#include "../Common/program.hpp"
 
 #ifndef ___LEXER_H___
 #define ___LEXER_H___

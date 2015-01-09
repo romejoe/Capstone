@@ -1,16 +1,6 @@
-#include "Instruction.h"
-#include <stdlib.h>
+#include "common.h"
 
-struct instruction new_instruction(enum instruction_type type)
-{
-	struct instruction ret;
-
-	ret.opType = type;
-
-	return ret;
-}
-
-char *getName(enum instruction_type type)
+char* getInstructionName(enum instruction_type type)
 {
 	switch (type) {
 		case iHELLO:
@@ -65,7 +55,7 @@ char *getName(enum instruction_type type)
 			return "iPRINT";
 		case iVSETTYPE:
 			return "iVSETTYPE";
-			case iDUMPVARS:
+		case iDUMPVARS:
 			return "iDUMPVARS";
 		default:
 			return "???";

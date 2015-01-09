@@ -1,10 +1,12 @@
 
 Import('env')
 
-SConscript('CByteStream/SConscript', exports='env')
+#SConscript('CByteStream/SConscript', exports='env')
 
-env.Append(LIBPATH=['#build/Common/CByteStream'])
+#env.Append(LIBPATH=['#build/Common/CByteStream'])
 
-env.Library('InstructionLib', 'Instruction.c')
-env.Library('FileUtil', 'FileUtil.c')
+Library('BytestreamLib', 'Bytestream.cpp')
+
+env.Library('InstructionLib', 'Instruction.cpp')
+env.Library('FileUtil', 'FileUtil.cpp')
 

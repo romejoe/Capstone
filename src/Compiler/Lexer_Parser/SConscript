@@ -1,20 +1,29 @@
 Import('env Lemon Lempar')
 
-#flex lexer
-FlexBuilder = Builder(action = 'flex -o $TARGET $SOURCE')
-env['BUILDERS']['Flex'] = FlexBuilder
-env.Flex('LangLexer.c', 'LangLexer.l')
-
 #setup lemon in local directory
 LemonMove = env.Command('lemon', Lemon, Copy('$TARGET', '$SOURCE'))
 LemparMove = env.Command('lempar.c', Lempar, Copy('$TARGET', '$SOURCE'))
 Depends(LemonMove, Lemon)
 
 #lemon parser
-Lemony = env.Command('LangParse.c', '', action='pwd && ./lemon LangParse.y', chdir=1)
+Lemony = env.Command(['LangParse.c', 'LangParse.h'], 'LangParse.y', action='./lemon LangParse.y', chdir=1)
+#Lemony2 = env.Command('LangParse.h', 'LangParse.y', action='pwd && ls -lh && ./lemon LangParse.y', chdir=1)
 Depends(Lemony, LemparMove)
 Depends(Lemony, LemonMove)
+Movey = env.Command('LangParse.cpp', 'LangParse.c', Move('$TARGET', '$SOURCE'))
+Movey2 = env.Command('LangParse.hpp', 'LangParse.h', Move('$TARGET', '$SOURCE'))
+Depends(Movey, Lemony)
+Depends(Movey2, Lemony)
+
+#flex lexer
+FlexBuilder = Builder(action = 'flex -o $TARGET $SOURCE')
+env['BUILDERS']['Flex'] = FlexBuilder
+Flexy = env.Flex('LangLexer.cpp', 'LangLexer.l')
+Depends(Flexy, Movey)
+Depends(Flexy, Movey2)
 
 #compile LangLib
 env.Append(CPPDEFINES=['___LEX_LIBRARY___'])
-LangLib = env.Library('LangLib', ['LangLexer.c', Lemony, 'token.c'])#'LangParse.c', 'token.c'])
+LangLib = env.Library('LangLib', ['LangLexer.cpp', 'LangParse.cpp', 'token.cpp'])#'LangParse.c', 'token.c'])
+#Depends(LangLib, Movey)
+#Depends(LangLib, Lemony)

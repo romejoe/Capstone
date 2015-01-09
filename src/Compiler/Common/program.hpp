@@ -1,9 +1,15 @@
 
+#include <iostream>
 #include <stdlib.h>
+#include <string>
+#include <list>
+
 #include "enumDefs.h"
-#include "List.h"
+
 #ifndef ___PROGRAM_H__
 #define ___PROGRAM_H__
+
+using namespace std;
 
 /* prototypes */
 struct Symbol;
@@ -12,10 +18,11 @@ struct IfStatement;
 struct GenericStatement;
 
 struct Symbol{
-	char *name;
+	string name;
 	enum data_type type;
 	int index;
 	char isGlobal;
+	Symbol(string name, enum data_type type);
 };
 
 struct Expression {
@@ -30,12 +37,17 @@ struct Expression {
 		double Float;
 		struct Symbol *sym;
 	} dataSource;
+	Expression(enum expression_type);
+	Expression(enum expression_type, Expression *left, Expression *right);
 };
 
 struct Context{
 	struct Context *parent;
-	struct List *statements; /* (struct GenericStatement *) */
-	struct List *symbols; /* (struct Symbol *) */
+
+	list<GenericStatement*> statements;
+	list<Symbol*> symbols;
+
+	Context(GenericStatement *exp);
 };
 
 struct IfStatement{
@@ -67,13 +79,8 @@ struct Program {
 
 /*Protoypes*/
 
-struct Expression *new_expression(enum expression_type);
-struct Expression *new_expression_children(enum expression_type, struct Expression *left, struct Expression *right);
-struct Symbol *new_symbol(char *name, enum data_type type);
-struct Context *new_context(struct GenericStatement *exp);
+string getPrettyTypeName(enum data_type type);
 
-char *getPrettyTypeName(enum data_type type);
-
-#define printSymbol(sym) printf("name: %s, type: %s\n", (sym)->name, getPrettyTypeName((sym)->type))
+#define printSymbol(sym) printf("name: %s, type: %s\n", (sym)->name.c_str(), getPrettyTypeName((sym)->type).c_str())
 
 #endif

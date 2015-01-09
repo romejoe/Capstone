@@ -6,7 +6,7 @@ int defaultResizeStream(struct ByteStream *stream, long desiredSize)
 	while (newSize < desiredSize) {
 		newSize = newSize << 1;
 	}
-	char *newBuff = realloc(stream->buffer, newSize);
+	char *newBuff = (char *) realloc(stream->buffer, newSize);
 	if (!newBuff) return 0;
 	stream->buffer = newBuff;
 	stream->bufsize = newSize;
@@ -17,7 +17,7 @@ int initByteStreamWithSize(struct ByteStream *stream, long size)
 {
 	stream->bufsize = size;
 	stream->actualsize = 0;
-	stream->buffer = malloc(size);
+	stream->buffer = (char *) malloc(size);
 	stream->resizeBuff = defaultResizeStream;
 	return stream->buffer == NULL;
 }

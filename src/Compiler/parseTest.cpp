@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include "FileUtil.h"
-#include "Lexer_Parser/lexer.h"
+#include "Lexer_Parser/lexer.hpp"
+
+using namespace std;
 
 void printContext(struct Context *prog, int depth);
 
@@ -35,7 +38,7 @@ void printExpression(struct Expression *expression, int depth){
 					printf("%lf\n", expression->dataSource.Float);
 					break;
 				case SYMBOL:
-					printf("%s\n",expression->dataSource.sym->name);
+					cout << expression->dataSource.sym->name << endl;
 					/*printSymbol(expression->dataSource.sym);*/
 					break;
 				default:
@@ -78,20 +81,26 @@ void printStatement(struct GenericStatement *stmt, int depth){
 }
 
 void printContext(struct Context *prog, int depth){
-	struct List *symbols;
-	struct Symbol *symbol;
+	list<Symbol *> symbols;
+	list<GenericStatement *> statements;
+	Symbol *symbol;
+	GenericStatement *statement;
 	/* print symbols */
 	printPadding(depth);
 	printf("Symbols:\n======\n");
 	
 	symbols = prog->symbols;
-	List_ForEach(symbols, {
-		symbol = List_Ref_Value(symbols, i, struct Symbol *);
+	for(list<Symbol*>::iterator it = symbols.begin(); it != symbols.end(); ++it){
+		symbol = *it;
 		printSymbol(symbol);
-	});
-	List_ForEach(prog->statements, {
-		printStatement(List_Ref_Value(prog->statements, i, struct GenericStatement *), depth + 1);
-	});
+	}
+
+	statements = prog->statements;
+	for(list<GenericStatement*>::iterator it = statements.begin(); it != statements.end(); ++it){
+		statement = *it;
+		printStatement(statement, depth + 1);
+	}
+
 }
 
 int main(int argc, char **argv)

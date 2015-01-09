@@ -1,4 +1,5 @@
 #include "interpreter.h"
+#include "common.h"
 
 #define GetTypeFromTarget(target, type)     *((type *) target)
 #define GetTypeAndAdvance(target, type)     GetTypeFromTarget(target, type); target += sizeof(type)
@@ -43,7 +44,7 @@ void interpreteByteCode(char *buf, int length)
 		/*get instruction info*/
 		printf("Offset: %ld\n", progBuf - buf);
 		instruct = GetInstructionAndAdvance(progBuf);
-		printf("OP[%X]: %s\n", instruct.opType, getName(instruct.opType));
+		printf("OP[%X]: %s\n", instruct.opType, getInstructionName(instruct.opType));
 		switch (instruct.opType) {
 			case iJMP:
 			case iJMPF:

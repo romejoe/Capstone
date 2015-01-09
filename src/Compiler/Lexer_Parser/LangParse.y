@@ -1,8 +1,8 @@
 %include{
 	#include <stdlib.h>
 	#include <assert.h>
-	#include "token.h"
-	#include "program.h"
+	#include "token.hpp"
+	#include "program.hpp"
 
 
 	struct Program *tmpHack = NULL;
@@ -41,7 +41,8 @@
 %syntax_error	{ printf("\t\x1b[1m\x1b[91mSYNTAX ERROR!!!!\x1b[0m\n");  exit(-1);}
 
 program ::= statementgroup(stmntgrp).{
-	tmpHack = malloc(sizeof(struct Program));
+	tmpHack = new Program();
+//	tmpHack = malloc(sizeof(struct Program));
 	stmntgrp->parent = NULL;
 	tmpHack->context = stmntgrp;
 }
@@ -49,12 +50,13 @@ program ::= statementgroup(stmntgrp).{
 statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
 	/*stmntgrp will be a Context*/
 	/*stmt will be a GenericStatement*/
-	struct GenericStatement *gStmnt;
+	struct GenericStatement *gStmnt = (GenericStatement *) stmt;
 
 	/*add statement to the end of the statement group*/
-	List_Add_Value(stmntgrp->statements, stmt, struct GenericStatement *);
+	stmntgrp->statements.push_back(gStmnt);
+
 	if(stmt->hasDef){
-		List_Add_Value(stmntgrp->symbols, stmt->sym, struct Symbol *);
+		stmntgrp->symbols.push_back(gStmnt->sym);
 	}
 	if(stmt->type == IFSTATEMENT){
 		stmt->ifstmt->yes->parent = stmntgrp;
@@ -71,13 +73,13 @@ statementgroup(val) ::=  statementgroup(stmntgrp) statement(stmt) SEMICOLON.{
 statementgroup(val) ::=  statementgroup(stmntgrp) flowstatement(stmt).{
 	/*stmntgrp will be a Context*/
 	/*stmt will be a GenericStatement*/
-	struct GenericStatement *gStmnt;
+	struct GenericStatement *gStmnt = stmt;
 
 	printf("\t\tf\n");
 	/*add statement to the end of the statement group*/
-	List_Add_Value(stmntgrp->statements, stmt,struct GenericStatement *);
+	stmntgrp->statements.push_back(gStmnt);
 	if(stmt->hasDef){
-		List_Add_Value(stmntgrp->symbols, stmt->sym, struct Symbol *);
+		stmntgrp->symbols.push_back(gStmnt->sym);
 	}
 
 	if(stmt->type == IFSTATEMENT){
@@ -94,7 +96,7 @@ statementgroup(val) ::=  statementgroup(stmntgrp) flowstatement(stmt).{
 
 statementgroup(val) ::= flowstatement(stmt).{
 	printf("\t\tasdf\n");
-	val = new_context(stmt);
+	val = new Context(stmt);
 	if(stmt->type == IFSTATEMENT){
 		stmt->ifstmt->yes->parent = val;
 		if(stmt->ifstmt->no){
@@ -107,15 +109,15 @@ statementgroup(val) ::= flowstatement(stmt).{
 }
 
 statementgroup(val) ::= statement(stmt) SEMICOLON.{
-	val = new_context(stmt);
+	val = new Context(stmt);
 }
 
 
 flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY.{
 	struct GenericStatement *stmt;
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = IFSTATEMENT;
-	stmt->ifstmt = malloc(sizeof(struct IfStatement));
+	stmt->ifstmt = new IfStatement();
 	stmt->ifstmt->testStatement = test;
 	stmt->ifstmt->yes = yesCode;
 	stmt->ifstmt->no = NULL;
@@ -124,9 +126,9 @@ flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY stateme
 
 flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY statementgroup(yesCode) RCURLY KEYWORD_ELSE LCURLY statementgroup(noCode) RCURLY.{
 	struct GenericStatement *stmt;
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = IFSTATEMENT;
-	stmt->ifstmt = malloc(sizeof(struct IfStatement));
+	stmt->ifstmt = new IfStatement();
 	stmt->ifstmt->testStatement = test;
 	stmt->ifstmt->yes = yesCode;
 	stmt->ifstmt->no = noCode;
@@ -135,9 +137,9 @@ flowstatement(val) ::= KEYWORD_IF LPAREN fexpression(test) RPAREN LCURLY stateme
 
 flowstatement(val) ::= KEYWORD_WHILE LPAREN fexpression(test) RPAREN LCURLY statementgroup(loopCode) RCURLY.{
 	struct GenericStatement *stmt;
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = WHILESTATEMENT;
-	stmt->ifstmt = malloc(sizeof(struct WhileStatement));
+	stmt->whilestmt = new WhileStatement();
 	stmt->whilestmt->testStatement = test;
 	stmt->whilestmt->code = loopCode;
 	val = stmt;
@@ -146,23 +148,23 @@ flowstatement(val) ::= KEYWORD_WHILE LPAREN fexpression(test) RPAREN LCURLY stat
 statement(val) ::= definition(def) EQUAL fexpression(initial).{
 	struct Expression *dst;
 	struct GenericStatement *stmt;
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 1;
 	stmt->sym = def;
 
-	dst = new_expression(SOURCE);
+	dst = new Expression(SOURCE);
 	dst->dataSource.sym = def;
 	dst->source_type = SYMBOL;
 	
-	stmt->exp = new_expression_children(ASSIGNMENT, dst, initial);
+	stmt->exp = new Expression(ASSIGNMENT, dst, initial);
 	
 	val = stmt;
 }
 
 statement(val) ::= definition(def).{
 	struct GenericStatement *stmt;
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 1;
 	stmt->sym = def;
@@ -175,22 +177,22 @@ statement(val) ::= IDENTIFIER(id) EQUAL fexpression(fexp).{
 	struct Expression *dst;
 	struct GenericStatement *stmt;
 
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 0;
 
-	dst = new_expression(SOURCE);
-	dst->dataSource.sym = new_symbol(id->literal, tVOID);;
+	dst = new Expression(SOURCE);
+	dst->dataSource.sym = new Symbol(id->literal, tVOID);;
 	dst->source_type = SYMBOL;
 	
-	stmt->exp = new_expression_children(ASSIGNMENT, dst, fexp);
+	stmt->exp = new Expression(ASSIGNMENT, dst, fexp);
 	
 	val = stmt;
 }
 
 statement(val) ::= fexpression(expression).{
 	struct GenericStatement *stmt;
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 0;
 	stmt->sym = NULL;
@@ -203,11 +205,11 @@ statement(val) ::= fexpression(expression).{
 
 statement(val) ::= KEYWORD_PRINT fexpression(expression).{
 	struct GenericStatement *stmt;
-	struct Expression *print = new_expression(PRINT);
+	struct Expression *print = new Expression(PRINT);
 	print->left = NULL;
 	print->right = expression;
 
-	stmt = malloc(sizeof(struct GenericStatement));
+	stmt = new GenericStatement();
 	stmt->type = GENERALSTATEMENT;
 	stmt->hasDef = 0;
 	stmt->sym = NULL;
@@ -223,48 +225,48 @@ definition(val) ::= datatype(type) IDENTIFIER(id).{
 }
 
 datatype(val) ::= KEYWORD_INTEGER.{
-	val = new_symbol(NULL, tINTEGER);
+	val = new Symbol(NULL, tINTEGER);
 }
 
 datatype(val) ::= KEYWORD_FLOAT.{
-	val = new_symbol(NULL, tFLOAT);
+	val = new Symbol(NULL, tFLOAT);
 }
 
 
 fexpression(val) ::= expression(leftExp) LOGICAL_EQ fexpression(rightExp).{
-	val = new_expression_children(CHECK_EQ, leftExp, rightExp);
+	val = new Expression(CHECK_EQ, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_NE fexpression(rightExp).{
-	val = new_expression_children(CHECK_NE, leftExp, rightExp);
+	val = new Expression(CHECK_NE, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_GT fexpression(rightExp).{
-	val = new_expression_children(CHECK_GT, leftExp, rightExp);
+	val = new Expression(CHECK_GT, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_LT fexpression(rightExp).{
-	val = new_expression_children(CHECK_LT, leftExp, rightExp);
+	val = new Expression(CHECK_LT, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_GTE fexpression(rightExp).{
-	val = new_expression_children(CHECK_GTE, leftExp, rightExp);
+	val = new Expression(CHECK_GTE, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_LTE fexpression(rightExp).{
-	val = new_expression_children(CHECK_LTE, leftExp, rightExp);
+	val = new Expression(CHECK_LTE, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_AND fexpression(rightExp).{
-	val = new_expression_children(LOG_AND, leftExp, rightExp);
+	val = new Expression(LOG_AND, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_OR fexpression(rightExp).{
-	val = new_expression_children(LOG_OR, leftExp, rightExp);
+	val = new Expression(LOG_OR, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(leftExp) LOGICAL_XOR fexpression(rightExp).{
-	val = new_expression_children(LOG_XOR, leftExp, rightExp);
+	val = new Expression(LOG_XOR, leftExp, rightExp);
 }
 
 fexpression(val) ::= expression(exp).{
@@ -272,11 +274,11 @@ fexpression(val) ::= expression(exp).{
 }
 
 expression(val) ::= term(tm) PLUS expression(exp).{
-	val = new_expression_children(ADD, tm, exp);
+	val = new Expression(ADD, tm, exp);
 }
 
 expression(val) ::= term(tm) MINUS expression(exp).{
-	val = new_expression_children(SUBTRACT, tm, exp);
+	val = new Expression(SUBTRACT, tm, exp);
 }
 
 expression(val) ::= term(tm).{
@@ -287,19 +289,19 @@ expression(val) ::= term(tm).{
 %right EXP.
 
 term(val) ::= term(tm1) MUL term(tm2).{
-	val = new_expression_children(MULTIPLY, tm1, tm2);
+	val = new Expression(MULTIPLY, tm1, tm2);
 }
 
 term(val) ::= term(tm1) DIV term(tm2).{
-	val = new_expression_children(DIVIDE, tm1, tm2);
+	val = new Expression(DIVIDE, tm1, tm2);
 }
 
 term(val) ::= term(tm1) MOD term(tm2).{
-	val = new_expression_children(MODULUS, tm1, tm2);
+	val = new Expression(MODULUS, tm1, tm2);
 }
 
 term(val) ::= term(tm1) EXP term(tm2).{
-	val = new_expression_children(POWER, tm1, tm2);
+	val = new Expression(POWER, tm1, tm2);
 }
 
 term(val) ::= signedFactor(fact).{
@@ -311,8 +313,8 @@ signedFactor(val) ::= PLUS factor(fact).{
 	val = fact;
 }
 signedFactor(val) ::= MINUS factor(fact).{
-	struct Expression *tmp = new_expression(MULTIPLY);
-	struct Expression *LHS = new_expression(SOURCE);
+	struct Expression *tmp = new Expression(MULTIPLY);
+	struct Expression *LHS = new Expression(SOURCE);
 	
 	LHS->source_type = INTEGER;
 	LHS->dataSource.Integer = -1;
@@ -324,7 +326,7 @@ signedFactor(val) ::= MINUS factor(fact).{
 }
 
 signedFactor(val) ::= LOGICAL_NOT factor(factor).{
-	val = new_expression_children(LOG_NOT, NULL, factor);
+	val = new Expression(LOG_NOT, NULL, factor);
 }
 
 signedFactor(val) ::= factor(fact).{
@@ -336,15 +338,15 @@ factor(val) ::= LPAREN fexpression(exp) RPAREN.{
 }
 factor(val) ::= IDENTIFIER(symToken).{
 	struct Expression *tmp;
-	tmp = new_expression(SOURCE);
+	tmp = new Expression(SOURCE);
 	tmp->source_type = SYMBOL;
-	tmp->dataSource.sym = new_symbol(symToken->literal, tVOID);
+	tmp->dataSource.sym = new Symbol(symToken->literal, tVOID);
 	val = tmp;
 }
 
 factor(val) ::= INTEGER(intToken).{
 	struct Expression *tmp;
-	tmp = new_expression(SOURCE);
+	tmp = new Expression(SOURCE);
 	tmp->source_type = INTEGER;
 	tmp->dataSource.Integer = intToken->intData;
 	val = tmp;
@@ -352,7 +354,7 @@ factor(val) ::= INTEGER(intToken).{
 
 factor(val) ::= FLOAT(flt).{
 	struct Expression *tmp;
-	tmp = new_expression(SOURCE);
+	tmp = new Expression(SOURCE);
 	tmp->source_type = FLOAT;
 	tmp->dataSource.Float = flt->floatData;
 	val = tmp;

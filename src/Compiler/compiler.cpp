@@ -1,22 +1,25 @@
-#include "compiler.h"
+#include "compiler.hpp"
 
 void AssignVariableIndices(struct Context* ctx, int startIndex){
-	
-	struct List *symbols = ctx->symbols;
-	struct List *statements = ctx->statements;
+	int i;
+	list<Symbol*> symbols = ctx->symbols;
+	list<GenericStatement*> statements = ctx->statements;
 
-	List_ForEach(symbols, {
-		struct Symbol * lSym = List_Ref_Value(symbols, i, struct Symbol *);
+	i = 0;
+	for(list<Symbol*>::iterator it = symbols.begin();it != symbols.end(); ++it){
+//	List_ForEach(symbols, {
+		struct Symbol *lSym = *it;//List_Ref_Value(symbols, i, struct Symbol *);
 		lSym->index = startIndex + i;
 		if(ctx->parent == NULL) lSym->isGlobal = 1;
 		else lSym->isGlobal = 0;
-		
-	});
+		++i;
+	}//);
 
-	startIndex = startIndex + symbols->ListSize;
-	List_ForEach(statements, {
-		struct GenericStatement *lGstmt;
-		lGstmt = List_Ref_Value(statements, i, struct GenericStatement *);
+	startIndex = startIndex + symbols.size();
+	i = 0;
+	for(list<GenericStatement*>::iterator it = statements.begin();it != statements.end(); ++it){
+		struct GenericStatement *lGstmt = *it;
+//		lGstmt = List_Ref_Value(statements, i, struct GenericStatement *);
 		if(lGstmt->type == IFSTATEMENT){
 			struct IfStatement *stmt;
 			stmt = lGstmt->ifstmt;
@@ -29,7 +32,8 @@ void AssignVariableIndices(struct Context* ctx, int startIndex){
 			stmt = lGstmt->whilestmt;
 			AssignVariableIndices(stmt->code, startIndex);
 		}
-	})
+		++i;
+	}
 
 }
 
@@ -40,10 +44,12 @@ void fillInSymbolReferences(struct Expression *exp, struct Context *ctx){
 			/* find symbol */
 			struct  Context *tmpContext = ctx;
 			while(tmpContext){
-				struct List *symbols = tmpContext->symbols;
-				List_ForEach(symbols,{
-					struct Symbol *curSym = List_Ref_Value(symbols, i, struct Symbol *);
-					if(strcmp(exp->dataSource.sym->name, curSym->name) == 0){
+				list<Symbol*> symbols = tmpContext->symbols;
+				for(list<Symbol*>::iterator it = symbols.begin();it != symbols.end(); ++it){
+
+
+					Symbol *curSym = *it;
+					if(exp->dataSource.sym->name == curSym->name){
 						
 						/*free(exp->dataSource.sym);*/
 						
@@ -51,10 +57,10 @@ void fillInSymbolReferences(struct Expression *exp, struct Context *ctx){
 						return;
 					}
 					
-				});
+				}
 				tmpContext = tmpContext->parent;
 			}
-			printf("Variable %s not found\n", exp->dataSource.sym->name);
+			printf("Variable %s not found\n", exp->dataSource.sym->name.c_str());
 			exit(-1);
 		}
 		return;
@@ -63,10 +69,12 @@ void fillInSymbolReferences(struct Expression *exp, struct Context *ctx){
 	if(exp->right) fillInSymbolReferences(exp->right, ctx);
 }
 void _updateSymbolReferences(struct Context* prog){
-	struct List *statements = prog->statements;
+	list<GenericStatement*> statements = prog->statements;
 	struct GenericStatement *tmp;
-	List_ForEach(statements,{
-		tmp = List_Ref_Value(statements, i, struct GenericStatement *);
+
+	for(list<GenericStatement*>::iterator it = statements.begin();it != statements.end(); ++it){
+
+		tmp = *it;//List_Ref_Value(statements, i, struct GenericStatement *);
 		if(tmp->type == IFSTATEMENT){
 			fillInSymbolReferences(tmp->ifstmt->testStatement, prog);
 			_updateSymbolReferences(tmp->ifstmt->yes);
@@ -80,7 +88,7 @@ void _updateSymbolReferences(struct Context* prog){
 			fillInSymbolReferences(tmp->exp, prog);
 		
 		}
-	});
+	}
 	
 }
 
@@ -89,7 +97,7 @@ void UpdateSymbolReferences(struct Context* prog){
 	_updateSymbolReferences(prog);
 }
 	
-struct ByteStream *compileFile(char *filename)
+Bytestream *compileFile(char *filename)
 {
 	FILE *f;
 	char *buff;
@@ -112,7 +120,7 @@ struct ByteStream *compileFile(char *filename)
 
 }
 
-struct ByteStream *compileString(char *srcCode)
+Bytestream *compileString(char *srcCode)
 {
 	struct Program *prog = parseString(srcCode);
 	UpdateSymbolReferences(prog->context);

@@ -1,6 +1,11 @@
+#ifdef __cplusplus
+#include <string>
+using namespace std;
+#endif
 
 #ifndef ___BYTECODEDEF_H___
 #define ___BYTECODEDEF_H___
+
 
 enum instruction_type {
 	iHELLO = -1,		/*-1*/
@@ -39,9 +44,9 @@ enum instruction_type {
 
 struct instruction {
 	char opType; /*allows for 2^8 (256) commands*/
+	#ifdef __cplusplus
+	instruction(enum instruction_type);
+	#endif
 };
 
-
-struct instruction new_instruction(enum instruction_type);
-char *getName(enum instruction_type);
 #endif

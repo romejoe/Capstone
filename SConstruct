@@ -8,7 +8,7 @@ AddOption('--Release', action='store_false', dest='Debug', default=True)
 AddOption('--WithDocs', action='store_true', dest='WithDocs', default=True)
 AddOption('--WithoutDocs', action='store_false', dest='WithDocs', default=False)
 
-tools = ['default']
+tools = ['default', 'textfile']
 if GetOption('WithDocs'):
 	tools += ['pdf', 'pdftex']
 env = Environment(CXXFLAGS=['--std=c++11', '-Wno-deprecated-register'],
@@ -19,7 +19,8 @@ env = Environment(CXXFLAGS=['--std=c++11', '-Wno-deprecated-register'],
                   )
 #setup debugging
 if GetOption('Debug'):
-	env.Append(CCFLAGS='-g3')
+	env.Append(CCFLAGS='-g')
+	env.Append(CXXFLAGS='-g')
 	env.Append(CPPDEFINES=['__LEX_DEBUG__'])
 
 SConscript('src/SConscript', variant_dir='build', exports='env')

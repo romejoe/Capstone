@@ -1,8 +1,9 @@
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #include "enumDefs.h"
 #ifndef __TOKEN_H__
 #define __TOKEN_H__
+using namespace std;
 
 struct Token{
 	/*int line_num;*/
@@ -10,11 +11,11 @@ struct Token{
 	union {
 		long intData;
 		double floatData;
-		char *stringData;
-		char *literal;
+		string stringData;
+		string literal;
 	};
 
-	Token(char *, enum datasource);
+	Token(string, enum datasource);
 	static Token *getEmptyToken();
 };
 

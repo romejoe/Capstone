@@ -315,7 +315,8 @@ WHITESPACE 	[ \t\n\r]
 		void *_pParser = ParseAlloc( malloc );
 		extraData._pParser = _pParser;
 		#ifdef __LEX_DEBUG__
-			ParseTrace(stdout, "\t\t@@@ ");
+            string trace = "\t\t@@@ ";
+			ParseTrace(stdout, (char *) trace.c_str());
 		#endif
 
 		yylex_init_extra(&extraData, &scanner);

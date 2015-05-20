@@ -4,16 +4,84 @@
 		"selected_items":
 		[
 			[
+				"tok",
+				"tokStr"
+			],
+			[
+				"to",
+				"tokStr"
+			],
+			[
+				"st",
+				"stringData"
+			],
+			[
+				"ste",
+				"statements"
+			],
+			[
+				"sta",
+				"statements"
+			],
+			[
+				"ins",
+				"instruction_type"
+			],
+			[
+				"expression",
+				"expression_type"
+			],
+			[
+				"tmp",
+				"tmpHack"
+			],
+			[
+				"Lang",
+				"LangParse"
+			],
+			[
+				"out",
+				"output_iterator"
+			],
+			[
+				"outpu",
+				"output_file"
+			],
+			[
+				"int",
+				"intData"
+			],
+			[
+				"asse",
+				"assembleStatement"
+			],
+			[
+				"str",
+				"stream"
+			],
+			[
+				"Byte",
+				"Bytestream"
+			],
+			[
+				"By",
+				"Bytestream"
+			],
+			[
+				"a",
+				"appendBytestream"
+			],
+			[
+				"B",
+				"Bytestream"
+			],
+			[
 				"Lemon",
 				"LemonMove"
 			],
 			[
 				"SubS",
 				"SubScons"
-			],
-			[
-				"Lang",
-				"LangLib"
 			],
 			[
 				"copy",
@@ -92,10 +160,6 @@
 				"getName"
 			],
 			[
-				"ins",
-				"instruct"
-			],
-			[
 				"in",
 				"instruction_type"
 			],
@@ -126,10 +190,6 @@
 			[
 				"G",
 				"iGT"
-			],
-			[
-				"tmp",
-				"tmpContext	struct Context"
 			],
 			[
 				"As",
@@ -220,10 +280,6 @@
 				"bufsize"
 			],
 			[
-				"Byte",
-				"ByteStream"
-			],
-			[
 				"writ",
 				"writeTypeToByteStream"
 			],
@@ -266,10 +322,6 @@
 			[
 				"build",
 				"buildPath"
-			],
-			[
-				"st",
-				"statements"
 			],
 			[
 				"fact",
@@ -396,10 +448,6 @@
 				"readTransitions"
 			],
 			[
-				"tok",
-				"token"
-			],
-			[
 				"TMO",
 				"tmpTransition"
 			],
@@ -418,10 +466,6 @@
 			[
 				"TOK",
 				"TOKENTYPE_OPEN_BRACE"
-			],
-			[
-				"to",
-				"tokens"
 			],
 			[
 				"file",
@@ -460,10 +504,34 @@
 	"buffers":
 	[
 		{
-			"file": "src/Documentation/SConscript",
+			"file": "src/Interpreter/SConscript",
 			"settings":
 			{
-				"buffer_size": 133,
+				"buffer_size": 385,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Interpreter/common.h",
+			"settings":
+			{
+				"buffer_size": 153,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Interpreter/interpreter.h",
+			"settings":
+			{
+				"buffer_size": 278,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Interpreter/interpreter.c",
+			"settings":
+			{
+				"buffer_size": 10322,
 				"line_ending": "Unix"
 			}
 		},
@@ -476,23 +544,65 @@
 			}
 		},
 		{
-			"file": "src/SConscript",
+			"file": "SConstruct",
 			"settings":
 			{
-				"buffer_size": 305,
+				"buffer_size": 887,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "SConstruct",
+			"contents": "Searching 101 files for \"strlen\" (regex, case sensitive)\n\n/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/token.cpp:\n   16  			break;\n   17  		case STRING:\n   18: 			stringLength = strlen(tokStr);\n   19  			this->stringData = (char *) malloc(stringLength - 1);\n   20  			memcpy(this->stringData, tokStr + 1, stringLength - 2);\n   ..\n   22  			break;\n   23  		case SYMBOL:\n   24: 			stringLength = strlen(tokStr);\n   25  			this->literal = (char *) malloc(stringLength);\n   26  			memcpy(this->literal, tokStr, stringLength);\n\n/Users/Joey/Desktop/Capstone/src/Compiler/Tools/lemon.c:\n   47  ** Compilers are getting increasingly pedantic about type conversions\n   48  ** as C evolves ever closer to Ada....  To work around the latest problems\n   49: ** we have to define the following variant of strlen().\n   50  */\n   51: #define lemonStrlen(X)   ((int)strlen(X))\n   52  \n   53  /*\n   ..\n   72    int *pnUsed,          /* Slots of the buffer used so far */\n   73    const char *zIn,      /* Text to add */\n   74:   int nIn,              /* Bytes of text to add.  -1 to use strlen() */\n   75    int iWidth            /* Field width.  Negative to left justify */\n   76  ){\n\n5 matches across 2 files\n",
 			"settings":
 			{
-				"buffer_size": 1067,
+				"buffer_size": 1204,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "src/Compiler/Lexer_Parser/token.cpp",
+			"settings":
+			{
+				"buffer_size": 579,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Compiler/Lexer_Parser/LangLexer.l",
+			"settings":
+			{
+				"buffer_size": 6416,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tests/BasicPrint.lan",
+			"settings":
+			{
+				"buffer_size": 36,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Compiler/Lexer_Parser/token.hpp",
+			"settings":
+			{
+				"buffer_size": 365,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Interpreter/disassembler.c",
+			"settings":
+			{
+				"buffer_size": 2572,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Only Build Documentation",
+	"build_system": "Packages/User/scons.sublime-build",
 	"command_palette":
 	{
 		"height": 81.0,
@@ -551,36 +661,63 @@
 	[
 		"/Users/Joey/Desktop/Capstone",
 		"/Users/Joey/Desktop/Capstone/src",
+		"/Users/Joey/Desktop/Capstone/src/Common",
 		"/Users/Joey/Desktop/Capstone/src/Compiler",
 		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser",
-		"/Users/Joey/Desktop/Capstone/src/Compiler/Tools",
-		"/Users/Joey/Desktop/Capstone/src/Documentation"
+		"/Users/Joey/Desktop/Capstone/src/Interpreter"
 	],
 	"file_history":
 	[
+		"/Users/Joey/Desktop/Capstone/src/Common/Instruction.h",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/LangParse.y",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/program.cpp",
+		"/Users/Joey/Desktop/Capstone/SConstruct",
+		"/Users/Joey/Desktop/Capstone/src/Interpreter/disassembler.c",
+		"/Users/Joey/Desktop/Capstone/src/Common/Instruction.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Assembler/assembler.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Assembler/assembler.cpp",
 		"/Users/Joey/Desktop/Capstone/src/Compiler/Tools/SConscript",
-		"/Users/Joey/Desktop/Capstone/Common/wscript",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/compiler.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/compiler.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/SConscript",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/LangLexer.l",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/SConscript",
+		"/Users/Joey/Desktop/Capstone/src/Common/Bytestream.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/program.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Interpreter/interpreter.c",
+		"/Users/Joey/Desktop/Capstone/src/Interpreter/common.h",
 		"/Users/Joey/Desktop/Capstone/src/Interpreter/SConscript",
+		"/Users/Joey/Desktop/Capstone/src/Interpreter/common.c",
+		"/Users/Joey/Desktop/Capstone/src/Common/SConscript",
+		"/Users/Joey/Desktop/Capstone/src/Common/Bytestream.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/parseTest.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/token.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/token.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/lexer.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/CompilerMain.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/compilerTest.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/SConscript",
+		"/Users/Joey/Library/Application Support/Sublime Text 3/Packages/User/scons.sublime-build",
+		"/Users/Joey/Desktop/Capstone/src/Common/CByteStream/ByteStream.c",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Assembler/SConscript",
+		"/Users/Joey/Desktop/Capstone/src/Common/CByteStream/ByteStream.h",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/Expression.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/Symbol.hpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/Symbol.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/Expression.cpp",
+		"/Users/Joey/Desktop/Capstone/src/Documentation/SConscript",
+		"/Users/Joey/Desktop/Capstone/src/SConscript",
+		"/Users/Joey/Desktop/Capstone/Common/wscript",
 		"/Users/Joey/Desktop/Capstone/src/Compiler/Assembler/wscript",
 		"/Users/Joey/Desktop/Capstone/src/Compiler/Assembler/assembler.c",
-		"/Users/Joey/Desktop/Capstone/src/Compiler/Lexer_Parser/SConscript",
 		"/Users/Joey/Desktop/Capstone/.gitignore",
-		"/Users/Joey/Desktop/Capstone/src/Compiler/SConscript",
-		"/Users/Joey/Desktop/Capstone/src/Documentation/SConscript",
 		"/Users/Joey/Desktop/Capstone/src/Common/CByteStream/SConscript",
 		"/Users/Joey/Desktop/Capstone/Interpreter/wscript",
-		"/Users/Joey/Desktop/Capstone/src/SConscript",
-		"/Users/Joey/Desktop/Capstone/SConstruct",
-		"/Users/Joey/Desktop/Capstone/src/Common/SConscript",
 		"/Users/Joey/Desktop/Capstone/y2c.py",
 		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/wscript",
 		"/Users/Joey/Desktop/Capstone/src/Compiler/wscript",
 		"/Users/Joey/Desktop/Capstone/src/Common/List.h",
 		"/Users/Joey/Desktop/Capstone/Interpreter/Sconscript",
-		"/Users/Joey/Desktop/Capstone/src/Interpreter/disassembler.c",
-		"/Users/Joey/Desktop/Capstone/src/Interpreter/interpreter.c",
-		"/Users/Joey/Desktop/Capstone/src/Compiler/Assembler/SConscript",
-		"/Users/Joey/Desktop/Capstone/src/Compiler/Common/SConscript",
 		"/Users/Joey/Desktop/Capstone/Common/Sconscript",
 		"/Users/Joey/Desktop/Capstone/CS 498.sublime-project",
 		"/Users/Joey/Desktop/Capstone/Documentation/ByteCodeReference.tex",
@@ -658,34 +795,7 @@
 		"/home/joe/Desktop/School/CS 498/Compiler/assembler.c",
 		"/Users/Joey/Desktop/School/CS 498/Compiler/wscript",
 		"/Users/Joey/Desktop/School/CS 498/Common/astackTest.c",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/compiler.h",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/LangLexer.l",
-		"/Users/Joey/Desktop/School/CS 498/wscript",
-		"/Users/Joey/Desktop/School/CS 498/Common/wscript",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/CompilerMain.c",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/compilerTest.c",
-		"/Users/Joey/Desktop/School/CS 498/Interpreter/wscript",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.c",
-		"/Users/Joey/Desktop/School/CS 498/Compiler/LangParse.y",
-		"/Volumes/Data/home/home/joe/Documents/science fair/url.txt",
-		"/Users/Joey/Desktop/School/MAT 450/Notes.tex",
-		"/Users/Joey/Library/Application Support/Sublime Text 3/Packages/User/waf.sublime-build",
-		"/Users/Joey/Desktop/Desktop/stuff/start.bat",
-		"/Users/Joey/Desktop/Desktop/stuff/New Text Document.txt",
-		"/Users/Joey/Desktop/School/COM 308/Informal 2/Informal2.tex",
-		"/Users/Joey/Desktop/COM 308/Informal 2/wscript",
-		"/Users/Joey/Desktop/COM 308/Informal 2/Informal2.tex",
-		"/Users/Joey/Desktop/COM 308/wscript",
-		"/Users/Joey/Desktop/Desktop/Compiler.txt",
-		"/Users/Joey/Desktop/CS 370/fake it response.txt",
-		"/Volumes/Data/Joey/Desktop/old desktop/sdgwireless.txt",
-		"/Volumes/Data/Joey/Desktop/old desktop/rackspace.txt",
-		"/Volumes/Data/joey-2/Desktop/assignment1.c",
-		"/Volumes/Data/joey-2/sketchbook/photo_resistor/photo_resistor.pde",
-		"/Volumes/Data/bsod/bluescreenview/readme.txt",
-		"/Volumes/Data/thumbdrive lion/sig.txt",
-		"/Users/Joey/Downloads/waf-tests-0.1.0/wscript",
-		"/Users/Joey/Desktop/fake it response"
+		"/Users/Joey/Desktop/School/CS 498/Compiler/compiler.h"
 	],
 	"find":
 	{
@@ -704,6 +814,27 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"strlen",
+			"getName",
+			"instruct",
+			";\n",
+			"new_symbol",
+			"new_context",
+			"gStmnt",
+			"malloc\\(sizeof\\(struct GenericStatement",
+			"malloc",
+			"new_expression",
+			"new_inst",
+			"new_expression_children",
+			"header",
+			" Parse",
+			"Parse",
+			"parse",
+			"getToken",
+			"INTEGER",
+			"symbol",
+			"symbolc",
+			"___EXPRESSION___",
 			"getDataTypeName",
 			"getName",
 			",",
@@ -780,24 +911,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 9,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/Documentation/SConscript",
+					"file": "src/Interpreter/SConscript",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 133,
+						"buffer_size": 385,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25,
-								25
+								155,
+								155
 							]
 						],
 						"settings":
@@ -808,16 +939,129 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "src/Interpreter/common.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 153,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11,
+								11
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Interpreter/interpreter.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								102,
+								102
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Interpreter/interpreter.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44,
+								44
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "runTest.sh",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 71,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20,
+								20
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "SConstruct",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 887,
 						"regions":
 						{
 						},
@@ -830,35 +1074,188 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/SConscript",
+					"buffer": 6,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 305,
+						"buffer_size": 1204,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										188,
+										194
+									],
+									[
+										404,
+										410
+									],
+									[
+										802,
+										808
+									],
+									[
+										860,
+										866
+									],
+									[
+										1080,
+										1086
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								96,
+								96
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/Compiler/Lexer_Parser/token.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 579,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								159,
-								159
+								434,
+								434
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/Compiler/Lexer_Parser/LangLexer.l",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 6416,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lisp/Lisp.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 589.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "tests/BasicPrint.lan",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 36,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/Compiler/Lexer_Parser/token.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 365,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								232,
+								232
+							],
+							[
+								253,
+								253
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -868,38 +1265,34 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "SConstruct",
+					"buffer": 11,
+					"file": "src/Interpreter/disassembler.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1067,
+						"buffer_size": 2572,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								425,
-								425
+								45,
+								45
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 9,
 					"type": "text"
 				}
-			]
-		},
-		{
-			"sheets":
-			[
 			]
 		}
 	],
@@ -920,12 +1313,6 @@
 				0,
 				1,
 				1
-			],
-			[
-				0,
-				1,
-				1,
-				2
 			]
 		],
 		"cols":
@@ -936,14 +1323,13 @@
 		"rows":
 		[
 			0.0,
-			0.721631342822,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 166.0
+		"height": 299.0
 	},
 	"output.find_results":
 	{
@@ -995,7 +1381,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 258.0,
+	"side_bar_width": 193.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

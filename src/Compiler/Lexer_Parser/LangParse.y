@@ -220,6 +220,7 @@ statement(val) ::= KEYWORD_PRINT fexpression(expression).{
 }
 
 definition(val) ::= datatype(type) IDENTIFIER(id).{
+    cout << "here2\n";
 	type->name = id->literal;
 	val = type;
 }
@@ -337,6 +338,7 @@ factor(val) ::= LPAREN fexpression(exp) RPAREN.{
 	val = exp;
 }
 factor(val) ::= IDENTIFIER(symToken).{
+    cout << "here\n";
 	struct Expression *tmp;
 	tmp = new Expression(SOURCE);
 	tmp->source_type = SYMBOL;

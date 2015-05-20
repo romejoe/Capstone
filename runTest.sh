@@ -1,1 +1,1 @@
-./build/Compiler/compiler "$1" && ./build/Interpreter/interpreter b.out
+./build/Compiler/Compiler "$1" && ./build/Interpreter/Interpreter b.out
